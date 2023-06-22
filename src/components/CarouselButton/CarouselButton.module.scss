@@ -1,0 +1,17 @@
+@use '@styles/utils' as *;
+
+.button {
+  @include button;
+  padding: 24px;
+  background-color: transparent;
+
+  @include tablet {
+    height: 24px;
+  }
+}
+
+.icon {
+  @include laptop {
+    height: 24px;
+  }
+}
