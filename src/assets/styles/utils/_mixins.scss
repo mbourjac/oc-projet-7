@@ -1,0 +1,19 @@
+@use './variables';
+
+@mixin mobile {
+  @media screen and (max-width: map-get(variables.$breakpoints, 'mobile')) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media screen and (max-width: map-get(variables.$breakpoints, 'tablet')) {
+    @content;
+  }
+}
+
+@mixin laptop {
+  @media screen and (max-width: map-get(variables.$breakpoints, 'laptop')) {
+    @content;
+  }
+}
