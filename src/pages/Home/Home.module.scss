@@ -1,0 +1,40 @@
+@use '@styles/utils' as *;
+
+.heading {
+  position: absolute;
+  z-index: 3;
+  padding: 0 16px;
+  color: #fff;
+  font-size: 48px;
+
+  @include laptop {
+    font-size: 34px;
+  }
+
+  @include mobile {
+    font-size: 24px;
+  }
+}
+
+.break {
+  display: none;
+
+  @include tablet {
+    display: inline;
+  }
+}
+
+.rooms {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 60px;
+  border-radius: $main-br;
+  padding: 56px 50px;
+  background-color: $secondary-color;
+
+  @include laptop {
+    gap: 20px;
+    padding: 0;
+    background-color: #fff;
+  }
+}
