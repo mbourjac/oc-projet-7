@@ -17,3 +17,8 @@
     @content;
   }
 }
+
+@mixin max-width {
+  max-width: variables.$max-width;
+  margin: 0 auto;
+}

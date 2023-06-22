@@ -3,6 +3,10 @@ $body-font: 'Montserrat', sans-serif;
 $primary-color: #ff6060;
 $secondary-color: #f6f6f6;
 
+$max-width: 1400px;
+$desktop-padding: 100px;
+$mobile-padding: 20px;
+
 $breakpoints: (
   'mobile': 475px,
   'tablet': 768px,
