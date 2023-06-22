@@ -1,0 +1,7 @@
+@use '@styles/utils' as *;
+
+.star {
+  @include mobile {
+    height: 18px;
+  }
+}
