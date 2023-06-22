@@ -1,0 +1,28 @@
+@use '@styles/utils' as *;
+
+.footer {
+  display: grid;
+  grid-template-columns: auto;
+  justify-content: center;
+  gap: 30px;
+  padding: 66px 0 30px;
+  margin-top: auto;
+  color: #fff;
+  background-color: #000;
+
+  @include tablet {
+    padding: 62px 0;
+  }
+}
+
+.logo {
+  margin: 0 auto;
+}
+
+.copyright {
+  font-size: 24px;
+
+  @include tablet {
+    font-size: 12px;
+  }
+}
