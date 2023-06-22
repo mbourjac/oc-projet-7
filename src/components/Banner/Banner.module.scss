@@ -1,0 +1,25 @@
+@use '@styles/utils' as *;
+
+.banner {
+  @include flex-center;
+  position: relative;
+  margin-bottom: 44px;
+
+  &::after {
+    @include overlay;
+    border-radius: $main-br;
+    background-color: #000;
+    opacity: 0.3;
+  }
+
+  @include tablet {
+    justify-content: flex-start;
+    margin-bottom: 22px;
+  }
+}
+
+.image {
+  @include cover-image;
+  height: 225px;
+  border-radius: $main-br;
+}
