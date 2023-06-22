@@ -11,13 +11,18 @@
 body {
   box-sizing: border-box;
   font-family: $body-font;
-  font-weight: 500;
 }
 
 #root {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+}
+
+body,
+h1,
+h2 {
+  font-weight: 500;
 }
 
 a {
