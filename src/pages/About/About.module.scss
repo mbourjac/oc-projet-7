@@ -1,0 +1,13 @@
+@use '@styles/utils' as *;
+
+.services {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding: 0 $desktop-padding;
+
+  @include tablet {
+    gap: 20px;
+    padding: 0;
+  }
+}
