@@ -36,6 +36,12 @@
   margin: 0 auto;
 }
 
+@mixin button($border-radius: 0) {
+  border: none;
+  border-radius: $border-radius;
+  cursor: pointer;
+}
+
 @mixin overlay {
   content: '';
   position: absolute;

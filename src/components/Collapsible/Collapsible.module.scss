@@ -1,0 +1,60 @@
+@use '@styles/utils' as *;
+
+.collapsible {
+  width: 100%;
+  font-size: 24px;
+}
+
+.button {
+  @include flex-spaced;
+  @include button($collapsible-br);
+  padding: 9px 18px;
+  color: #fff;
+  background-color: $primary-color;
+  font-size: 24px;
+
+  @include tablet {
+    font-size: 13px;
+  }
+}
+
+.icon {
+  transition: transform 0.2s ease-out;
+
+  @include tablet {
+    transform: scale(0.6);
+  }
+}
+
+.rotate {
+  transform: rotate(180deg);
+
+  @include tablet {
+    transform: rotate(180deg) scale(0.6);
+  }
+}
+
+.panel {
+  max-height: 0;
+  font-weight: 400;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  position: relative;
+  top: -20px;
+  z-index: -1;
+
+  @include tablet {
+    font-size: 12px;
+  }
+}
+
+.content {
+  border-radius: $collapsible-br;
+  padding: 50px 18px 18px;
+  color: $primary-color;
+  background-color: $secondary-color;
+
+  @include tablet {
+    padding: 44px 12px 12px;
+  }
+}
