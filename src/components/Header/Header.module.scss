@@ -1,0 +1,50 @@
+@use '@styles/utils' as *;
+
+.header {
+  @include max-width;
+  @include flex-spaced;
+  padding: 40px $desktop-padding;
+
+  @include tablet {
+    padding: $mobile-padding;
+  }
+}
+
+.logo {
+  @include laptop {
+    width: 145px;
+  }
+}
+
+.nav {
+  display: flex;
+  gap: 60px;
+  font-size: 24px;
+
+  @include laptop {
+    font-size: 20px;
+  }
+
+  @include tablet {
+    gap: 30px;
+    font-size: 18px;
+  }
+
+  @include mobile {
+    gap: 10px;
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+}
+
+.link {
+  color: $primary-color;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.active {
+  text-decoration: underline;
+}

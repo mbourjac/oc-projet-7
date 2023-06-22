@@ -18,6 +18,13 @@
   }
 }
 
+@mixin flex-spaced {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
 @mixin max-width {
   max-width: variables.$max-width;
   margin: 0 auto;
