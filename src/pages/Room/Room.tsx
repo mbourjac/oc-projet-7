@@ -7,7 +7,7 @@ import { Star } from '../../components/Star/Star';
 import { Collapsible } from '../../components/Collapsible/Collapsible';
 import styles from './Room.module.scss';
 import collapsibleStyles from '../../components/Collapsible/Collapsible.module.scss';
-import rooms from '../../data/rooms.json';
+import rooms from '../../data/rooms/rooms.json';
 
 export const Room = () => {
   const { id } = useParams();

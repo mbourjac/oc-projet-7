@@ -2,7 +2,7 @@ import { nanoid } from 'nanoid';
 import { Banner } from '../../components/Banner/Banner';
 import { Collapsible } from '../../components/Collapsible/Collapsible';
 import styles from './About.module.scss';
-import services from '../../data/services.json';
+import services from '../../data/services/services.json';
 import bannerImageS from '@images/about-banner-s.jpg';
 import bannerImageM from '@images/about-banner-m.jpg';
 import bannerImageL from '@images/about-banner-l.jpg';

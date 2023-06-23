@@ -1,7 +1,7 @@
 import { Banner } from '../../components/Banner/Banner';
 import { Card } from '../../components/Card/Card';
 import styles from './Home.module.scss';
-import rooms from '../../data/rooms.json';
+import rooms from '../../data/rooms/rooms.json';
 import bannerImageS from '@images/home-banner-s.jpg';
 import bannerImageM from '@images/home-banner-m.jpg';
 import bannerImageL from '@images/home-banner-l.jpg';
