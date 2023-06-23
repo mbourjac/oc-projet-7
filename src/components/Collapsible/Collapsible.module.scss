@@ -40,7 +40,7 @@
   overflow: hidden;
   transition: max-height 0.2s ease-out;
   position: relative;
-  top: -20px;
+  top: $collapsible-br * -2;
   z-index: -1;
 
   @include tablet {
@@ -50,11 +50,11 @@
 
 .content {
   border-radius: $collapsible-br;
-  padding: 50px 18px 18px;
+  padding: ($collapsible-br * 2 + 30) 18px 18px;
   color: $primary-color;
   background-color: $secondary-color;
 
   @include tablet {
-    padding: 44px 12px 12px;
+    padding: ($collapsible-br * 2 + 18) 12px 12px;
   }
 }
