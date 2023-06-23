@@ -1,19 +1,19 @@
-@use './variables';
+@use './variables' as *;
 
 @mixin mobile {
-  @media screen and (max-width: map-get(variables.$breakpoints, 'mobile')) {
+  @media screen and (max-width: map-get($breakpoints, 'mobile')) {
     @content;
   }
 }
 
 @mixin tablet {
-  @media screen and (max-width: map-get(variables.$breakpoints, 'tablet')) {
+  @media screen and (max-width: map-get($breakpoints, 'tablet')) {
     @content;
   }
 }
 
 @mixin laptop {
-  @media screen and (max-width: map-get(variables.$breakpoints, 'laptop')) {
+  @media screen and (max-width: map-get($breakpoints, 'laptop')) {
     @content;
   }
 }
@@ -32,7 +32,7 @@
 }
 
 @mixin max-width {
-  max-width: variables.$max-width;
+  max-width: $max-width;
   margin: 0 auto;
 }
 
