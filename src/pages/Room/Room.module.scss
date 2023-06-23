@@ -1,8 +1,9 @@
+@use 'sass:math';
 @use '@styles/utils' as *;
 
 .information {
   display: grid;
-  grid-template-columns: 1fr auto 64px;
+  grid-template-columns: 1fr auto $host-pic-size;
   grid-template-areas:
     'title name picture'
     'location rating rating'
@@ -21,7 +22,7 @@
   }
 
   @include mobile {
-    grid-template-columns: 1fr auto 32px;
+    grid-template-columns: 1fr auto math.div($host-pic-size, 2);
   }
 }
 
@@ -89,13 +90,13 @@
 .picture {
   grid-area: picture;
   justify-self: end;
-  width: 64px;
-  height: 64px;
+  width: $host-pic-size;
+  height: $host-pic-size;
   border-radius: 50%;
 
   @include mobile {
-    width: 32px;
-    height: 32px;
+    width: math.div($host-pic-size, 2);
+    height: math.div($host-pic-size, 2);
   }
 }
 
