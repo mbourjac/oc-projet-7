@@ -20,6 +20,6 @@
 
 .image {
   @include cover-image;
-  height: 225px;
+  height: to-rem(225px);
   border-radius: $main-br;
 }

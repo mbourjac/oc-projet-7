@@ -5,9 +5,9 @@
   padding: 6px 30px;
   color: #fff;
   background-color: $primary-color;
-  font-size: 14px;
+  font-size: to-rem(14px);
 
   @include tablet {
-    font-size: 10px;
+    font-size: to-rem(10px);
   }
 }

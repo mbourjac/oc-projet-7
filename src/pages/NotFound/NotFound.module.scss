@@ -11,20 +11,20 @@
 
 .status {
   align-self: end;
-  font-size: clamp(96px, 16.5vw, 288px);
+  font-size: clamp(to-rem(96px), 16.5vw, to-rem(288px));
   font-weight: 700;
 }
 
 .message {
-  font-size: clamp(18px, 2vw, 36px);
+  font-size: clamp(to-rem(18px), 2vw, to-rem(36px));
 }
 
 .link {
   color: $primary-color;
-  font-size: 18px;
+  font-size: to-rem(18px);
   text-decoration: underline;
 
   @include mobile {
-    font-size: 14px;
+    font-size: to-rem(14px);
   }
 }

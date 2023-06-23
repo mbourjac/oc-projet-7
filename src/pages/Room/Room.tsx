@@ -19,7 +19,7 @@ export const Room = () => {
   const [hostFirstName, hostLastName] = room.host.name.split(' ');
   const collapsibleStyle = {
     button: {
-      fontSize: '18px',
+      fontSize: '1.125rem',
     },
   };
 

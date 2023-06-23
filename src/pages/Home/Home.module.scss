@@ -5,14 +5,14 @@
   z-index: 3;
   padding: 0 16px;
   color: #fff;
-  font-size: 48px;
+  font-size: to-rem(48px);
 
   @include laptop {
-    font-size: 34px;
+    font-size: to-rem(34px);
   }
 
   @include mobile {
-    font-size: 24px;
+    font-size: to-rem(24px);
   }
 }
 
@@ -26,7 +26,7 @@
 
 .rooms {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(to-rem(260px), 1fr));
   gap: 60px;
   border-radius: $main-br;
   padding: 56px 50px;

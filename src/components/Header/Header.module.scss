@@ -19,20 +19,20 @@
 .nav {
   display: flex;
   gap: 60px;
-  font-size: 24px;
+  font-size: to-rem(24px);
 
   @include laptop {
-    font-size: 20px;
+    font-size: to-rem(20px);
   }
 
   @include tablet {
     gap: 30px;
-    font-size: 18px;
+    font-size: to-rem(18px);
   }
 
   @include mobile {
-    gap: 10px;
-    font-size: 12px;
+    gap: to-rem(10px);
+    font-size: to-rem(12px);
     text-transform: uppercase;
   }
 }

@@ -2,16 +2,12 @@
 
 .button {
   @include button;
-  padding: 24px;
+  padding: to-rem(24px);
   background-color: transparent;
-
-  @include tablet {
-    height: 24px;
-  }
 }
 
 .icon {
   @include laptop {
-    height: 24px;
+    height: to-rem(24px);
   }
 }
