@@ -13,7 +13,7 @@ $border-radius: 5px;
   padding: 9px 18px;
   color: #fff;
   background-color: $primary-color;
-  font-size: to-rem(24px);
+  font-size: inherit;
 
   @include tablet {
     font-size: to-rem(13px);
