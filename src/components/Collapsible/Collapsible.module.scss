@@ -7,6 +7,10 @@ $border-radius: 5px;
   font-size: to-rem(24px);
 }
 
+.small {
+  font-size: to-rem(18px);
+}
+
 .button {
   @include flex-spaced;
   @include button($border-radius);

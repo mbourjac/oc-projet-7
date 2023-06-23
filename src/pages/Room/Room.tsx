@@ -6,6 +6,7 @@ import { Tag } from '../../components/Tag/Tag';
 import { Star } from '../../components/Star/Star';
 import { Collapsible } from '../../components/Collapsible/Collapsible';
 import styles from './Room.module.scss';
+import collapsibleStyles from '../../components/Collapsible/Collapsible.module.scss';
 import rooms from '../../data/rooms.json';
 
 export const Room = () => {
@@ -17,11 +18,6 @@ export const Room = () => {
   }
 
   const [hostFirstName, hostLastName] = room.host.name.split(' ');
-  const collapsibleStyle = {
-    button: {
-      fontSize: '1.125rem',
-    },
-  };
 
   return (
     <>
@@ -53,12 +49,12 @@ export const Room = () => {
         <Collapsible
           title="Description"
           content={room.description}
-          customStyle={collapsibleStyle}
+          className={collapsibleStyles.small}
         />
         <Collapsible
           title="Équipements"
           content={room.equipments}
-          customStyle={collapsibleStyle}
+          className={collapsibleStyles.small}
         />
       </section>
     </>
