@@ -17,6 +17,11 @@ export const Room = () => {
   }
 
   const [hostFirstName, hostLastName] = room.host.name.split(' ');
+  const collapsibleStyle = {
+    button: {
+      fontSize: '18px',
+    },
+  };
 
   return (
     <>
@@ -45,8 +50,16 @@ export const Room = () => {
         <img src={room.host.picture} alt="" className={styles.picture} />
       </section>
       <section className={styles.collapsibles}>
-        <Collapsible title="Description" content={room.description} />
-        <Collapsible title="Équipements" content={room.equipments} />
+        <Collapsible
+          title="Description"
+          content={room.description}
+          customStyle={collapsibleStyle}
+        />
+        <Collapsible
+          title="Équipements"
+          content={room.equipments}
+          customStyle={collapsibleStyle}
+        />
       </section>
     </>
   );

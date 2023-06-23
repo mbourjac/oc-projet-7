@@ -6,9 +6,14 @@ import dropdownIcon from '@images/dropdown.svg';
 type CollapsibleProps = {
   title: string;
   content: string | string[];
+  customStyle?: Record<string, Record<string, string>>;
 };
 
-export const Collapsible = ({ title, content }: CollapsibleProps) => {
+export const Collapsible = ({
+  title,
+  content,
+  customStyle,
+}: CollapsibleProps) => {
   const [isCollapsed, setIsCollapsed] = useState<boolean>(true);
   const [maxHeight, setMaxHeight] = useState<number>(0);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -36,7 +41,11 @@ export const Collapsible = ({ title, content }: CollapsibleProps) => {
 
   return (
     <article className={styles.collapsible}>
-      <button className={styles.button} onClick={handleCollapse}>
+      <button
+        className={styles.button}
+        onClick={handleCollapse}
+        style={customStyle?.button}
+      >
         {title}
         <img
           src={dropdownIcon}
