@@ -3,10 +3,10 @@
 .header {
   @include max-width;
   @include flex-spaced;
-  padding: 40px $desktop-padding;
+  padding: 40px $main-desktop-padding;
 
   @include tablet {
-    padding: $mobile-padding;
+    padding: $main-mobile-padding;
   }
 }
 

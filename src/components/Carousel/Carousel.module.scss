@@ -9,7 +9,7 @@
   @include cover-image;
   min-height: 225px;
   aspect-ratio: 1240 / 415;
-  border-radius: $main-br;
+  border-radius: $main-border-radius;
 }
 
 .nav {

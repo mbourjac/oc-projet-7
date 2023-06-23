@@ -28,7 +28,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(to-rem(260px), 1fr));
   gap: 60px;
-  border-radius: $main-br;
+  border-radius: $main-border-radius;
   padding: 56px 50px;
   background-color: $secondary-color;
 

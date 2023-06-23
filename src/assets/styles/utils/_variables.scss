@@ -5,10 +5,10 @@ $body-font: 'Montserrat', sans-serif;
 $primary-color: #ff6060;
 $secondary-color: #f6f6f6;
 
-$max-width: to-rem(1400px);
-$desktop-padding: 100px;
-$mobile-padding: 20px;
-$main-br: 25px;
+$main-max-width: to-rem(1400px);
+$main-desktop-padding: 100px;
+$main-mobile-padding: 20px;
+$main-border-radius: 25px;
 
 $breakpoints: (
   'mobile': to-rem(475px),

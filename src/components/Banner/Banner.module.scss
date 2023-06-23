@@ -7,7 +7,7 @@
 
   &::after {
     @include overlay;
-    border-radius: $main-br;
+    border-radius: $main-border-radius;
     background-color: #000;
     opacity: 0.3;
   }
@@ -21,5 +21,5 @@
 .image {
   @include cover-image;
   height: to-rem(225px);
-  border-radius: $main-br;
+  border-radius: $main-border-radius;
 }
