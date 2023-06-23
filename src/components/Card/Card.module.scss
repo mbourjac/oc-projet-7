@@ -1,14 +1,16 @@
 @use '@styles/utils' as *;
 
+$border-radius: 10px;
+
 .card {
   position: relative;
   display: flex;
   align-items: flex-end;
-  border-radius: $card-br;
+  border-radius: $border-radius;
 
   &::after {
     @include overlay;
-    border-radius: $card-br;
+    border-radius: $border-radius;
     background: linear-gradient(
       180deg,
       rgba(255, 255, 255, 0) 0%,
@@ -20,7 +22,7 @@
 .cover {
   width: 100%;
   aspect-ratio: 1;
-  border-radius: $card-br;
+  border-radius: $border-radius;
 
   @include tablet {
     aspect-ratio: 335 / 255;

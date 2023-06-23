@@ -1,5 +1,7 @@
 @use '@styles/utils' as *;
 
+$border-radius: 5px;
+
 .collapsible {
   width: 100%;
   font-size: to-rem(24px);
@@ -7,7 +9,7 @@
 
 .button {
   @include flex-spaced;
-  @include button($collapsible-br);
+  @include button($border-radius);
   padding: 9px 18px;
   color: #fff;
   background-color: $primary-color;
@@ -40,7 +42,7 @@
   overflow: hidden;
   transition: max-height 0.2s ease-out;
   position: relative;
-  top: $collapsible-br * -2;
+  top: $border-radius * -2;
   z-index: -1;
 
   @include tablet {
@@ -49,12 +51,12 @@
 }
 
 .content {
-  border-radius: $collapsible-br;
-  padding: ($collapsible-br * 2 + 30) 18px 18px;
+  border-radius: $border-radius;
+  padding: ($border-radius * 2 + 30) 18px 18px;
   color: $primary-color;
   background-color: $secondary-color;
 
   @include tablet {
-    padding: ($collapsible-br * 2 + 18) 12px 12px;
+    padding: ($border-radius * 2 + 18) 12px 12px;
   }
 }
