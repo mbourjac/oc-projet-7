@@ -3,9 +3,17 @@ import { Banner } from '../../components/Banner/Banner';
 import { Collapsible } from '../../components/Collapsible/Collapsible';
 import styles from './About.module.scss';
 import services from '../../data/services.json';
-import bannerImage from '@images/about-banner.jpg';
+import bannerImageS from '@images/about-banner-s.jpg';
+import bannerImageM from '@images/about-banner-m.jpg';
+import bannerImageL from '@images/about-banner-l.jpg';
 
 export const About = () => {
+  const bannerImage = {
+    small: bannerImageS,
+    medium: bannerImageM,
+    large: bannerImageL,
+  };
+
   return (
     <>
       <Banner image={bannerImage} />

@@ -2,9 +2,17 @@ import { Banner } from '../../components/Banner/Banner';
 import { Card } from '../../components/Card/Card';
 import styles from './Home.module.scss';
 import rooms from '../../data/rooms.json';
-import bannerImage from '@images/home-banner.jpg';
+import bannerImageS from '@images/home-banner-s.jpg';
+import bannerImageM from '@images/home-banner-m.jpg';
+import bannerImageL from '@images/home-banner-l.jpg';
 
 export const Home = () => {
+  const bannerImage = {
+    small: bannerImageS,
+    medium: bannerImageM,
+    large: bannerImageL,
+  };
+
   return (
     <>
       <Banner image={bannerImage}>
