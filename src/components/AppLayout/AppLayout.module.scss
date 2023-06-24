@@ -1,5 +1,8 @@
 @use '@styles/utils' as *;
 
+$spinner-size: 80px;
+$spinner-border: 8px;
+
 .main {
   @include max-width;
   flex-grow: 1;
@@ -10,5 +13,20 @@
 
   @include tablet {
     padding: 0 $main-mobile-padding;
+  }
+}
+
+.spinner {
+  @include flex-center;
+  flex-grow: 1;
+
+  &::after {
+    content: '';
+    width: $spinner-size;
+    height: $spinner-size;
+    border-radius: 50%;
+    border: $spinner-border solid $secondary-color;
+    border-top: $spinner-border solid $primary-color;
+    animation: spin 1s linear infinite;
   }
 }
