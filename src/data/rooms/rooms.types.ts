@@ -1,4 +1,4 @@
-export interface Room {
+export interface IRoom {
   id: string;
   title: string;
   cover: string;
