@@ -1,6 +1,5 @@
 import { LoaderFunctionArgs, useLoaderData } from 'react-router-dom';
 import { nanoid } from 'nanoid';
-import { NotFound } from '../NotFound/NotFound';
 import { Carousel } from '../../components/Carousel/Carousel';
 import { Tag } from '../../components/Tag/Tag';
 import { Star } from '../../components/Star/Star';
@@ -10,22 +9,23 @@ import { IRoom } from '../../data/rooms/rooms.types';
 import styles from './Room.module.scss';
 import roomsJson from '../../data/rooms/rooms.json';
 import collapsibleStyles from '../../components/Collapsible/Collapsible.module.scss';
+import { NotFound } from '../../errors/errors.not-found';
 
 export const loader = async ({
   params,
-}: LoaderFunctionArgs): Promise<IRoom | null> => {
+}: LoaderFunctionArgs): Promise<IRoom> => {
   const roomsRepository = new JsonRoomsRepository(roomsJson);
+  const room = await roomsRepository.getRoom(params.id);
 
-  return roomsRepository.getRoom(params.id);
+  if (!room) {
+    throw new NotFound();
+  }
+
+  return room;
 };
 
 export const Room = () => {
   const room = useLoaderData() as Awaited<ReturnType<typeof loader>>;
-
-  if (!room) {
-    return <NotFound />;
-  }
-
   const [hostFirstName, hostLastName] = room.host.name.split(' ');
 
   return (

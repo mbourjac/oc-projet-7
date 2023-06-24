@@ -3,13 +3,15 @@ import { Header } from '../Header/Header';
 import { Footer } from '../Footer/Footer';
 import styles from './AppLayout.module.scss';
 
-export const AppLayout = () => {
+type AppLayoutProps = {
+  children?: React.ReactNode;
+};
+
+export const AppLayout = ({ children }: AppLayoutProps) => {
   return (
     <>
       <Header />
-      <main className={styles.main}>
-        <Outlet />
-      </main>
+      <main className={styles.main}>{children ?? <Outlet />}</main>
       <Footer />
     </>
   );
