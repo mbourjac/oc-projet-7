@@ -1,12 +1,22 @@
+import { useLoaderData } from 'react-router-dom';
 import { Banner } from '../../components/Banner/Banner';
 import { Card } from '../../components/Card/Card';
+import { Room } from '../../data/rooms/rooms.types';
+import { JsonRoomsRepository } from '../../data/rooms/rooms.repositories';
 import styles from './Home.module.scss';
-import rooms from '../../data/rooms/rooms.json';
+import roomsJson from '../../data/rooms/rooms.json';
 import bannerImageS from '@images/home-banner-s.jpg';
 import bannerImageM from '@images/home-banner-m.jpg';
 import bannerImageL from '@images/home-banner-l.jpg';
 
+export const loader = async (): Promise<Room[]> => {
+  const roomsRepository = new JsonRoomsRepository(roomsJson);
+
+  return roomsRepository.getRooms();
+};
+
 export const Home = () => {
+  const rooms = useLoaderData() as Awaited<ReturnType<typeof loader>>;
   const bannerImage = {
     small: bannerImageS,
     medium: bannerImageM,
