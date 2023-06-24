@@ -1,14 +1,14 @@
 import { IRoom } from './rooms.types';
 
 export interface RoomsRepository {
-  getRoom(id: string): Promise<IRoom | null>;
+  getRoom(id: string | undefined): Promise<IRoom | null>;
   getRooms(): Promise<IRoom[]>;
 }
 
 export class JsonRoomsRepository implements RoomsRepository {
   constructor(private rooms: IRoom[]) {}
 
-  async getRoom(id: string): Promise<IRoom | null> {
+  async getRoom(id: string | undefined): Promise<IRoom | null> {
     return this.rooms.find((room) => room.id === id) ?? null;
   }
 

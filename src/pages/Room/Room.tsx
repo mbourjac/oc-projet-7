@@ -1,17 +1,26 @@
-import { useParams } from 'react-router-dom';
+import { LoaderFunctionArgs, useLoaderData } from 'react-router-dom';
 import { nanoid } from 'nanoid';
 import { NotFound } from '../NotFound/NotFound';
 import { Carousel } from '../../components/Carousel/Carousel';
 import { Tag } from '../../components/Tag/Tag';
 import { Star } from '../../components/Star/Star';
 import { Collapsible } from '../../components/Collapsible/Collapsible';
+import { JsonRoomsRepository } from '../../data/rooms/rooms.repositories';
+import { IRoom } from '../../data/rooms/rooms.types';
 import styles from './Room.module.scss';
+import roomsJson from '../../data/rooms/rooms.json';
 import collapsibleStyles from '../../components/Collapsible/Collapsible.module.scss';
-import rooms from '../../data/rooms/rooms.json';
+
+export const loader = async ({
+  params,
+}: LoaderFunctionArgs): Promise<IRoom | null> => {
+  const roomsRepository = new JsonRoomsRepository(roomsJson);
+
+  return roomsRepository.getRoom(params.id);
+};
 
 export const Room = () => {
-  const { id } = useParams();
-  const room = rooms.find((room) => room.id === id);
+  const room = useLoaderData() as Awaited<ReturnType<typeof loader>>;
 
   if (!room) {
     return <NotFound />;
