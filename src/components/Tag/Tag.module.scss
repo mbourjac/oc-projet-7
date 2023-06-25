@@ -1,13 +1,15 @@
+@use 'sass:map';
 @use '@styles/utils' as *;
+@use '@styles/components/tag';
 
 .tag {
-  @include button(10px);
-  padding: 6px 30px;
+  @include button(tag.$border-radius);
+  padding: tag.$vertical-padding 30px;
   color: #fff;
   background-color: $primary-color;
-  font-size: to-rem(14px);
+  font-size: map.get(tag.$font-sizes, 'desktop');
 
   @include tablet {
-    font-size: to-rem(10px);
+    font-size: map.get(tag.$font-sizes, 'tablet');
   }
 }
