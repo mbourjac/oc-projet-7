@@ -1,0 +1,9 @@
+@use '@styles/utils' as *;
+@use '@styles/components/carousel';
+
+.carousel {
+  @include skeleton-animation;
+  min-height: carousel.$min-height;
+  aspect-ratio: carousel.$ratio;
+  border-radius: $main-border-radius;
+}
