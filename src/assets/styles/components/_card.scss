@@ -1,0 +1,9 @@
+@use 'sass:math';
+@use '@styles/utils' as *;
+
+$border-radius: 10px;
+$desktop-ratio: 1;
+$tablet-ratio: math.div(335, 255);
+$title-height: to-rem(44px);
+$title-margin: 20px;
+$font-size: to-rem(18px);
