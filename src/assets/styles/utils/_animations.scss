@@ -1,8 +1,22 @@
+@use 'sass:color';
+@use './variables' as *;
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+@each $color-name, $color-value in $skeleton-colors {
+  @keyframes pulse-#{$color-name} {
+    0% {
+      background-color: $color-value;
+    }
+    100% {
+      background-color: color.scale($color-value, $lightness: -2%);
+    }
   }
 }
