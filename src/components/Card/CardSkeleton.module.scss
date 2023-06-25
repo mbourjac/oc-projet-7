@@ -1,0 +1,36 @@
+@use '@styles/utils' as *;
+@use '@styles/components/card';
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  background-color: #fff;
+  aspect-ratio: card.$desktop-ratio;
+  border-radius: card.$border-radius;
+
+  @include laptop {
+    background-color: $secondary-color;
+  }
+
+  @include tablet {
+    aspect-ratio: card.$tablet-ratio;
+  }
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  gap: card.$title-height - 2 * card.$font-size;
+  height: card.$title-height;
+  margin: card.$title-margin;
+}
+
+.title-line {
+  @include skeleton-animation;
+  height: card.$font-size;
+
+  @include laptop {
+    @include skeleton-animation('white');
+  }
+}
