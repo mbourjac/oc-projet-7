@@ -1,7 +1,9 @@
 import { Suspense } from 'react';
 import { defer, useLoaderData, Await } from 'react-router-dom';
+import { nanoid } from 'nanoid';
 import { Banner } from '../../components/Banner/Banner';
 import { Card } from '../../components/Card/Card';
+import { CardSkeleton } from '../../components/Card/CardSkeleton';
 import { IRoom } from '../../data/rooms/rooms.types';
 import { JsonRoomsRepository } from '../../data/rooms/rooms.repositories';
 import styles from './Home.module.scss';
@@ -37,7 +39,11 @@ export const Home = () => {
         </h1>
       </Banner>
       <section className={styles.rooms}>
-        <Suspense fallback={<h2>Loading rooms...</h2>}>
+        <Suspense
+          fallback={Array.from({ length: 9 }, (_) => (
+            <CardSkeleton key={nanoid()} />
+          ))}
+        >
           <Await resolve={loaderData.rooms}>
             {(rooms: Awaited<LoaderData['rooms']>) => {
               return (
