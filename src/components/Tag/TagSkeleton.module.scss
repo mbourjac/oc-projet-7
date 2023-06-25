@@ -1,0 +1,14 @@
+@use 'sass:map';
+@use '@styles/utils' as *;
+@use '@styles/components/tag';
+
+.tag {
+  @include skeleton-animation;
+  width: 100px;
+  height: map.get(tag.$font-sizes, 'desktop') + 2 * tag.$vertical-padding;
+  border-radius: tag.$border-radius;
+
+  @include tablet {
+    height: map.get(tag.$font-sizes, 'tablet') + 2 * tag.$vertical-padding;
+  }
+}
