@@ -1,0 +1,4 @@
+@use 'sass:math';
+
+$min-height: 225px;
+$ratio: math.div(1240, 415);
