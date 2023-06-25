@@ -11,7 +11,7 @@ $main-mobile-padding: 20px;
 $main-border-radius: 25px;
 
 $breakpoints: (
-  'mobile': to-rem(475px),
-  'tablet': to-rem(768px),
   'laptop': to-rem(1023px),
+  'tablet': to-rem(768px),
+  'mobile': to-rem(475px),
 );
