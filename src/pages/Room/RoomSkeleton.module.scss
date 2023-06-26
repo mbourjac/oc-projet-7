@@ -1,0 +1,65 @@
+@use 'sass:map';
+@use 'sass:math';
+@use '@styles/utils' as *;
+@use '@styles/pages/room';
+
+$name-gap: to-rem(12px);
+
+%animation {
+  @include skeleton-animation;
+}
+
+.title {
+  @extend %animation;
+  grid-area: title;
+  width: 75%;
+  height: map.get(room.$title, 'font-sizes', 'desktop');
+
+  @include laptop {
+    height: map.get(room.$title, 'font-sizes', 'laptop');
+  }
+
+  @include mobile {
+    height: map.get(room.$title, 'font-sizes', 'mobile');
+  }
+}
+
+.location {
+  @extend %animation;
+  grid-area: location;
+  width: 40%;
+  margin-bottom: map.get(room.$location, 'margins', 'bottom', 'desktop');
+  height: map.get(room.$location, 'font-sizes', 'desktop');
+
+  @include laptop {
+    margin-top: map.get(room.$location, 'margins', 'top', 'laptop');
+    margin-bottom: map.get(room.$location, 'margins', 'bottom', 'laptop');
+  }
+
+  @include mobile {
+    height: map.get(room.$location, 'font-sizes', 'mobile');
+  }
+}
+
+.name {
+  grid-area: name;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: $name-gap;
+}
+
+.name-line {
+  @extend %animation;
+  width: 80px;
+  height: map.get(room.$name, 'font-sizes', 'desktop') - math.div($name-gap, 2);
+
+  @include mobile {
+    height: map.get(room.$name, 'font-sizes', 'mobile');
+  }
+}
+
+.picture {
+  @extend %animation;
+}
