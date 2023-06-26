@@ -1,26 +1,26 @@
+@use 'sass:map';
 @use '@styles/utils' as *;
-
-$border-radius: 5px;
+@use '@styles/components/collapsible';
 
 .collapsible {
   width: 100%;
-  font-size: to-rem(24px);
-}
+  font-size: map.get(collapsible.$font-sizes, 'base', 'desktop');
 
-.small {
-  font-size: to-rem(18px);
+  &.small {
+    font-size: map.get(collapsible.$font-sizes, 'small');
+  }
 }
 
 .button {
   @include flex-spaced;
-  @include button($border-radius);
-  padding: 9px 18px;
+  @include button(collapsible.$border-radius);
+  padding: collapsible.$vertical-padding 18px;
   color: #fff;
   background-color: $primary-color;
   font-size: inherit;
 
   @include tablet {
-    font-size: to-rem(13px);
+    font-size: map.get(collapsible.$font-sizes, 'base', 'tablet');
   }
 }
 
@@ -46,7 +46,7 @@ $border-radius: 5px;
   overflow: hidden;
   transition: max-height 0.2s ease-out;
   position: relative;
-  top: $border-radius * -2;
+  top: collapsible.$border-radius * -2;
   z-index: -1;
 
   @include tablet {
@@ -55,12 +55,12 @@ $border-radius: 5px;
 }
 
 .content {
-  border-radius: $border-radius;
-  padding: ($border-radius * 2 + 30) 18px 18px;
+  border-radius: collapsible.$border-radius;
+  padding: (collapsible.$border-radius * 2 + 30) 18px 18px;
   color: $primary-color;
   background-color: $secondary-color;
 
   @include tablet {
-    padding: ($border-radius * 2 + 18) 12px 12px;
+    padding: (collapsible.$border-radius * 2 + 18) 12px 12px;
   }
 }

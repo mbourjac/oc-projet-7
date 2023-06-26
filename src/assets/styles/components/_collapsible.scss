@@ -1,0 +1,11 @@
+@use '@styles/utils' as *;
+
+$font-sizes: (
+  'base': (
+    'desktop': to-rem(24px),
+    'tablet': to-rem(13px),
+  ),
+  'small': to-rem(18px),
+);
+$border-radius: 5px;
+$vertical-padding: to-rem(9px);
