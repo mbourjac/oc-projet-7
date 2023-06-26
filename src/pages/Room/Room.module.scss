@@ -1,11 +1,11 @@
+@use 'sass:map';
 @use 'sass:math';
 @use '@styles/utils' as *;
-
-$host-picture-size: to-rem(64px);
+@use '@styles/pages/room';
 
 .information {
   display: grid;
-  grid-template-columns: 1fr auto $host-picture-size;
+  grid-template-columns: 1fr auto room.$host-picture-size;
   grid-template-areas:
     'title name picture'
     'location rating rating'
@@ -24,7 +24,7 @@ $host-picture-size: to-rem(64px);
   }
 
   @include mobile {
-    grid-template-columns: 1fr auto math.div($host-picture-size, 2);
+    grid-template-columns: 1fr auto math.div(room.$host-picture-size, 2);
   }
 }
 
@@ -40,29 +40,29 @@ $host-picture-size: to-rem(64px);
 
 .title {
   grid-area: title;
-  margin-bottom: 10px;
-  font-size: to-rem(36px);
+  font-size: map.get(room.$title, 'font-sizes', 'desktop');
 
   @include laptop {
-    font-size: to-rem(24px);
+    font-size: map.get(room.$title, 'font-sizes', 'laptop');
   }
 
   @include mobile {
-    font-size: to-rem(18px);
+    font-size: map.get(room.$title, 'font-sizes', 'mobile');
   }
 }
 
 .location {
   grid-area: location;
-  margin-bottom: 20px;
-  font-size: to-rem(18px);
+  margin-bottom: map.get(room.$location, 'margins', 'bottom', 'desktop');
+  font-size: map.get(room.$location, 'font-sizes', 'desktop');
 
   @include laptop {
-    margin-bottom: 10px;
+    margin-top: map.get(room.$location, 'margins', 'top', 'laptop');
+    margin-bottom: map.get(room.$location, 'margins', 'bottom', 'laptop');
   }
 
   @include mobile {
-    font-size: to-rem(14px);
+    font-size: map.get(room.$location, 'font-sizes', 'mobile');
   }
 }
 
@@ -82,23 +82,23 @@ $host-picture-size: to-rem(64px);
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  font-size: to-rem(18px);
+  font-size: map.get(room.$name, 'font-sizes', 'desktop');
 
   @include mobile {
-    font-size: to-rem(12px);
+    font-size: map.get(room.$name, 'font-sizes', 'mobile');
   }
 }
 
 .picture {
   grid-area: picture;
   justify-self: end;
-  width: $host-picture-size;
-  height: $host-picture-size;
+  width: room.$host-picture-size;
+  height: room.$host-picture-size;
   border-radius: 50%;
 
   @include mobile {
-    width: math.div($host-picture-size, 2);
-    height: math.div($host-picture-size, 2);
+    width: math.div(room.$host-picture-size, 2);
+    height: math.div(room.$host-picture-size, 2);
   }
 }
 

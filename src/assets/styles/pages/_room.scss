@@ -1,0 +1,34 @@
+@use '@styles/utils' as *;
+
+$title: (
+  'font-sizes': (
+    'desktop': to-rem(36px),
+    'laptop': to-rem(24px),
+    'mobile': to-rem(18px),
+  ),
+);
+
+$location: (
+  'margins': (
+    'top': (
+      'laptop': 10px,
+    ),
+    'bottom': (
+      'desktop': 20px,
+      'laptop': 10px,
+    ),
+  ),
+  'font-sizes': (
+    'desktop': to-rem(18px),
+    'mobile': to-rem(14px),
+  ),
+);
+
+$name: (
+  'font-sizes': (
+    'desktop': to-rem(18px),
+    'mobile': to-rem(12px),
+  ),
+);
+
+$host-picture-size: to-rem(64px);
