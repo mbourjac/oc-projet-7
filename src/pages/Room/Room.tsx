@@ -10,6 +10,7 @@ import { Carousel } from '../../components/Carousel/Carousel';
 import { Tag } from '../../components/Tag/Tag';
 import { Star } from '../../components/Star/Star';
 import { Collapsible } from '../../components/Collapsible/Collapsible';
+import { RoomSkeleton } from './RoomSkeleton';
 import { JsonRoomsRepository } from '../../data/rooms/rooms.repositories';
 import { IRoom } from '../../data/rooms/rooms.types';
 import { NotFound } from '../../errors/errors.not-found';
@@ -32,7 +33,7 @@ export const Room = () => {
   const loaderData = useLoaderData() as LoaderData;
 
   return (
-    <Suspense fallback={<h2>Loading room...</h2>}>
+    <Suspense fallback={<RoomSkeleton />}>
       <Await resolve={loaderData.room}>
         {(room: Awaited<LoaderData['room']>) => {
           if (!room) {
