@@ -75,12 +75,12 @@ export const Room = () => {
                 <Collapsible
                   title="Description"
                   content={room.description}
-                  className={collapsibleStyles.small}
+                  collapsibleClasses={collapsibleStyles.small}
                 />
                 <Collapsible
                   title="Équipements"
                   content={room.equipments}
-                  className={collapsibleStyles.small}
+                  collapsibleClasses={collapsibleStyles.small}
                 />
               </section>
             </>
