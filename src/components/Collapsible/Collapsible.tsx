@@ -40,13 +40,17 @@ export const Collapsible = ({
   }, [isCollapsed]);
 
   return (
-    <article className={`${styles.collapsible} ${collapsibleClasses ?? ''}`}>
+    <article
+      className={`${styles.collapsible} ${collapsibleClasses ?? ''}`.trim()}
+    >
       <button className={styles.button} onClick={handleCollapse}>
         {title}
         <img
           src={dropdownIcon}
           alt=""
-          className={`${styles.icon} ${isCollapsed ? '' : styles.rotate}`}
+          className={`${styles.icon} ${
+            isCollapsed ? '' : styles.rotate
+          }`.trim()}
         />
       </button>
       <div
