@@ -13,4 +13,8 @@
   &.checked {
     fill: $primary-color;
   }
+
+  &.skeleton {
+    animation: pulse-svg-grey map.get($skeleton-animation, 'properties');
+  }
 }
