@@ -4,15 +4,17 @@ $body-font: 'Montserrat', sans-serif;
 
 $primary-color: #ff6060;
 $secondary-color: #f6f6f6;
-$skeleton-colors: (
-  'grey': $secondary-color,
-  'white': #fff,
-);
 
 $main-max-width: to-rem(1400px);
 $main-desktop-padding: 100px;
 $main-mobile-padding: 20px;
 $main-border-radius: 25px;
+$skeleton-animation: (
+  'colors': (
+    'grey': $secondary-color,
+    'white': #fff,
+  ),
+);
 
 $breakpoints: (
   'laptop': to-rem(1023px),

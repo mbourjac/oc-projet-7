@@ -1,3 +1,4 @@
+@use 'sass:map';
 @use 'sass:color';
 @use './variables' as *;
 
@@ -10,7 +11,7 @@
   }
 }
 
-@each $color-name, $color-value in $skeleton-colors {
+@each $color-name, $color-value in map.get($skeleton-animation, 'colors') {
   @keyframes pulse-#{$color-name} {
     0% {
       background-color: $color-value;
