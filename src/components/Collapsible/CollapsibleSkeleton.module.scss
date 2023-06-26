@@ -1,0 +1,21 @@
+@use 'sass:map';
+@use '@styles/utils' as *;
+@use '@styles/components/collapsible';
+
+.collapsible {
+  @include skeleton-animation;
+  width: 100%;
+  height: map.get(collapsible.$font-sizes, 'base', 'desktop') + 2 *
+    collapsible.$vertical-padding;
+  border-radius: collapsible.$border-radius;
+
+  &.small {
+    height: map.get(collapsible.$font-sizes, 'small') + 2 *
+      collapsible.$vertical-padding;
+  }
+
+  @include tablet {
+    height: map.get(collapsible.$font-sizes, 'base', 'tablet') + 2 *
+      collapsible.$vertical-padding;
+  }
+}
