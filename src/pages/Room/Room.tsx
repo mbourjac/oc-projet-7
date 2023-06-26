@@ -14,6 +14,7 @@ import { JsonRoomsRepository } from '../../data/rooms/rooms.repositories';
 import { IRoom } from '../../data/rooms/rooms.types';
 import { NotFound } from '../../errors/errors.not-found';
 import styles from './Room.module.scss';
+import starStyles from '../../components/Star/Star.module.scss';
 import collapsibleStyles from '../../components/Collapsible/Collapsible.module.scss';
 import roomsJson from '../../data/rooms/rooms.json';
 
@@ -54,9 +55,9 @@ export const Room = () => {
                 <div className={styles.rating}>
                   {Array.from({ length: 5 }, (_, index) =>
                     index < +room.rating ? (
-                      <Star key={nanoid()} isChecked={true} />
+                      <Star key={nanoid()} pathClasses={starStyles.checked} />
                     ) : (
-                      <Star key={nanoid()} isChecked={false} />
+                      <Star key={nanoid()} />
                     )
                   )}
                 </div>
