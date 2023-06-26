@@ -14,6 +14,9 @@ $skeleton-animation: (
     'grey': $secondary-color,
     'white': #fff,
   ),
+  'properties': (
+    0.75s ease-in-out infinite alternate,
+  ),
 );
 
 $breakpoints: (

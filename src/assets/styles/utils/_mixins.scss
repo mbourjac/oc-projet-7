@@ -61,5 +61,5 @@
 }
 
 @mixin skeleton-animation($color-identifier: 'grey') {
-  animation: pulse-#{$color-identifier} 0.75s ease-in-out infinite alternate;
+  animation: pulse-#{$color-identifier} map.get($skeleton-animation, 'properties');
 }
