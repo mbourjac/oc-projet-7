@@ -6,13 +6,13 @@ export interface RoomsRepository {
 }
 
 abstract class AbstractRoomsRepository implements RoomsRepository {
-  protected readonly limit = 9;
+  protected readonly roomsLimit = 9;
 
   abstract getRoom(id: string | undefined): Promise<IRoom | null>;
   abstract getRooms(page: number): Promise<IRoom[]>;
 
   getLimit(): number {
-    return this.limit;
+    return this.roomsLimit;
   }
 }
 
@@ -29,8 +29,8 @@ export class JsonRoomsRepository extends AbstractRoomsRepository {
   async getRooms(page: number): Promise<IRoom[]> {
     await this.withDelay();
 
-    const startIndex = (page - 1) * this.limit;
-    const endIndex = startIndex + this.limit;
+    const startIndex = (page - 1) * this.roomsLimit;
+    const endIndex = startIndex + this.roomsLimit;
 
     return this.rooms.slice(startIndex, endIndex);
   }
