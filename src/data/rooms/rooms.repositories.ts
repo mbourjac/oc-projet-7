@@ -11,7 +11,7 @@ abstract class AbstractRoomsRepository implements RoomsRepository {
   abstract getRoom(id: string | undefined): Promise<IRoom | null>;
   abstract getRooms(page: number): Promise<IRoom[]>;
 
-  getLimit(): number {
+  getRoomsLimit(): number {
     return this.roomsLimit;
   }
 }
