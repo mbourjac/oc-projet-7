@@ -2,20 +2,37 @@ import { IRoom } from './rooms.types';
 
 export interface RoomsRepository {
   getRoom(id: string | undefined): Promise<IRoom | null>;
-  getRooms(): Promise<IRoom[]>;
+  getRooms(page: number): Promise<IRoom[]>;
 }
 
-export class JsonRoomsRepository implements RoomsRepository {
-  constructor(private rooms: IRoom[], private delay: number = 0) {}
+abstract class AbstractRoomsRepository implements RoomsRepository {
+  protected readonly limit = 9;
+
+  abstract getRoom(id: string | undefined): Promise<IRoom | null>;
+  abstract getRooms(page: number): Promise<IRoom[]>;
+
+  getLimit(): number {
+    return this.limit;
+  }
+}
+
+export class JsonRoomsRepository extends AbstractRoomsRepository {
+  constructor(private readonly rooms: IRoom[], private readonly delay = 0) {
+    super();
+  }
 
   async getRoom(id: string | undefined): Promise<IRoom | null> {
     await this.withDelay();
     return this.rooms.find((room) => room.id === id) ?? null;
   }
 
-  async getRooms(): Promise<IRoom[]> {
+  async getRooms(page: number): Promise<IRoom[]> {
     await this.withDelay();
-    return this.rooms;
+
+    const startIndex = (page - 1) * this.limit;
+    const endIndex = startIndex + this.limit;
+
+    return this.rooms.slice(startIndex, endIndex);
   }
 
   private withDelay(): Promise<void> {
