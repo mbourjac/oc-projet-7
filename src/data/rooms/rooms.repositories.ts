@@ -3,6 +3,7 @@ import { IRoom } from './rooms.types';
 export interface RoomsRepository {
   getRoom(id: string | undefined): Promise<IRoom | null>;
   getRooms(page: number): Promise<IRoom[]>;
+  getRoomsRest(): Promise<number>;
   isRoomsLastPage(page: number): Promise<boolean>;
 }
 
@@ -11,6 +12,7 @@ abstract class AbstractRoomsRepository implements RoomsRepository {
 
   abstract getRoom(id: string | undefined): Promise<IRoom | null>;
   abstract getRooms(page: number): Promise<IRoom[]>;
+  abstract getRoomsRest(): Promise<number>;
   abstract isRoomsLastPage(page: number): Promise<boolean>;
 
   getRoomsLimit(): number {
@@ -35,6 +37,10 @@ export class JsonRoomsRepository extends AbstractRoomsRepository {
     const endIndex = startIndex + this.roomsLimit;
 
     return this.rooms.slice(startIndex, endIndex);
+  }
+
+  async getRoomsRest() {
+    return this.rooms.length % this.roomsLimit;
   }
 
   async isRoomsLastPage(page: number): Promise<boolean> {
