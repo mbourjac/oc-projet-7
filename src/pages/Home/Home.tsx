@@ -1,5 +1,10 @@
 import { Suspense } from 'react';
-import { defer, useLoaderData, Await } from 'react-router-dom';
+import {
+  defer,
+  useLoaderData,
+  Await,
+  LoaderFunctionArgs,
+} from 'react-router-dom';
 import { nanoid } from 'nanoid';
 import { Banner } from '../../components/Banner/Banner';
 import { Card } from '../../components/Card/Card';
@@ -11,19 +16,39 @@ import roomsJson from '../../data/rooms/rooms.json';
 import bannerImageS from '@images/home-banner-s.jpg';
 import bannerImageM from '@images/home-banner-m.jpg';
 import bannerImageL from '@images/home-banner-l.jpg';
+import { Pagination } from '../../components/Pagination/Pagination';
 
 type LoaderData = {
-  rooms: Promise<IRoom[]>;
+  roomsPromise: Promise<IRoom[]>;
+  currentPage: number;
+  isLastPage: boolean;
+  roomsLimit: number;
+  roomsRest: number;
 };
 
-export const loader = async () => {
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+  const url = new URL(request.url);
+  const currentPage = Number(url.searchParams.get('page')) || 1;
   const roomsRepository = new JsonRoomsRepository(roomsJson);
+  const roomsPromise = roomsRepository.getRooms(currentPage);
+  const isLastPage = await roomsRepository.isRoomsLastPage(currentPage);
+  const roomsLimit = roomsRepository.getRoomsLimit();
+  const roomsRest = await roomsRepository.getRoomsRest();
 
-  return defer({ rooms: roomsRepository.getRooms() });
+  return defer({
+    roomsPromise,
+    currentPage,
+    isLastPage,
+    roomsLimit,
+    roomsRest,
+  });
 };
 
 export const Home = () => {
-  const loaderData = useLoaderData() as LoaderData;
+  const { roomsPromise, currentPage, isLastPage, roomsLimit, roomsRest } =
+    useLoaderData() as LoaderData;
+  const roomsLength = isLastPage ? roomsRest : roomsLimit;
+
   const bannerImage = {
     small: bannerImageS,
     medium: bannerImageM,
@@ -40,12 +65,12 @@ export const Home = () => {
       </Banner>
       <section className={styles.rooms}>
         <Suspense
-          fallback={Array.from({ length: 9 }, (_) => (
+          fallback={Array.from({ length: roomsLength }, (_) => (
             <CardSkeleton key={nanoid()} />
           ))}
         >
-          <Await resolve={loaderData.rooms}>
-            {(rooms: Awaited<LoaderData['rooms']>) => {
+          <Await resolve={roomsPromise}>
+            {(rooms: Awaited<LoaderData['roomsPromise']>) => {
               return (
                 <>
                   {rooms.map(({ id, cover, title }) => (
@@ -57,6 +82,7 @@ export const Home = () => {
           </Await>
         </Suspense>
       </section>
+      <Pagination currentPage={currentPage} isLastPage={isLastPage} />
     </>
   );
 };
