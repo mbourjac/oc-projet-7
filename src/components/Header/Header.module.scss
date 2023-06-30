@@ -16,35 +16,10 @@
   }
 }
 
-.nav {
-  display: flex;
-  gap: 60px;
-  font-size: to-rem(24px);
-
-  @include laptop {
-    font-size: to-rem(20px);
-  }
-
-  @include tablet {
-    gap: 30px;
-    font-size: to-rem(18px);
-  }
-
-  @include mobile {
-    gap: to-rem(10px);
-    font-size: to-rem(12px);
-    text-transform: uppercase;
-  }
+.menu {
+  @include navigation;
 }
 
 .link {
-  color: $primary-color;
-
-  &:hover {
-    text-decoration: underline;
-  }
-}
-
-.active {
-  text-decoration: underline;
+  @include link;
 }

@@ -3,26 +3,26 @@ import styles from './Header.module.scss';
 import redLogo from '@images/red-logo.svg';
 
 export const Header = () => {
+  const className = ({ isActive }: { isActive: boolean }) => {
+    return `${styles.link} ${isActive ? styles.active : ''}`.trim();
+  };
+
   return (
     <header className={styles.header}>
       <img src={redLogo} alt="Logo Kasa" className={styles.logo} />
-      <nav className={styles.nav}>
-        <NavLink
-          to="/"
-          className={({ isActive }) =>
-            isActive ? `${styles.link} ${styles.active}` : styles.link
-          }
-        >
-          Accueil
-        </NavLink>
-        <NavLink
-          to="about"
-          className={({ isActive }) =>
-            isActive ? `${styles.link} ${styles.active}` : styles.link
-          }
-        >
-          À propos
-        </NavLink>
+      <nav role="navigation" aria-label="menu">
+        <ul className={styles.menu}>
+          <li>
+            <NavLink to="/" className={className}>
+              Accueil
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="about" className={className}>
+              À propos
+            </NavLink>
+          </li>
+        </ul>
       </nav>
     </header>
   );
