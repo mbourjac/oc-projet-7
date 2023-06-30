@@ -3,15 +3,15 @@ import styles from './Pagination.module.scss';
 
 type PaginationProps = {
   currentPage: number;
-  totalPages: number;
+  isLastPage: boolean;
 };
 
-export const Pagination = ({ currentPage, totalPages }: PaginationProps) => {
+export const Pagination = ({ currentPage, isLastPage }: PaginationProps) => {
   const previousPage = `?page=${currentPage - 1}`;
   const nextPage = `?page=${currentPage + 1}`;
 
   const showPrevious = currentPage !== 1;
-  const showNext = currentPage < totalPages;
+  const showNext = !isLastPage;
 
   return (
     <nav role="navigation" aria-label="pagination" className={styles.nav}>
