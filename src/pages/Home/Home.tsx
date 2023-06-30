@@ -32,7 +32,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const roomsRepository = new JsonRoomsRepository(roomsJson);
   const roomsPromise = roomsRepository.getRooms(currentPage);
   const isLastPage = await roomsRepository.isRoomsLastPage(currentPage);
-  const roomsLimit = roomsRepository.getRoomsLimit();
+  const roomsLimit = roomsRepository.roomsLimit;
   const roomsRest = await roomsRepository.getRoomsRest();
 
   return defer({

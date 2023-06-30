@@ -8,16 +8,12 @@ export interface RoomsRepository {
 }
 
 abstract class AbstractRoomsRepository implements RoomsRepository {
-  protected readonly roomsLimit = 9;
+  readonly roomsLimit = 9;
 
   abstract getRoom(id: string | undefined): Promise<IRoom | null>;
   abstract getRooms(page: number): Promise<IRoom[]>;
   abstract getRoomsRest(): Promise<number>;
   abstract isRoomsLastPage(page: number): Promise<boolean>;
-
-  getRoomsLimit(): number {
-    return this.roomsLimit;
-  }
 }
 
 export class JsonRoomsRepository extends AbstractRoomsRepository {
