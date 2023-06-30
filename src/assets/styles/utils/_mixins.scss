@@ -1,5 +1,6 @@
 @use 'sass:map';
 @use './variables' as *;
+@use './functions' as *;
 
 @mixin mobile {
   @media screen and (max-width: map.get($breakpoints, 'mobile')) {
@@ -62,4 +63,34 @@
 
 @mixin skeleton-animation($color-identifier: 'grey') {
   animation: pulse-#{$color-identifier} map.get($skeleton-animation, 'properties');
+}
+
+@mixin navigation {
+  display: flex;
+  gap: 60px;
+  font-size: to-rem(24px);
+
+  @include laptop {
+    font-size: to-rem(20px);
+  }
+
+  @include tablet {
+    gap: 30px;
+    font-size: to-rem(18px);
+  }
+
+  @include mobile {
+    gap: to-rem(10px);
+    font-size: to-rem(12px);
+    text-transform: uppercase;
+  }
+}
+
+@mixin link {
+  color: $primary-color;
+
+  &:hover,
+  &.active {
+    text-decoration: underline;
+  }
 }
