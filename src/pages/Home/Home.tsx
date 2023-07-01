@@ -1,59 +1,78 @@
-import { Suspense } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import {
   defer,
   useLoaderData,
   Await,
   LoaderFunctionArgs,
+  useFetcher,
+  redirect,
 } from 'react-router-dom';
-import { nanoid } from 'nanoid';
 import { Banner } from '../../components/Banner/Banner';
-import { Card } from '../../components/Card/Card';
-import { CardSkeleton } from '../../components/Card/CardSkeleton';
+import { CardList } from '../../components/CardList/CardList';
+import { CardListSkeleton } from '../../components/CardList/CardListSkeleton';
 import { IRoom } from '../../data/rooms/rooms.types';
+import { LoadMore } from '../../components/LoadMore/LoadMore';
+import type { AwaitedData } from '../../utils/utils.types';
 import { JsonRoomsRepository } from '../../data/rooms/rooms.repositories';
 import styles from './Home.module.scss';
 import roomsJson from '../../data/rooms/rooms.json';
 import bannerImageS from '@images/home-banner-s.jpg';
 import bannerImageM from '@images/home-banner-m.jpg';
 import bannerImageL from '@images/home-banner-l.jpg';
-import { Pagination } from '../../components/Pagination/Pagination';
+import { LoadMoreSkeleton } from '../../components/LoadMore/LoadMoreSkeleton';
 
 type LoaderData = {
-  roomsPromise: Promise<IRoom[]>;
+  data: Promise<IRoom[]>;
   currentPage: number;
-  isLastPage: boolean;
   roomsLimit: number;
-  roomsRest: number;
+  totalPages: number;
 };
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
+  const roomsRepository = new JsonRoomsRepository(roomsJson);
+  const totalPages = await roomsRepository.getTotalPages();
+
   const url = new URL(request.url);
   const currentPage = Number(url.searchParams.get('page')) || 1;
-  const roomsRepository = new JsonRoomsRepository(roomsJson);
-  const roomsPromise = roomsRepository.getRooms(currentPage);
-  const isLastPage = await roomsRepository.isRoomsLastPage(currentPage);
+
+  if (currentPage > totalPages) {
+    return redirect('/');
+  }
+
   const roomsLimit = roomsRepository.roomsLimit;
-  const roomsRest = await roomsRepository.getRoomsRest();
+  const data = roomsRepository.getRooms(currentPage);
 
   return defer({
-    roomsPromise,
+    data,
     currentPage,
-    isLastPage,
     roomsLimit,
-    roomsRest,
+    totalPages,
   });
 };
 
 export const Home = () => {
-  const { roomsPromise, currentPage, isLastPage, roomsLimit, roomsRest } =
+  const { data, currentPage, roomsLimit, totalPages } =
     useLoaderData() as LoaderData;
-  const roomsLength = isLastPage ? roomsRest : roomsLimit;
+  const [moreRooms, setMoreRooms] = useState<IRoom[]>([]);
+  const fetcher = useFetcher<AwaitedData<LoaderData>>();
 
   const bannerImage = {
     small: bannerImageS,
     medium: bannerImageM,
     large: bannerImageL,
   };
+
+  useEffect(() => {
+    if (!fetcher.data || fetcher.state === 'loading') {
+      return;
+    }
+
+    if (fetcher.data) {
+      const newRooms = fetcher.data.data;
+
+      setMoreRooms((prevRooms) => [...prevRooms, ...newRooms]);
+    }
+  }, [fetcher.data]);
 
   return (
     <>
@@ -64,25 +83,34 @@ export const Home = () => {
         </h1>
       </Banner>
       <section className={styles.rooms}>
-        <Suspense
-          fallback={Array.from({ length: roomsLength }, (_) => (
-            <CardSkeleton key={nanoid()} />
-          ))}
-        >
-          <Await resolve={roomsPromise}>
-            {(rooms: Awaited<LoaderData['roomsPromise']>) => {
-              return (
-                <>
-                  {rooms.map(({ id, cover, title }) => (
-                    <Card key={id} id={id} cover={cover} title={title} />
-                  ))}
-                </>
-              );
+        <Suspense fallback={<CardListSkeleton length={roomsLimit} />}>
+          <Await resolve={data}>
+            {(rooms: Awaited<LoaderData['data']>) => {
+              return <CardList rooms={rooms} />;
             }}
           </Await>
         </Suspense>
+        {moreRooms && <CardList rooms={moreRooms} />}
+        {fetcher.state === 'loading' && (
+          <CardListSkeleton length={roomsLimit} />
+        )}
       </section>
-      <Pagination currentPage={currentPage} isLastPage={isLastPage} />
+      <Suspense fallback={<LoadMoreSkeleton />}>
+        <Await resolve={data}>
+          {(_) => {
+            return (
+              <LoadMore
+                loaderData={{
+                  currentPage,
+                  totalPages,
+                }}
+                fetcher={fetcher}
+                isIndex={true}
+              />
+            );
+          }}
+        </Await>
+      </Suspense>
     </>
   );
 };
