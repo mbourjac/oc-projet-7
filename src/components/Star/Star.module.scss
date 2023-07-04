@@ -15,6 +15,6 @@
   }
 
   &.skeleton {
-    animation: pulse-svg-grey map.get($skeleton-animation, 'properties');
+    animation: skeleton-svg-grey map.get($skeleton-animation, 'properties');
   }
 }

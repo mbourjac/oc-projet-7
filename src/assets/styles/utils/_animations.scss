@@ -3,10 +3,11 @@
 @use './variables' as *;
 
 @each $color-name, $color-value in map.get($skeleton-animation, 'colors') {
-  @keyframes pulse-#{$color-name} {
+  @keyframes skeleton-#{$color-name} {
     0% {
       background-color: $color-value;
     }
+
     100% {
       background-color: color.scale($color-value, $lightness: -2%);
     }

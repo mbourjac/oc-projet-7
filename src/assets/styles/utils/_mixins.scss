@@ -62,7 +62,7 @@
 }
 
 @mixin skeleton-animation($color-identifier: 'grey') {
-  animation: pulse-#{$color-identifier} map.get($skeleton-animation, 'properties');
+  animation: skeleton-#{$color-identifier} map.get($skeleton-animation, 'properties');
 }
 
 @mixin navigation {
