@@ -90,15 +90,12 @@
 }
 
 .picture {
+  @include circle(room.$host-picture-size);
   grid-area: picture;
   justify-self: end;
-  width: room.$host-picture-size;
-  height: room.$host-picture-size;
-  border-radius: 50%;
 
   @include mobile {
-    width: math.div(room.$host-picture-size, 2);
-    height: math.div(room.$host-picture-size, 2);
+    @include circle(math.div(room.$host-picture-size, 2));
   }
 }
 

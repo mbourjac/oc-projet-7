@@ -62,7 +62,7 @@
 }
 
 @mixin skeleton-animation($color-identifier: 'grey') {
-  animation: skeleton-#{$color-identifier} map.get($skeleton-animation, 'properties');
+  animation: pulse-#{$color-identifier} map.get($skeleton-animation, 'properties');
 }
 
 @mixin navigation {
@@ -93,4 +93,10 @@
   &.active {
     text-decoration: underline;
   }
+}
+
+@mixin circle($diameter) {
+  width: $diameter;
+  height: $diameter;
+  border-radius: 50%;
 }
