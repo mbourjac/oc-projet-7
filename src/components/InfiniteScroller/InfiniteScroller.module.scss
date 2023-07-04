@@ -1,0 +1,32 @@
+@use '@styles/utils' as *;
+
+$dot-size: 16px;
+$margin: 44px;
+
+.trigger {
+  min-height: $dot-size;
+  margin-top: $margin;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: $dot-size;
+}
+
+.dot {
+  @include circle($dot-size);
+  background-color: $primary-color;
+  animation: loading 1s infinite alternate;
+
+  @for $i from 1 through 3 {
+    &:nth-child(#{$i}) {
+      animation-delay: ($i * 0.1s);
+    }
+  }
+}
+
+.spacer {
+  min-height: $dot-size + $margin;
+}
