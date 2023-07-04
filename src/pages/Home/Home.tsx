@@ -10,16 +10,16 @@ import {
 import { Banner } from '../../components/Banner/Banner';
 import { CardList } from '../../components/CardList/CardList';
 import { CardListSkeleton } from '../../components/CardList/CardListSkeleton';
+import { InfiniteScroller } from '../../components/InfiniteScroller/InfiniteScroller';
 import { IRoom } from '../../data/rooms/rooms.types';
-import { LoadMore } from '../../components/LoadMore/LoadMore';
 import type { AwaitedData } from '../../utils/utils.types';
 import { JsonRoomsRepository } from '../../data/rooms/rooms.repositories';
 import styles from './Home.module.scss';
+import infiniteScrollerStyles from '../../components/InfiniteScroller/InfiniteScroller.module.scss';
 import roomsJson from '../../data/rooms/rooms.json';
 import bannerImageS from '@images/home-banner-s.jpg';
 import bannerImageM from '@images/home-banner-m.jpg';
 import bannerImageL from '@images/home-banner-l.jpg';
-import { LoadMoreSkeleton } from '../../components/LoadMore/LoadMoreSkeleton';
 
 type LoaderData = {
   data: Promise<IRoom[]>;
@@ -51,9 +51,13 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 };
 
 export const Home = () => {
-  const { data, currentPage, roomsLimit, totalPages } =
-    useLoaderData() as LoaderData;
-  const [moreRooms, setMoreRooms] = useState<IRoom[]>([]);
+  const {
+    data,
+    currentPage: initialPage,
+    roomsLimit,
+    totalPages,
+  } = useLoaderData() as LoaderData;
+  const [nextRooms, setNextRooms] = useState<IRoom[]>([]);
   const fetcher = useFetcher<AwaitedData<LoaderData>>();
 
   const bannerImage = {
@@ -63,14 +67,10 @@ export const Home = () => {
   };
 
   useEffect(() => {
-    if (!fetcher.data || fetcher.state === 'loading') {
-      return;
-    }
+    if (fetcher.data && fetcher.state !== 'loading') {
+      const nextRooms = fetcher.data.data;
 
-    if (fetcher.data) {
-      const newRooms = fetcher.data.data;
-
-      setMoreRooms((prevRooms) => [...prevRooms, ...newRooms]);
+      setNextRooms((prevRooms) => [...prevRooms, ...nextRooms]);
     }
   }, [fetcher.data]);
 
@@ -85,28 +85,32 @@ export const Home = () => {
       <section className={styles.rooms}>
         <Suspense fallback={<CardListSkeleton length={roomsLimit} />}>
           <Await resolve={data}>
-            {(rooms: Awaited<LoaderData['data']>) => {
-              return <CardList rooms={rooms} />;
-            }}
+            {(initialRooms: Awaited<LoaderData['data']>) => (
+              <CardList rooms={initialRooms} />
+            )}
           </Await>
         </Suspense>
-        {moreRooms && <CardList rooms={moreRooms} />}
-        {fetcher.state === 'loading' && (
-          <CardListSkeleton length={roomsLimit} />
-        )}
+        {nextRooms && <CardList rooms={nextRooms} />}
       </section>
-      <Suspense fallback={<LoadMoreSkeleton />}>
+      <Suspense
+        fallback={<div className={infiniteScrollerStyles.spacer}></div>}
+      >
         <Await resolve={data}>
           {(_) => {
+            const currentPage = fetcher.data
+              ? fetcher.data.currentPage
+              : initialPage;
+            const nextPage = currentPage + 1;
+            const isLastPage = currentPage === totalPages;
+
             return (
-              <LoadMore
-                loaderData={{
-                  currentPage,
-                  totalPages,
-                }}
-                fetcher={fetcher}
-                isIndex={true}
-              />
+              !isLastPage && (
+                <InfiniteScroller<AwaitedData<LoaderData>>
+                  fetcher={fetcher}
+                  nextPage={nextPage}
+                  isIndex={true}
+                />
+              )
             );
           }}
         </Await>
