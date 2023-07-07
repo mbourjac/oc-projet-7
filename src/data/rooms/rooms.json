@@ -24,7 +24,7 @@
       "Frigo",
       "WIFI"
     ],
-    "tags": ["Batignolle", "Montmartre"]
+    "tags": ["Paris", "Batignolle", "Montmartre"]
   },
   {
     "id": "b9123946",
@@ -53,7 +53,7 @@
       "Cuisine équipée",
       "Télévision"
     ],
-    "tags": ["Canal Saint Martin", "République", "Appartement"]
+    "tags": ["Paris", "Canal Saint Martin", "République", "Appartement"]
   },
   {
     "id": "46d188c5",
@@ -73,7 +73,7 @@
     "rating": "3",
     "location": "Ile de France - Paris 20e",
     "equipments": ["Wi-fi", "Cuisine équipée", "Télévision", "Sèche Cheveux"],
-    "tags": ["Buttes Chaumont", "Laumière", "Studio"]
+    "tags": ["Paris", "Buttes Chaumont", "Laumière", "Studio"]
   },
   {
     "id": "7af00cd6",
@@ -99,7 +99,7 @@
       "Climatisation",
       "Télévision"
     ],
-    "tags": ["Parmentier", "Marais", "Parc", "Night Life"]
+    "tags": ["Paris", "Parmentier", "Marais", "Parc", "Night Life"]
   },
   {
     "id": "0979876d",
@@ -127,7 +127,7 @@
       "Chambre Séparée",
       "Parking"
     ],
-    "tags": ["Goncourt", "Proche commerces"]
+    "tags": ["Paris", "Goncourt", "Proche commerces"]
   },
   {
     "id": "f72a452f",
@@ -148,7 +148,7 @@
     "rating": "5",
     "location": "Ile de France - Paris 18e",
     "equipments": ["Chambre Séparée", "Parking"],
-    "tags": ["Montmartre", "Culture", "Charme"]
+    "tags": ["Paris", "Montmartre", "Culture", "Charme"]
   },
   {
     "id": "b4c67936",
@@ -175,7 +175,7 @@
       "Bureau",
       "Parking"
     ],
-    "tags": ["Transports", "Cheap", "18ème"]
+    "tags": ["Paris", "Transports", "Cheap", "18ème"]
   },
   {
     "id": "bc6f7112",
@@ -204,7 +204,7 @@
       "Lit King Size",
       "Ascenseur"
     ],
-    "tags": ["Luxe", "Tour Eiffel", "T3", "6ème"]
+    "tags": ["Paris", "Luxe", "Tour Eiffel", "T3", "6ème"]
   },
   {
     "id": "cb2f9222",
@@ -231,7 +231,7 @@
       "Wi-fi",
       "Parking"
     ],
-    "tags": ["Montparnasse", "Commerces", "Famille"]
+    "tags": ["Paris", "Montparnasse", "Commerces", "Famille"]
   },
   {
     "id": "d60ca600",
@@ -258,7 +258,7 @@
       "Wi-fi",
       "Ascenseur"
     ],
-    "tags": ["Père Lachaise", "11e", "Metro 3", "Metro 2"]
+    "tags": ["Paris", "Père Lachaise", "11e", "Metro 3", "Metro 2"]
   },
   {
     "id": "2cf259e1",
@@ -278,7 +278,7 @@
     "rating": "4",
     "location": "Ile de France - Paris 11e",
     "equipments": ["Clic-clac", "Four", "Sèche Cheveux", "Wi-fi"],
-    "tags": ["Marais", "Studio", "Parc"]
+    "tags": ["Paris", "Marais", "Studio", "Parc"]
   },
   {
     "id": "5323c29b",
@@ -305,7 +305,14 @@
       "TV",
       "Bouilloire"
     ],
-    "tags": ["Marais", "République", "Studio", "Proche Métros", "Commerces"]
+    "tags": [
+      "Paris",
+      "Marais",
+      "République",
+      "Studio",
+      "Proche Métros",
+      "Commerces"
+    ]
   },
   {
     "id": "af6d2d48",
@@ -468,7 +475,7 @@
     "rating": "2",
     "location": "Ile de France - Paris 20e",
     "equipments": ["Bouilloire", "Wi-fi", "Micro-Ondes"],
-    "tags": ["Vue Parc", "Métros"]
+    "tags": ["Paris", "Vue Parc", "Métros"]
   },
   {
     "id": "6ff132c6",
@@ -493,7 +500,7 @@
       "Wi-fi",
       "Micro-Ondes"
     ],
-    "tags": ["Studio", "Charmant", "13e"]
+    "tags": ["Paris", "Studio", "Charmant", "13e"]
   },
   {
     "id": "cb02d69b",
@@ -516,6 +523,6 @@
       "Frigo",
       "Baignoire"
     ],
-    "tags": ["Louvre", "Marais", "Rivoli"]
+    "tags": ["Paris", "Louvre", "Marais", "Rivoli"]
   }
 ]
