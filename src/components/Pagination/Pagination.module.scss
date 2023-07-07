@@ -1,3 +1,4 @@
+@use 'sass:color';
 @use '@styles/utils' as *;
 
 .nav {
@@ -10,5 +11,16 @@
 }
 
 .link {
-  @include link;
+  color: color.scale($secondary-color, $lightness: -20%);
+  pointer-events: none;
+  transition: all 0.3s ease-in-out;
+
+  &.active {
+    color: $primary-color;
+    pointer-events: auto;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
