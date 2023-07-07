@@ -5,13 +5,13 @@ import {
   Await,
   LoaderFunctionArgs,
   useFetcher,
-  redirect,
+  useAsyncError,
 } from 'react-router-dom';
 import { Banner } from '../../components/Banner/Banner';
 import { CardList } from '../../components/CardList/CardList';
 import { CardListSkeleton } from '../../components/CardList/CardListSkeleton';
 import { InfiniteScroller } from '../../components/InfiniteScroller/InfiniteScroller';
-import { IRoom } from '../../data/rooms/rooms.types';
+import { IRoom, IGetRooms } from '../../data/rooms/rooms.types';
 import type { AwaitedData } from '../../utils/utils.types';
 import { JsonRoomsRepository } from '../../data/rooms/rooms.repositories';
 import styles from './Home.module.scss';
@@ -22,40 +22,42 @@ import bannerImageM from '@images/home-banner-m.jpg';
 import bannerImageL from '@images/home-banner-l.jpg';
 
 type LoaderData = {
-  data: Promise<IRoom[]>;
-  currentPage: number;
+  data: Promise<IGetRooms>;
   roomsLimit: number;
-  totalPages: number;
+  currentPage: number;
+  tagFilter: string;
+};
+
+const AwaitError = () => {
+  const asyncError = useAsyncError();
+
+  if (asyncError) throw asyncError;
+
+  return null;
 };
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-  const roomsRepository = new JsonRoomsRepository(roomsJson);
-  const totalPages = await roomsRepository.getTotalPages();
-
   const url = new URL(request.url);
   const currentPage = Number(url.searchParams.get('page')) || 1;
-
-  if (currentPage > totalPages) {
-    return redirect('/');
-  }
-
+  const tagFilter = url.searchParams.get('tag') || undefined;
+  const roomsRepository = new JsonRoomsRepository(roomsJson);
   const roomsLimit = roomsRepository.roomsLimit;
-  const data = roomsRepository.getRooms(currentPage);
+  const data = roomsRepository.getRooms(currentPage, tagFilter);
 
   return defer({
     data,
-    currentPage,
     roomsLimit,
-    totalPages,
+    currentPage,
+    tagFilter,
   });
 };
 
 export const Home = () => {
   const {
     data,
-    currentPage: initialPage,
     roomsLimit,
-    totalPages,
+    currentPage: initialPage,
+    tagFilter,
   } = useLoaderData() as LoaderData;
   const [nextRooms, setNextRooms] = useState<IRoom[]>([]);
   const fetcher = useFetcher<AwaitedData<LoaderData>>();
@@ -68,7 +70,7 @@ export const Home = () => {
 
   useEffect(() => {
     if (fetcher.data && fetcher.state !== 'loading') {
-      const nextRooms = fetcher.data.data;
+      const { rooms: nextRooms } = fetcher.data.data;
 
       setNextRooms((prevRooms) => [...prevRooms, ...nextRooms]);
     }
@@ -84,8 +86,8 @@ export const Home = () => {
       </Banner>
       <section className={styles.rooms}>
         <Suspense fallback={<CardListSkeleton length={roomsLimit} />}>
-          <Await resolve={data}>
-            {(initialRooms: Awaited<LoaderData['data']>) => (
+          <Await resolve={data} errorElement={<AwaitError />}>
+            {({ rooms: initialRooms }: Awaited<LoaderData['data']>) => (
               <CardList rooms={initialRooms} />
             )}
           </Await>
@@ -95,19 +97,19 @@ export const Home = () => {
       <Suspense
         fallback={<div className={infiniteScrollerStyles.spacer}></div>}
       >
-        <Await resolve={data}>
-          {(_) => {
+        <Await resolve={data} errorElement={<AwaitError />}>
+          {({ meta: { pages } }: Awaited<LoaderData['data']>) => {
             const currentPage = fetcher.data
               ? fetcher.data.currentPage
               : initialPage;
-            const nextPage = currentPage + 1;
-            const isLastPage = currentPage === totalPages;
+            const isLastPage = currentPage === pages;
 
             return (
               !isLastPage && (
                 <InfiniteScroller<AwaitedData<LoaderData>>
                   fetcher={fetcher}
-                  nextPage={nextPage}
+                  nextPage={currentPage + 1}
+                  tag={tagFilter}
                   isIndex={true}
                 />
               )
