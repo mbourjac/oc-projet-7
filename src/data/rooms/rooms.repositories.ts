@@ -1,3 +1,4 @@
+import { BadRequest } from '../../errors/errors.bad-request';
 import { IRoom, IGetRooms } from './rooms.types';
 
 export interface RoomsRepository {
@@ -28,6 +29,10 @@ export class JsonRoomsRepository extends AbstractRoomsRepository {
     const startIndex = (page - 1) * this.roomsLimit;
     const endIndex = startIndex + this.roomsLimit;
     const rooms = this.rooms.slice(startIndex, endIndex);
+
+    if (rooms.length === 0) {
+      throw new BadRequest();
+    }
 
     const count = this.rooms.length;
     const pages = Math.ceil(count / this.roomsLimit);
