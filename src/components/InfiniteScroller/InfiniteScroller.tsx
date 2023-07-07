@@ -16,7 +16,7 @@ export const InfiniteScroller = <T,>({
 }: InfiniteScrollerProps<T>) => {
   const intersectionRef = useRef(null);
   const loadNext = (page: number) => {
-    const query = `?${isIndex && 'index&'}page=${page}`;
+    const query = `?${isIndex ? 'index&' : ''}page=${page}`;
 
     fetcher.load(query);
   };
