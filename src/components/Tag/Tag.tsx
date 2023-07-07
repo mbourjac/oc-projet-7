@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styles from './Tag.module.scss';
 
 type TagProps = {
@@ -5,5 +6,9 @@ type TagProps = {
 };
 
 export const Tag = ({ tag }: TagProps) => {
-  return <button className={styles.tag}>{tag}</button>;
+  return (
+    <Link to={`/?tag=${tag}`} className={styles.tag}>
+      {tag}
+    </Link>
+  );
 };
