@@ -1,17 +1,15 @@
-import { IRoom } from './rooms.types';
+import { IRoom, IGetRooms } from './rooms.types';
 
 export interface RoomsRepository {
   getRoom(id: string | undefined): Promise<IRoom | null>;
-  getRooms(page: number): Promise<IRoom[]>;
-  getTotalPages(): Promise<number>;
+  getRooms(page: number): Promise<IGetRooms>;
 }
 
 abstract class AbstractRoomsRepository implements RoomsRepository {
   readonly roomsLimit = 9;
 
   abstract getRoom(id: string | undefined): Promise<IRoom | null>;
-  abstract getRooms(page: number): Promise<IRoom[]>;
-  abstract getTotalPages(): Promise<number>;
+  abstract getRooms(page: number): Promise<IGetRooms>;
 }
 
 export class JsonRoomsRepository extends AbstractRoomsRepository {
@@ -24,17 +22,27 @@ export class JsonRoomsRepository extends AbstractRoomsRepository {
     return this.rooms.find((room) => room.id === id) ?? null;
   }
 
-  async getRooms(page: number): Promise<IRoom[]> {
+  async getRooms(page: number, tag?: string): Promise<IGetRooms> {
     await this.withDelay();
+
+    const filteredRooms = tag
+      ? this.rooms.filter((room) => room.tags.includes(tag))
+      : this.rooms;
+    const count = filteredRooms.length;
 
     const startIndex = (page - 1) * this.roomsLimit;
     const endIndex = startIndex + this.roomsLimit;
 
-    return this.rooms.slice(startIndex, endIndex);
-  }
+    const rooms = filteredRooms.slice(startIndex, endIndex);
+    const pages = Math.ceil(count / this.roomsLimit);
 
-  async getTotalPages(): Promise<number> {
-    return Math.ceil(this.rooms.length / this.roomsLimit);
+    return {
+      meta: {
+        count,
+        pages,
+      },
+      rooms,
+    };
   }
 
   private withDelay(): Promise<void> {
