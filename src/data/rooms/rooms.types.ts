@@ -13,3 +13,11 @@ export interface IRoom {
   equipments: string[];
   tags: string[];
 }
+
+export interface IGetRooms {
+  meta: {
+    count: number;
+    pages: number;
+  };
+  rooms: IRoom[];
+}
