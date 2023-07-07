@@ -6,17 +6,21 @@ import styles from './InfiniteScroller.module.scss';
 type InfiniteScrollerProps<T> = {
   fetcher: FetcherWithComponents<T>;
   nextPage: number;
+  tag?: string;
   isIndex: boolean;
 };
 
 export const InfiniteScroller = <T,>({
   fetcher,
   nextPage,
+  tag,
   isIndex,
 }: InfiniteScrollerProps<T>) => {
   const intersectionRef = useRef(null);
   const loadNext = (page: number) => {
-    const query = `?${isIndex ? 'index&' : ''}page=${page}`;
+    const query = `?${isIndex ? 'index&' : ''}${
+      tag ? `tag=${tag}&` : ''
+    }page=${page}`;
 
     fetcher.load(query);
   };
