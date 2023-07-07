@@ -1,14 +1,10 @@
-import { Suspense } from 'react';
-import {
-  defer,
-  useLoaderData,
-  Await,
-  LoaderFunctionArgs,
-} from 'react-router-dom';
+import { useEffect, useState, useMemo } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { nanoid } from 'nanoid';
 import { Banner } from '../../components/Banner/Banner';
 import { Card } from '../../components/Card/Card';
 import { CardSkeleton } from '../../components/Card/CardSkeleton';
+import { Pagination } from '../../components/Pagination/Pagination';
 import { IRoom } from '../../data/rooms/rooms.types';
 import { JsonRoomsRepository } from '../../data/rooms/rooms.repositories';
 import styles from './Home.module.scss';
@@ -16,44 +12,48 @@ import roomsJson from '../../data/rooms/rooms.json';
 import bannerImageS from '@images/home-banner-s.jpg';
 import bannerImageM from '@images/home-banner-m.jpg';
 import bannerImageL from '@images/home-banner-l.jpg';
-import { Pagination } from '../../components/Pagination/Pagination';
-
-type LoaderData = {
-  roomsPromise: Promise<IRoom[]>;
-  currentPage: number;
-  isLastPage: boolean;
-  roomsLimit: number;
-  roomsRest: number;
-};
-
-export const loader = async ({ request }: LoaderFunctionArgs) => {
-  const url = new URL(request.url);
-  const currentPage = Number(url.searchParams.get('page')) || 1;
-  const roomsRepository = new JsonRoomsRepository(roomsJson);
-  const roomsPromise = roomsRepository.getRooms(currentPage);
-  const isLastPage = await roomsRepository.isRoomsLastPage(currentPage);
-  const roomsLimit = roomsRepository.roomsLimit;
-  const roomsRest = await roomsRepository.getRoomsRest();
-
-  return defer({
-    roomsPromise,
-    currentPage,
-    isLastPage,
-    roomsLimit,
-    roomsRest,
-  });
-};
 
 export const Home = () => {
-  const { roomsPromise, currentPage, isLastPage, roomsLimit, roomsRest } =
-    useLoaderData() as LoaderData;
-  const roomsLength = isLastPage ? roomsRest : roomsLimit;
+  const [rooms, setRooms] = useState<IRoom[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLastPage, setIsLastPage] = useState(false);
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+
+  const roomsRepository = useMemo(
+    () => new JsonRoomsRepository(roomsJson, 3000),
+    []
+  );
+  const roomsLimit = roomsRepository.roomsLimit;
+  const currentPage = Number(searchParams.get('page')) || 1;
 
   const bannerImage = {
     small: bannerImageS,
     medium: bannerImageM,
     large: bannerImageL,
   };
+
+  useEffect(() => {
+    const loadRooms = async () => {
+      setIsLoading(true);
+
+      try {
+        const {
+          rooms,
+          meta: { pages },
+        } = await roomsRepository.getRooms(currentPage);
+
+        setRooms(rooms);
+        setIsLastPage(pages === currentPage);
+      } catch (error) {
+        navigate('/');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadRooms();
+  }, [searchParams]);
 
   return (
     <>
@@ -64,25 +64,19 @@ export const Home = () => {
         </h1>
       </Banner>
       <section className={styles.rooms}>
-        <Suspense
-          fallback={Array.from({ length: roomsLength }, (_) => (
-            <CardSkeleton key={nanoid()} />
-          ))}
-        >
-          <Await resolve={roomsPromise}>
-            {(rooms: Awaited<LoaderData['roomsPromise']>) => {
-              return (
-                <>
-                  {rooms.map(({ id, cover, title }) => (
-                    <Card key={id} id={id} cover={cover} title={title} />
-                  ))}
-                </>
-              );
-            }}
-          </Await>
-        </Suspense>
+        {isLoading
+          ? Array.from({ length: roomsLimit }, (_) => (
+              <CardSkeleton key={nanoid()} />
+            ))
+          : rooms.map(({ id, cover, title }) => (
+              <Card key={id} id={id} cover={cover} title={title} />
+            ))}
       </section>
-      <Pagination currentPage={currentPage} isLastPage={isLastPage} />
+      <Pagination
+        currentPage={currentPage}
+        isLastPage={isLastPage}
+        isLoading={isLoading}
+      />
     </>
   );
 };

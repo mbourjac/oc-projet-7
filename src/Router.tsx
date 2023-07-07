@@ -5,7 +5,7 @@ import {
   Route,
 } from 'react-router-dom';
 import { AppLayout } from './components/AppLayout/AppLayout';
-import { Home, loader as homeLoader } from './pages/Home/Home';
+import { Home } from './pages/Home/Home';
 import { Room, loader as roomLoader } from './pages/Room/Room';
 import { About } from './pages/About/About';
 import { Error } from './pages/Error/Error';
@@ -21,7 +21,7 @@ const router = createBrowserRouter(
         </AppLayout>
       }
     >
-      <Route index element={<Home />} loader={homeLoader} />
+      <Route index element={<Home />} errorElement={<Error />} />
       <Route
         path="rooms/:id"
         element={<Room />}
