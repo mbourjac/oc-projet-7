@@ -1,25 +1,19 @@
 import { useEffect, useRef } from 'react';
-import { FetcherWithComponents } from 'react-router-dom';
 import { nanoid } from 'nanoid';
 import styles from './InfiniteScroller.module.scss';
 
-type InfiniteScrollerProps<T> = {
-  fetcher: FetcherWithComponents<T>;
-  nextPage: number;
-  isIndex: boolean;
+type InfiniteScrollerProps = {
+  loadNext: (page: number) => void;
+  currentPage: number;
+  isLoading: boolean;
 };
 
-export const InfiniteScroller = <T,>({
-  fetcher,
-  nextPage,
-  isIndex,
-}: InfiniteScrollerProps<T>) => {
+export const InfiniteScroller = ({
+  loadNext,
+  currentPage,
+  isLoading,
+}: InfiniteScrollerProps) => {
   const intersectionRef = useRef(null);
-  const loadNext = (page: number) => {
-    const query = `?${isIndex && 'index&'}page=${page}`;
-
-    fetcher.load(query);
-  };
 
   useEffect(() => {
     if (!intersectionRef.current) {
@@ -29,7 +23,7 @@ export const InfiniteScroller = <T,>({
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) {
         observer.unobserve(entry.target);
-        loadNext(nextPage);
+        loadNext(currentPage + 1);
       }
     });
 
@@ -38,11 +32,11 @@ export const InfiniteScroller = <T,>({
     return () => {
       observer.disconnect();
     };
-  }, [fetcher.data]);
+  }, [currentPage]);
 
   return (
     <div ref={intersectionRef} className={styles.trigger}>
-      {fetcher.state === 'loading' && (
+      {isLoading && (
         <div className={styles.loader}>
           {Array.from({ length: 3 }, (_) => (
             <span className={styles.dot} key={nanoid()}></span>
