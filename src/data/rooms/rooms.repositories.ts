@@ -3,14 +3,14 @@ import { IRoom, IGetRooms } from './rooms.types';
 
 export interface RoomsRepository {
   getRoom(id: string | undefined): Promise<IRoom | null>;
-  getRooms(page: number): Promise<IGetRooms>;
+  getRooms(page: number, tag?: string): Promise<IGetRooms>;
 }
 
 abstract class AbstractRoomsRepository implements RoomsRepository {
   readonly roomsLimit = 9;
 
   abstract getRoom(id: string | undefined): Promise<IRoom | null>;
-  abstract getRooms(page: number): Promise<IGetRooms>;
+  abstract getRooms(page: number, tag?: string): Promise<IGetRooms>;
 }
 
 export class JsonRoomsRepository extends AbstractRoomsRepository {
