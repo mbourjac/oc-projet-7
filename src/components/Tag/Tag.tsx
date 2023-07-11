@@ -7,7 +7,7 @@ type TagProps = {
 
 export const Tag = ({ tag }: TagProps) => {
   return (
-    <Link to={`/?tag=${tag}`} className={styles.tag}>
+    <Link to={`..?tag=${tag}`} relative="path" className={styles.tag}>
       {tag}
     </Link>
   );
