@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 import { nanoid } from 'nanoid';
 import { Carousel } from '../../components/Carousel/Carousel';
-import { Tag } from '../../components/Tag/Tag';
+import { TagLink } from '../../components/Tag/TagLink';
 import { Star } from '../../components/Star/Star';
 import { Collapsible } from '../../components/Collapsible/Collapsible';
 import { RoomSkeleton } from './RoomSkeleton';
@@ -50,7 +50,7 @@ export const Room = () => {
                 <p className={styles.location}>{room.location}</p>
                 <div className={styles.tags}>
                   {room.tags.map((tag) => (
-                    <Tag key={nanoid()} tag={tag} />
+                    <TagLink key={nanoid()} tag={tag} />
                   ))}
                 </div>
                 <div className={styles.rating}>
