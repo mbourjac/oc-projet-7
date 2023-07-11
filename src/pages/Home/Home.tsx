@@ -1,10 +1,5 @@
 import { Suspense, useState } from 'react';
-import {
-  defer,
-  useLoaderData,
-  Await,
-  LoaderFunctionArgs,
-} from 'react-router-dom';
+import { defer, useLoaderData, Await } from 'react-router-dom';
 import { Banner } from '../../components/Banner/Banner';
 import { CardList } from '../../components/CardList/CardList';
 import { CardListSkeleton } from '../../components/CardList/CardListSkeleton';
@@ -25,27 +20,22 @@ type LoaderData = {
   data: Promise<IGetRooms>;
   roomsRepository: RoomsRepository;
   roomsLimit: number;
-  tagFilter: string;
 };
 
-export const loader = async ({ request }: LoaderFunctionArgs) => {
-  const url = new URL(request.url);
-  const tagFilter = url.searchParams.get('tag') || undefined;
-  const roomsRepository = new JsonRoomsRepository(roomsJson, 3000);
+export const loader = async () => {
+  const roomsRepository = new JsonRoomsRepository(roomsJson);
   const roomsLimit = roomsRepository.roomsLimit;
-  const data = roomsRepository.getRooms(1, tagFilter);
+  const data = roomsRepository.getRooms(1);
 
   return defer({
     data,
     roomsRepository,
     roomsLimit,
-    tagFilter,
   });
 };
 
 export const Home = () => {
-  const { data, roomsRepository, roomsLimit, tagFilter } =
-    useLoaderData() as LoaderData;
+  const { data, roomsRepository, roomsLimit } = useLoaderData() as LoaderData;
   const [nextRooms, setNextRooms] = useState<IRoom[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const currentPage = Math.ceil(nextRooms.length / roomsLimit) + 1;
@@ -58,10 +48,7 @@ export const Home = () => {
 
   const loadNext = async () => {
     setIsLoading(true);
-    const { rooms } = await roomsRepository.getRooms(
-      currentPage + 1,
-      tagFilter
-    );
+    const { rooms } = await roomsRepository.getRooms(currentPage + 1);
     setNextRooms((prevRooms) => [...prevRooms, ...rooms]);
     setIsLoading(false);
   };
