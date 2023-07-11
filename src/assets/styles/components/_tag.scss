@@ -1,7 +1,12 @@
 @use '@styles/utils' as *;
 
 $border-radius: 10px;
-$vertical-padding: to-rem(6px);
+$color: #fff;
+$background-color: $primary-color;
+$padding: (
+  'vertical': to-rem(6px),
+  'horizontal': 28px,
+);
 $font-sizes: (
   'desktop': to-rem(14px),
   'tablet': to-rem(10px),

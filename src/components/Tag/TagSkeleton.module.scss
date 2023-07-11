@@ -5,10 +5,12 @@
 .tag {
   @include skeleton-animation;
   width: 100px;
-  height: map.get(tag.$font-sizes, 'desktop') + 2 * tag.$vertical-padding;
+  height: map.get(tag.$font-sizes, 'desktop') + 2 *
+    map.get(tag.$padding, 'vertical');
   border-radius: tag.$border-radius;
 
   @include tablet {
-    height: map.get(tag.$font-sizes, 'tablet') + 2 * tag.$vertical-padding;
+    height: map.get(tag.$font-sizes, 'tablet') + 2 *
+      map.get(tag.$padding, 'vertical');
   }
 }
