@@ -7,7 +7,12 @@ type TagProps = {
 
 export const TagLink = ({ tag }: TagProps) => {
   return (
-    <Link to={`..?tag=${tag}`} relative="path" className={styles.tag}>
+    <Link
+      to={`..?tag=${tag}`}
+      relative="path"
+      className={styles.tag}
+      aria-label={`Filtre : ${tag}`}
+    >
       {tag}
     </Link>
   );
