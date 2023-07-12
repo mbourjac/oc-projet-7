@@ -1,0 +1,5 @@
+@use '@styles/utils' as *;
+
+.no-match {
+  grid-column: 1 / -1;
+}

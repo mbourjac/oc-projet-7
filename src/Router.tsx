@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 import { AppLayout } from './components/AppLayout/AppLayout';
 import { Home, loader as homeLoader } from './pages/Home/Home';
+import { Rooms } from './pages/Rooms/Rooms';
 import { Room, loader as roomLoader } from './pages/Room/Room';
 import { About } from './pages/About/About';
 import { Error } from './pages/Error/Error';
@@ -22,6 +23,7 @@ const router = createBrowserRouter(
       }
     >
       <Route index element={<Home />} loader={homeLoader} />
+      <Route path="rooms" element={<Rooms />} />
       <Route
         path="rooms/:id"
         element={<Room />}
