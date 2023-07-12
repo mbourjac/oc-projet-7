@@ -18,6 +18,11 @@ export const Header = () => {
             </NavLink>
           </li>
           <li>
+            <NavLink to="rooms" className={className}>
+              Logements
+            </NavLink>
+          </li>
+          <li>
             <NavLink to="about" className={className}>
               À propos
             </NavLink>

@@ -14,6 +14,10 @@
   @include laptop {
     width: 145px;
   }
+
+  @media screen and (max-width: to-rem(600px)) {
+    width: 100px;
+  }
 }
 
 .menu {

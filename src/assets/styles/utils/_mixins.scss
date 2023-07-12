@@ -71,6 +71,7 @@
   font-size: to-rem(24px);
 
   @include laptop {
+    gap: 38px;
     font-size: to-rem(20px);
   }
 
