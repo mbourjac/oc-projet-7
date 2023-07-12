@@ -13,7 +13,10 @@ abstract class AbstractRoomsRepository implements RoomsRepository {
 }
 
 export class JsonRoomsRepository extends AbstractRoomsRepository {
-  constructor(private readonly rooms: IRoom[], private readonly delay = 0) {
+  constructor(
+    private readonly rooms: IRoom[],
+    private readonly delay = Math.random() * 2000
+  ) {
     super();
   }
 
