@@ -1,6 +1,7 @@
 import { Suspense, useState } from 'react';
 import { defer, useLoaderData, Await } from 'react-router-dom';
 import { Banner } from '../../components/Banner/Banner';
+import { CardContainer } from '../../components/CardContainer/CardContainer';
 import { CardList } from '../../components/CardList/CardList';
 import { CardListSkeleton } from '../../components/CardList/CardListSkeleton';
 import { InfiniteScroller } from '../../components/InfiniteScroller/InfiniteScroller';
@@ -64,9 +65,9 @@ export const Home = () => {
       <Suspense
         fallback={
           <>
-            <section className={styles.rooms}>
+            <CardContainer>
               <CardListSkeleton length={roomsLimit} />
-            </section>
+            </CardContainer>
             <div className={infiniteScrollerStyles.spacer}></div>
           </>
         }
@@ -80,10 +81,10 @@ export const Home = () => {
 
             return (
               <>
-                <section className={styles.rooms}>
+                <CardContainer>
                   <CardList rooms={initialRooms} />
                   {nextRooms.length > 0 && <CardList rooms={nextRooms} />}
-                </section>
+                </CardContainer>
                 {!isLastPage && (
                   <InfiniteScroller
                     loadNext={loadNext}
