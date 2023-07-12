@@ -11,7 +11,7 @@ import styles from './Rooms.module.scss';
 import infiniteScrollerStyles from '../../components/InfiniteScroller/InfiniteScroller.module.scss';
 import roomsJson from '../../data/rooms/rooms.json';
 
-const roomsRepository = new JsonRoomsRepository(roomsJson, 3000);
+const roomsRepository = new JsonRoomsRepository(roomsJson);
 
 export const Rooms = () => {
   const [searchParams] = useSearchParams();
