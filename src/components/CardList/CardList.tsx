@@ -6,7 +6,11 @@ type CardListProps = {
 };
 
 export const CardList = ({ rooms }: CardListProps) => {
-  return rooms.map(({ id, cover, title }) => (
-    <Card key={id} id={id} cover={cover} title={title} />
-  ));
+  return (
+    <>
+      {rooms.map(({ id, cover, title }) => (
+        <Card key={id} id={id} cover={cover} title={title} />
+      ))}
+    </>
+  );
 };
