@@ -1,26 +1,23 @@
-import styles from './TagButton.module.scss';
-import removeIcon from '@images/remove-icon.svg';
+import styles from './Tag.module.scss';
 
 type TagButtonProps = {
   tag: string;
-  handleTagRemove: () => void;
+  selected: boolean;
+  handleTagSelection: () => void;
 };
 
-export const TagButton = ({ tag, handleTagRemove }: TagButtonProps) => {
+export const TagButton = ({
+  tag,
+  selected,
+  handleTagSelection,
+}: TagButtonProps) => {
   return (
     <button
-      onClick={handleTagRemove}
-      className={styles.tag}
+      onClick={handleTagSelection}
+      className={`${styles.tag} ${selected ? styles.selected : ''}`.trim()}
       aria-label={`Supprimer le filtre ${tag}`}
     >
-      <span className={styles.category}>{`${tag
-        .charAt(0)
-        .toUpperCase()}${tag.slice(1)}`}</span>
-      <img
-        src={removeIcon}
-        alt="Icône de suppresion du filtre"
-        className={styles.remove}
-      />
+      {`${tag.charAt(0).toUpperCase()}${tag.slice(1)}`}
     </button>
   );
 };
