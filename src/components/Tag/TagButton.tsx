@@ -1,13 +1,13 @@
 import styles from './Tag.module.scss';
 
 type TagButtonProps = {
-  tag: string;
+  tagLabel: string;
   selected: boolean;
   handleTagSelection: () => void;
 };
 
 export const TagButton = ({
-  tag,
+  tagLabel,
   selected,
   handleTagSelection,
 }: TagButtonProps) => {
@@ -17,9 +17,9 @@ export const TagButton = ({
       className={`${styles.tag} ${selected ? styles.selected : ''}`.trim()}
       aria-label={`${
         selected ? 'Désélectionner' : 'Sélectionner'
-      } le filtre ${tag}`}
+      } le filtre ${tagLabel}`}
     >
-      {`${tag.charAt(0).toUpperCase()}${tag.slice(1)}`}
+      {`${tagLabel.charAt(0).toUpperCase()}${tagLabel.slice(1)}`}
     </button>
   );
 };
