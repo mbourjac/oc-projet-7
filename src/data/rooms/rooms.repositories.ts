@@ -53,7 +53,7 @@ export class JsonRoomsRepository extends AbstractRoomsRepository {
     };
   }
 
-  private withDelay(): Promise<void> {
-    return new Promise((resolve) => setTimeout(resolve, this.delay));
+  private withDelay(delay?: number): Promise<void> {
+    return new Promise((resolve) => setTimeout(resolve, delay || this.delay));
   }
 }
