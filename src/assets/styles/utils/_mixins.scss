@@ -1,4 +1,5 @@
 @use 'sass:map';
+@use 'sass:color';
 @use './variables' as *;
 @use './functions' as *;
 
@@ -39,10 +40,46 @@
   margin: 0 auto;
 }
 
-@mixin button($border-radius: 0) {
+@mixin button-base($border-radius: 0) {
   border: none;
   border-radius: $border-radius;
   cursor: pointer;
+}
+
+@mixin button {
+  @include button-base;
+  border: 1px solid color.scale($primary-color, $lightness: 5%);
+  border-radius: $button-border-radius;
+  padding: map.get($button-padding, 'vertical')
+    map.get($button-padding, 'horizontal');
+  color: $primary-color;
+  background-color: transparent;
+  font-size: map.get($button-font-sizes, 'desktop');
+  transition: all 0.3s ease-in;
+  overflow: hidden;
+  cursor: pointer;
+
+  @include tablet {
+    font-size: map.get($button-font-sizes, 'tablet');
+  }
+
+  @include mobile {
+    font-size: map.get($button-font-sizes, 'mobile');
+  }
+
+  &:not(:disabled) {
+    &:hover,
+    &.selected {
+      color: #fff;
+      background-color: $primary-color;
+    }
+  }
+
+  &:disabled {
+    border: 1px solid color.scale($secondary-color, $lightness: -20%);
+    color: color.scale($secondary-color, $lightness: -20%);
+    cursor: default;
+  }
 }
 
 @mixin overlay {

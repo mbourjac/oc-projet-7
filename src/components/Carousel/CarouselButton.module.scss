@@ -1,7 +1,7 @@
 @use '@styles/utils' as *;
 
 .button {
-  @include button;
+  @include button-base;
   padding: to-rem(24px);
   background-color: transparent;
 }

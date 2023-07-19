@@ -1,0 +1,7 @@
+@use 'sass:map';
+@use 'sass:color';
+@use '@styles/utils' as *;
+
+.tag {
+  @include button;
+}

@@ -9,6 +9,18 @@ $main-max-width: to-rem(1400px);
 $main-desktop-padding: 100px;
 $main-mobile-padding: 20px;
 $main-border-radius: 25px;
+$main-line-height: 1.2;
+$button-border-radius: 10px;
+$button-padding: (
+  'vertical': to-rem(6px),
+  'horizontal': 28px,
+);
+$button-font-sizes: (
+  'desktop': to-rem(16px),
+  'tablet': to-rem(14px),
+  'mobile': to-rem(12px),
+);
+
 $skeleton-animation: (
   'colors': (
     'grey': $secondary-color,

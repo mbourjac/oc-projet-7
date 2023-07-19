@@ -13,7 +13,7 @@
 
 .button {
   @include flex-spaced;
-  @include button(collapsible.$border-radius);
+  @include button-base(collapsible.$border-radius);
   padding: collapsible.$vertical-padding 18px;
   color: #fff;
   background-color: $primary-color;
