@@ -1,87 +1,71 @@
-import {
-  useState,
-  SetStateAction,
-  Dispatch,
-  ChangeEvent,
-  KeyboardEvent,
-} from 'react';
+import { SetStateAction, Dispatch } from 'react';
 import { nanoid } from 'nanoid';
 import { TagButton } from '../Tag/TagButton';
+import { ITag } from '../Tag/tag.types';
 import styles from './TagSearch.module.scss';
 
 interface TagSearchProps {
-  tags: string[];
-  onTagsChange: Dispatch<SetStateAction<string[]>>;
+  tags: ITag[];
+  handleTagsUpdate: Dispatch<SetStateAction<ITag[]>>;
+  handleTagsShuffle: () => void;
 }
 
-export const TagsSearch = ({ tags, onTagsChange }: TagSearchProps) => {
-  const [tagInput, setTagInput] = useState('');
+export const TagSearch = ({
+  tags,
+  handleTagsUpdate,
+  handleTagsShuffle,
+}: TagSearchProps) => {
+  const handleResetAll = () => {
+    const resetAllTagButtons = (tagButtons: ITag[]) =>
+      tagButtons.map((tagButton) => ({
+        ...tagButton,
+        selected: false,
+      }));
 
-  const addTag = () => {
-    const tag = tagInput.trim().toLowerCase();
-
-    if (tag === '') return;
-
-    onTagsChange((prevTags) =>
-      prevTags.includes(tag) ? prevTags : [...prevTags, tag]
-    );
-    setTagInput('');
+    handleTagsUpdate(resetAllTagButtons);
   };
 
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setTagInput(event.target.value);
+  const handleTagSelection = (tag: string) => {
+    const updateSelectedTagButtons = (tagButtons: ITag[]) =>
+      tagButtons.map((tagButton) =>
+        tagButton.tag !== tag
+          ? tagButton
+          : { tag, selected: !tagButton.selected }
+      );
+
+    handleTagsUpdate(updateSelectedTagButtons);
   };
 
-  const handleInputKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter' && tagInput.trim() !== '') {
-      addTag();
-    }
-  };
-
-  const handleTagRemove = (tag: string) => {
-    onTagsChange((prevTags) => prevTags.filter((prevTag) => prevTag !== tag));
-  };
-
-  const handleClearAll = () => {
-    onTagsChange([]);
-  };
+  const selectedTags = tags.filter(({ selected }) => selected);
+  const allTagsSelected = selectedTags.length === tags.length;
+  const noTagSelected = selectedTags.length === 0;
 
   return (
-    <section className={styles.filters}>
-      <div className={styles.controls}>
-        <input
-          type="search"
-          value={tagInput}
-          onChange={handleInputChange}
-          onKeyDown={handleInputKeyDown}
-          className={styles.input}
-          aria-label="Chercher un filtre"
+    <section className={styles.tags}>
+      <button
+        onClick={handleTagsShuffle}
+        disabled={allTagsSelected}
+        className={styles.control}
+        aria-label="Afficher de nouveaux filtres"
+      >
+        Nouveaux
+      </button>
+      <button
+        onClick={handleResetAll}
+        disabled={noTagSelected}
+        className={styles.control}
+        aria-label="Désélectionner tous les filtres"
+      >
+        Réinitialiser
+      </button>
+      {tags.map(({ tag, selected }) => (
+        <TagButton
+          key={nanoid()}
+          tagLabel={tag}
+          selected={selected}
+          handleTagSelection={() => handleTagSelection(tag)}
         />
-        <button
-          onClick={addTag}
-          disabled={tagInput.trim() === ''}
-          className={styles.search}
-        >
-          Chercher
-        </button>
-      </div>
-      <div className={styles.tags}>
-        <button
-          onClick={handleClearAll}
-          disabled={tags.length === 0}
-          className={styles.clear}
-          aria-label="Réinitialiser les filtres"
-        >
-          Réinitialiser
-        </button>
-        {tags.map((tag) => (
-          <TagButton
-            key={nanoid()}
-            tag={tag}
-            handleTagRemove={() => handleTagRemove(tag)}
-          />
-        ))}
-      </div>
+      ))}
     </section>
   );
 };
