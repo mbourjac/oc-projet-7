@@ -1,5 +1,7 @@
 import { useEffect, useState, SetStateAction, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { RoomSearch } from '../../components/RoomSearch/RoomSearch';
+import { RoomSearchSkeleton } from '../../components/RoomSearch/RoomSearchSkeleton';
 import { TagFilters } from '../../components/TagFilters/TagFilters';
 import { TagFiltersSkeleton } from '../../components/TagFilters/TagFiltersSkeleton';
 import { CardContainer } from '../../components/CardContainer/CardContainer';
@@ -23,6 +25,7 @@ export const Rooms = () => {
   const [rooms, setRooms] = useState<IRoom[] | null>(null);
   const [allUniqueTags, setAllUniqueTags] = useState<string[]>([]);
   const [tagButtons, setTagButtons] = useState<ITag[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>('');
   const [isLoadingNextRooms, setIsLoadingNextRooms] = useState(false);
   const [lastPage, setLastPage] = useState<number | undefined>();
 
@@ -39,14 +42,15 @@ export const Rooms = () => {
     const nextPage = getCurrentPage(rooms) + 1;
     const { rooms: nextRooms } = await roomsRepository.getRooms(
       nextPage,
-      getSelectedTags()
+      getSelectedTags(),
+      searchQuery
     );
 
     setRooms((prevRooms) =>
       prevRooms ? [...prevRooms, ...nextRooms] : nextRooms
     );
     setIsLoadingNextRooms(false);
-  }, [rooms, tagButtons]);
+  }, [rooms, tagButtons, searchQuery]);
 
   const getRandomTagButtons = (
     count: number,
@@ -76,14 +80,14 @@ export const Rooms = () => {
       const {
         rooms,
         meta: { pages },
-      } = await roomsRepository.getRooms(1, getSelectedTags());
+      } = await roomsRepository.getRooms(1, getSelectedTags(), searchQuery);
 
       setRooms(rooms);
       setLastPage(pages);
     };
 
     loadInitialRooms();
-  }, [tagButtons]);
+  }, [tagButtons, searchQuery]);
 
   useEffect(() => {
     const loadAllUniqueTags = async () => {
@@ -125,6 +129,13 @@ export const Rooms = () => {
     });
   }, [tagButtons, allUniqueTags]);
 
+  const handleRoomSearch = useCallback(
+    (searchQuery: string) => {
+      setSearchQuery(searchQuery);
+    },
+    [searchQuery]
+  );
+
   const isLoadingInitialRooms = rooms === null;
   const hasRooms = rooms?.length ?? 0 > 0;
   const isLoadingTagButtons = tagButtons.length === 0;
@@ -134,13 +145,19 @@ export const Rooms = () => {
   return (
     <>
       {isLoadingTagButtons ? (
-        <TagFiltersSkeleton />
+        <>
+          <RoomSearchSkeleton />
+          <TagFiltersSkeleton />
+        </>
       ) : (
-        <TagFilters
-          tags={tagButtons}
-          handleTagsUpdate={handleTagsUpdate}
-          handleTagsShuffle={handleTagsShuffle}
-        />
+        <>
+          <RoomSearch handleRoomSearch={handleRoomSearch} />
+          <TagFilters
+            tags={tagButtons}
+            handleTagsUpdate={handleTagsUpdate}
+            handleTagsShuffle={handleTagsShuffle}
+          />
+        </>
       )}
       <CardContainer>
         {isLoadingInitialRooms ? (
