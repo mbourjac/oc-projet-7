@@ -11,6 +11,10 @@ export const TagButton = ({
   selected,
   handleTagSelection,
 }: TagButtonProps) => {
+  const capitalizedTagLabel = `${tagLabel
+    .charAt(0)
+    .toUpperCase()}${tagLabel.slice(1)}`;
+
   return (
     <button
       onClick={handleTagSelection}
@@ -19,7 +23,7 @@ export const TagButton = ({
         selected ? 'Désélectionner' : 'Sélectionner'
       } le filtre ${tagLabel}`}
     >
-      {`${tagLabel.charAt(0).toUpperCase()}${tagLabel.slice(1)}`}
+      {capitalizedTagLabel}
     </button>
   );
 };
