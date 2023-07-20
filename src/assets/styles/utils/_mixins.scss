@@ -46,18 +46,8 @@
   cursor: pointer;
 }
 
-@mixin button {
-  @include button-base;
-  border: 1px solid color.scale($primary-color, $lightness: 5%);
-  border-radius: $button-border-radius;
-  padding: map.get($button-padding, 'vertical')
-    map.get($button-padding, 'horizontal');
-  color: $primary-color;
-  background-color: transparent;
+@mixin button-font-sizes {
   font-size: map.get($button-font-sizes, 'desktop');
-  transition: all 0.3s ease-in;
-  overflow: hidden;
-  cursor: pointer;
 
   @include tablet {
     font-size: map.get($button-font-sizes, 'tablet');
@@ -66,6 +56,21 @@
   @include mobile {
     font-size: map.get($button-font-sizes, 'mobile');
   }
+}
+
+@mixin button {
+  @include button-base;
+  @include button-font-sizes;
+  border: 1px solid color.scale($primary-color, $lightness: 5%);
+  border-radius: $button-border-radius;
+  padding: map.get($button-padding, 'vertical')
+    map.get($button-padding, 'horizontal');
+  color: $primary-color;
+  background-color: transparent;
+
+  transition: all 0.3s ease-in;
+  overflow: hidden;
+  cursor: pointer;
 
   &:not(:disabled) {
     &:hover,
