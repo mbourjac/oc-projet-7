@@ -2,19 +2,19 @@ import { SetStateAction, Dispatch } from 'react';
 import { nanoid } from 'nanoid';
 import { TagButton } from '../Tag/TagButton';
 import { ITag } from '../Tag/tag.types';
-import styles from './TagSearch.module.scss';
+import styles from './TagFilters.module.scss';
 
-interface TagSearchProps {
+interface TagFiltersProps {
   tags: ITag[];
   handleTagsUpdate: Dispatch<SetStateAction<ITag[]>>;
   handleTagsShuffle: () => void;
 }
 
-export const TagSearch = ({
+export const TagFilters = ({
   tags,
   handleTagsUpdate,
   handleTagsShuffle,
-}: TagSearchProps) => {
+}: TagFiltersProps) => {
   const handleResetAll = () => {
     const resetAllTagButtons = (tagButtons: ITag[]) =>
       tagButtons.map((tagButton) => ({

@@ -1,10 +1,10 @@
 import { nanoid } from 'nanoid';
 import { TagSkeleton } from '../Tag/TagSkeleton';
-import tagSearchStyles from './TagSearch.module.scss';
+import tagFiltersStyles from './TagFilters.module.scss';
 
-export const TagSearchSkeleton = () => {
+export const TagFiltersSkeleton = () => {
   return (
-    <div className={tagSearchStyles.tags}>
+    <div className={tagFiltersStyles.tags}>
       {Array.from({ length: 12 }, (_) => (
         <TagSkeleton key={nanoid()} />
       ))}
