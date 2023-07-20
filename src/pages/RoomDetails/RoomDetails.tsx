@@ -10,11 +10,11 @@ import { Carousel } from '../../components/Carousel/Carousel';
 import { TagLink } from '../../components/Tag/TagLink';
 import { Star } from '../../components/Star/Star';
 import { Collapsible } from '../../components/Collapsible/Collapsible';
-import { RoomSkeleton } from './RoomSkeleton';
+import { RoomDetailsSkeleton } from './RoomDetailsSkeleton';
 import { JsonRoomsRepository } from '../../data/rooms/rooms.repositories';
 import { IRoom } from '../../data/rooms/rooms.types';
 import { NotFound } from '../../errors/errors.not-found';
-import styles from './Room.module.scss';
+import styles from './RoomDetails.module.scss';
 import starStyles from '../../components/Star/Star.module.scss';
 import collapsibleStyles from '../../components/Collapsible/Collapsible.module.scss';
 import roomsJson from '../../data/rooms/rooms.json';
@@ -29,11 +29,11 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
   return defer({ room: roomsRepository.getRoom(params.id) });
 };
 
-export const Room = () => {
+export const RoomDetails = () => {
   const loaderData = useLoaderData() as LoaderData;
 
   return (
-    <Suspense fallback={<RoomSkeleton />}>
+    <Suspense fallback={<RoomDetailsSkeleton />}>
       <Await resolve={loaderData.room}>
         {(room: Awaited<LoaderData['room']>) => {
           if (!room) {

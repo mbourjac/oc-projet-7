@@ -3,12 +3,12 @@ import { CarouselSkeleton } from '../../components/Carousel/CarouselSkeleton';
 import { TagSkeleton } from '../../components/Tag/TagSkeleton';
 import { CollapsibleSkeleton } from '../../components/Collapsible/CollapsibleSkeleton';
 import { Star } from '../../components/Star/Star';
-import styles from './RoomSkeleton.module.scss';
+import styles from './RoomDetailsSkeleton.module.scss';
 import starStyles from '../../components/Star/Star.module.scss';
-import roomStyles from './Room.module.scss';
+import roomStyles from './RoomDetails.module.scss';
 import collapsibleSkeletonStyles from '../../components/Collapsible/CollapsibleSkeleton.module.scss';
 
-export const RoomSkeleton = () => {
+export const RoomDetailsSkeleton = () => {
   return (
     <>
       <CarouselSkeleton />
