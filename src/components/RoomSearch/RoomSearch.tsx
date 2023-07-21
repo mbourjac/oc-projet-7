@@ -38,14 +38,14 @@ export const RoomSearch = ({ handleRoomSearch }: RoomSearchProps) => {
         <button
           type="submit"
           disabled={!isInputModified || searchInput.trim() === ''}
-          className={styles.control}
+          className={styles.button}
         >
           Rechercher
         </button>
         <button
           type="button"
           disabled={searchInput.trim() === ''}
-          className={styles.control}
+          className={styles.button}
           onClick={handleSearchErase}
         >
           Effacer

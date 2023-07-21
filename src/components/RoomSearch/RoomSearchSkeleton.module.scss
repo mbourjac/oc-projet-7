@@ -1,12 +1,11 @@
 @use 'sass:map';
 @use '@styles/utils' as *;
 @use '@styles/utils' as *;
-@use '@styles/components/room-search';
 
 .input {
   @include skeleton-animation;
   flex-grow: 1;
   height: map.get($button-font-sizes, 'desktop') * $main-line-height +
-    room-search.$vertical-padding * 2;
+    $input-vertical-padding * 2;
   border-radius: $button-border-radius;
 }

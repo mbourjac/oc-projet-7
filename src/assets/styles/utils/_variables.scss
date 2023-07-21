@@ -4,6 +4,7 @@ $body-font: 'Montserrat', sans-serif;
 
 $primary-color: #ff6060;
 $secondary-color: #f6f6f6;
+$placeholder-color: #737373;
 
 $main-max-width: to-rem(1400px);
 $main-desktop-padding: 100px;
@@ -20,6 +21,8 @@ $button-font-sizes: (
   'tablet': to-rem(14px),
   'mobile': to-rem(12px),
 );
+$button-spacing: 12px;
+$input-vertical-padding: to-rem(6px);
 
 $skeleton-animation: (
   'colors': (

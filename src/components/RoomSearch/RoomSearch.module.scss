@@ -1,34 +1,22 @@
 @use 'sass:map';
 @use 'sass:color';
 @use '@styles/utils' as *;
-@use '@styles/components/room-search';
 
 .search {
-  display: flex;
+  @include control-group;
   flex-wrap: wrap;
-  gap: room-search.$gap;
-  width: 100%;
   margin-bottom: 24px;
 }
 
 .input {
-  @include button-font-sizes;
+  @include input;
   flex-grow: 1;
-  border-radius: $button-border-radius;
-  border: 1px solid color.scale($secondary-color, $lightness: -20%);
-  padding: room-search.$vertical-padding 12px;
-
-  &:focus-visible {
-    border: 1px solid transparent;
-    outline: 1px solid color.scale($primary-color, $lightness: 10%);
-  }
 }
 
 .controls {
-  display: flex;
-  gap: room-search.$gap;
+  @include control-group;
 }
 
-.control {
+.button {
   @include button;
 }

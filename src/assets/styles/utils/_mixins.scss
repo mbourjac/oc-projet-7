@@ -143,3 +143,26 @@
   height: $diameter;
   border-radius: 50%;
 }
+
+@mixin input {
+  @include button-font-sizes;
+  border-radius: $button-border-radius;
+  border: 1px solid color.scale($secondary-color, $lightness: -20%);
+  padding: $input-vertical-padding 12px;
+  font-family: $body-font;
+  font-weight: 500;
+
+  &:focus-visible {
+    border: 1px solid transparent;
+    outline: 1px solid color.scale($primary-color, $lightness: 10%);
+  }
+
+  &::placeholder {
+    color: $placeholder-color;
+  }
+}
+
+@mixin control-group {
+  display: flex;
+  gap: $button-spacing;
+}
