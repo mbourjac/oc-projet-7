@@ -10,8 +10,16 @@ export interface IRoom {
   };
   rating: string;
   location: string;
+  address: IRoomAddress;
   equipments: string[];
   tags: string[];
+}
+
+export interface IRoomAddress {
+  number: string;
+  street: string;
+  city: string;
+  postcode: string;
 }
 
 export interface IGetRooms {

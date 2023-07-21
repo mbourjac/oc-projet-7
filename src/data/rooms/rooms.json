@@ -17,6 +17,13 @@
     },
     "rating": "5",
     "location": "Ile de France - Paris 17e",
+    "address": {
+      "number": "130",
+      "street": "Boulevard Malesherbes",
+      "city": "Paris",
+      "postcode": "75017",
+      "country": "France"
+    },
     "equipments": [
       "Équipements de base",
       "Micro-Ondes",
@@ -45,6 +52,13 @@
     },
     "rating": "4",
     "location": "Ile de France - Paris 10e",
+    "address": {
+      "number": "1",
+      "street": "Rue Sibour",
+      "city": "Paris",
+      "postcode": "75010",
+      "country": "France"
+    },
     "equipments": [
       "Parking",
       "Sèche Cheveux",
@@ -72,6 +86,13 @@
     },
     "rating": "3",
     "location": "Ile de France - Paris 20e",
+    "address": {
+      "number": "11",
+      "street": "Rue Lisfranc",
+      "city": "Paris",
+      "postcode": "75020",
+      "country": "France"
+    },
     "equipments": ["Wi-fi", "Cuisine équipée", "Télévision", "Sèche Cheveux"],
     "tags": ["Paris", "Buttes Chaumont", "Laumière", "Studio"]
   },
@@ -92,6 +113,13 @@
     },
     "rating": "3",
     "location": "Ile de France - Paris 11e",
+    "address": {
+      "number": "65",
+      "street": "Avenue Parmentier",
+      "city": "Paris",
+      "postcode": "75011",
+      "country": "France"
+    },
     "equipments": [
       "Micro-Ondes",
       "Wi-fi",
@@ -120,6 +148,13 @@
     },
     "rating": "5",
     "location": "Ile de France - Paris 10e",
+    "address": {
+      "number": "104",
+      "street": "Rue de Maubeuge",
+      "city": "Paris",
+      "postcode": "75010",
+      "country": "France"
+    },
     "equipments": [
       "Frigo Américain",
       "Sèche Cheveux",
@@ -147,6 +182,13 @@
     },
     "rating": "5",
     "location": "Ile de France - Paris 18e",
+    "address": {
+      "number": "47",
+      "street": "Rue 0rdener",
+      "city": "Paris",
+      "postcode": "75018",
+      "country": "France"
+    },
     "equipments": ["Chambre Séparée", "Parking"],
     "tags": ["Paris", "Montmartre", "Culture", "Charme"]
   },
@@ -167,6 +209,13 @@
     },
     "rating": "3",
     "location": "Ile de France - Paris 18e",
+    "address": {
+      "number": "14",
+      "street": "Rue de Panama",
+      "city": "Paris",
+      "postcode": "75018",
+      "country": "France"
+    },
     "equipments": [
       "Salle de bains",
       "Frigo",
@@ -196,6 +245,13 @@
     },
     "rating": "5",
     "location": "Ile de France - Paris 6e",
+    "address": {
+      "number": "68",
+      "street": "Boulevard Raspail",
+      "city": "Paris",
+      "postcode": "75006",
+      "country": "France"
+    },
     "equipments": [
       "Wi-fi",
       "Sèche Cheveux",
@@ -224,6 +280,13 @@
     },
     "rating": "4",
     "location": "Ile de France - Paris 14e",
+    "address": {
+      "number": "10",
+      "street": "Rue Didot",
+      "city": "Paris",
+      "postcode": "75014",
+      "country": "France"
+    },
     "equipments": [
       "Climatisation",
       "Machine à laver",
@@ -250,6 +313,13 @@
     },
     "rating": "3",
     "location": "Ile de France - Paris 11e",
+    "address": {
+      "number": "78",
+      "street": "Rue du Chemin Vert",
+      "city": "Paris",
+      "postcode": "75011",
+      "country": "France"
+    },
     "equipments": [
       "Vue Parc",
       "Chauffage",
@@ -277,6 +347,13 @@
     },
     "rating": "4",
     "location": "Ile de France - Paris 11e",
+    "address": {
+      "number": "7",
+      "street": "Rue Morand",
+      "city": "Paris",
+      "postcode": "75011",
+      "country": "France"
+    },
     "equipments": ["Clic-clac", "Four", "Sèche Cheveux", "Wi-fi"],
     "tags": ["Paris", "Marais", "Studio", "Parc"]
   },
@@ -297,6 +374,13 @@
     },
     "rating": "3",
     "location": "Ile de France - Paris 3e",
+    "address": {
+      "number": "3",
+      "street": "Rue au Maire",
+      "city": "Paris",
+      "postcode": "75003",
+      "country": "France"
+    },
     "equipments": [
       "Rangements",
       "Lit",
@@ -332,6 +416,13 @@
     },
     "rating": "5",
     "location": "Ile de France - Ecouen",
+    "address": {
+      "number": "2",
+      "street": "Rue de la République",
+      "city": "Ecouen",
+      "postcode": "95440",
+      "country": "France"
+    },
     "equipments": [
       "SDB",
       "Cuisine équipée",
@@ -359,6 +450,13 @@
     },
     "rating": "4",
     "location": "Ile de France - Arnouville",
+    "address": {
+      "number": "31",
+      "street": "Rue Robespierre",
+      "city": "Arnouville",
+      "postcode": "95400",
+      "country": "France"
+    },
     "equipments": [
       "SDB",
       "Cuisine équipée",
@@ -389,6 +487,13 @@
     },
     "rating": "3",
     "location": "Ile de France - Arnouville",
+    "address": {
+      "number": "16",
+      "street": "Rue Missak Manouchian",
+      "city": "Arnouville",
+      "postcode": "95400",
+      "country": "France"
+    },
     "equipments": [
       "Bouilloire",
       "SDB",
@@ -421,6 +526,13 @@
     },
     "rating": "3",
     "location": "Ile de France - La Défense",
+    "address": {
+      "number": "32",
+      "street": "Rue Henri Regnault",
+      "city": "92400",
+      "postcode": "Courbevoie",
+      "country": "France"
+    },
     "equipments": [
       "Baie vitrée",
       "Télévision",
@@ -450,6 +562,13 @@
     },
     "rating": "4",
     "location": "Ile de France - Levallois",
+    "address": {
+      "number": "29",
+      "street": "Rue Kléber",
+      "city": "Levallois-Perret",
+      "postcode": "92300",
+      "country": "France"
+    },
     "equipments": [
       "Télévision",
       "Four",
@@ -474,6 +593,13 @@
     },
     "rating": "2",
     "location": "Ile de France - Paris 20e",
+    "address": {
+      "number": "28",
+      "street": "Rue des Rigoles",
+      "city": "Paris",
+      "postcode": "75020",
+      "country": "France"
+    },
     "equipments": ["Bouilloire", "Wi-fi", "Micro-Ondes"],
     "tags": ["Paris", "Vue Parc", "Métros"]
   },
@@ -493,6 +619,13 @@
     },
     "rating": "4",
     "location": "Ile de France - Paris 13e",
+    "address": {
+      "number": "19",
+      "street": "Rue Corvisart",
+      "city": "Paris",
+      "postcode": "75013",
+      "country": "France"
+    },
     "equipments": [
       "Équipements de base",
       "Four",
@@ -516,6 +649,13 @@
     },
     "rating": "4",
     "location": "Ile de France - Paris 13e",
+    "address": {
+      "number": "10",
+      "street": "Rue Bobillot",
+      "city": "Paris",
+      "postcode": "75013",
+      "country": "France"
+    },
     "equipments": [
       "Wi-fi",
       "Équipements de base",
