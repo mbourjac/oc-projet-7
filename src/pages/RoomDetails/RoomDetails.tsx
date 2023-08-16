@@ -10,7 +10,7 @@ import { Carousel } from '../../components/Carousel/Carousel';
 import { TagLink } from '../../components/Tag/TagLink';
 import { Star } from '../../components/Star/Star';
 import { Collapsible } from '../../components/Collapsible/Collapsible';
-import { Transportation } from '../../components/Transportation/Transporation';
+import { Transportation } from '../../components/Transportation/Transportation';
 import { RoomDetailsSkeleton } from './RoomDetailsSkeleton';
 import { JsonRoomsRepository } from '../../data/rooms/rooms.repositories';
 import { IRoom } from '../../data/rooms/rooms.types';
