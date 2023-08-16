@@ -7,6 +7,10 @@
   flex-direction: column;
   gap: $button-spacing;
   margin-top: 40px;
+
+  > :last-child {
+    margin-bottom: 12px;
+  }
 }
 
 .heading {
@@ -19,26 +23,30 @@
   flex-wrap: wrap;
 }
 
-.button {
-  @include button;
-}
-
 .search {
   @include control-group;
   flex-wrap: wrap;
-  margin-bottom: 12px;
 }
 
 .input {
   @include input;
-  flex: 2;
+  flex: 1;
+}
+
+.submit {
+  @include button;
 }
 
 .result {
   @include input;
-  flex: 1;
+  width: 30%;
 }
 
 .placeholder {
   color: $placeholder-color;
+}
+
+.error {
+  border: 1px solid $primary-color;
+  color: $primary-color;
 }

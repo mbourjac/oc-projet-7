@@ -1,139 +1,102 @@
 import { ChangeEvent, KeyboardEvent, useState } from 'react';
+import { StrategyButton } from './StrategyButton';
 import { IRoomAddress } from '../../data/rooms/rooms.types';
-import styles from './Transportation.module.scss';
 import {
-  MockBusStrategy,
-  MockBikingStrategy,
-  MockWalkingStrategy,
+  DefaultTransportationStrategy,
   TransportationStrategy,
 } from '../../data/transportation/transportation.strategy';
 import { DataGouvGeocodingService } from '../../data/transportation/transportation.geocoding';
 import { Address } from '../../data/transportation/transportation.address';
 import { TransportationSearch } from '../../data/transportation/transportation.search';
+import styles from './Transportation.module.scss';
 
 type TransportationProps = {
   roomAddress: IRoomAddress;
 };
 
-const transportationStrategies: Record<string, TransportationStrategy> = {
-  walking: new MockWalkingStrategy(),
-  biking: new MockBikingStrategy(),
-  bus: new MockBusStrategy(),
-};
-const transportationSearch = new TransportationSearch();
 const dataGouvGeocodingService = new DataGouvGeocodingService();
+const transportationSearch = new TransportationSearch();
+const transportationStrategies: Record<
+  string,
+  { label: string; strategy: TransportationStrategy }
+> = {
+  default: {
+    label: 'Durée approximative',
+    strategy: new DefaultTransportationStrategy(),
+  },
+};
 
-export const Transportation = ({ roomAddress }: TransportationProps) => {
+export const Transportation = ({
+  roomAddress: { number, street, city, postcode },
+}: TransportationProps) => {
+  const [selectedStrategy, setSelectedStrategy] =
+    useState<TransportationStrategy>(transportationStrategies.default.strategy);
   const [destinationInput, setDestinationInput] = useState('');
-  const [strategy, setStrategy] = useState<TransportationStrategy | null>(null);
-  const [durationResult, setDurationResult] = useState<string | null>(null);
+  const [searchResult, setSearchResult] = useState<string | null>(null);
+  const [isError, setIsError] = useState<boolean>(false);
+  const [isSearchModified, setIsSearchModified] = useState(false);
 
-  const { number, street, city, postcode } = roomAddress;
   const origin = new Address(
     `${number} ${street} ${city} ${postcode}`,
     dataGouvGeocodingService
   );
-
-  const handleSearch = async () => {
-    if (strategy === null) {
-      await handleFastestSearch();
-    } else {
-      await getStrategyDuration(strategy);
-    }
-  };
+  const isDestinationInputEmpty = destinationInput.trim() === '';
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setDestinationInput(event.target.value);
+    setIsSearchModified(true);
   };
 
   const handleInputKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter' && destinationInput.trim() !== '') {
-      handleSearch();
+    if (event.key === 'Enter' && isSearchModified) {
+      getStrategyResult(selectedStrategy);
     }
   };
 
-  const handleWalkingSearch = async () => {
-    getStrategyDuration(transportationStrategies.walking);
+  const handleSearchButtonClick = () => {
+    getStrategyResult(selectedStrategy);
   };
 
-  const handleBikingSearch = async () => {
-    getStrategyDuration(transportationStrategies.biking);
+  const handleStrategyButtonClick = async (strategyKey: string) => {
+    getStrategyResult(transportationStrategies[strategyKey].strategy);
   };
 
-  const handleBusSearch = async () => {
-    getStrategyDuration(transportationStrategies.bus);
-  };
-
-  const handleFastestSearch = async () => {
-    setStrategy(null);
-
+  const getStrategyResult = async (strategy: TransportationStrategy) => {
     const destination = new Address(destinationInput, dataGouvGeocodingService);
-    const fastestDuration = await transportationSearch.displayFastestDuration(
-      origin,
-      destination,
-      transportationStrategies
-    );
 
-    setDurationResult(fastestDuration);
-  };
-
-  const getStrategyDuration = async (
-    transportationStrategy: TransportationStrategy
-  ) => {
-    const destination = new Address(destinationInput, dataGouvGeocodingService);
-    const strategy = transportationStrategy;
-
-    setStrategy(strategy);
+    setSelectedStrategy(strategy);
     transportationSearch.setStrategy(strategy);
 
-    const duration = await transportationSearch.displayDuration(
+    const { success, result } = await transportationSearch.displaySearchResult(
       origin,
       destination
     );
 
-    setDurationResult(duration);
+    setIsError(!success);
+    setSearchResult(result);
+    setIsSearchModified(false);
   };
 
   return (
     <section className={styles.transportation}>
-      <h2 className={styles.heading}> À proximité</h2>
+      <h2 className={styles.heading}>À proximité</h2>
       <div className={styles.strategies}>
-        <button
-          disabled={destinationInput.trim() === ''}
-          className={`${styles.button} ${
-            strategy === null ? styles.selected : ''
-          }`.trim()}
-          onClick={handleFastestSearch}
-        >
-          Le plus rapide
-        </button>
-        <button
-          disabled={destinationInput.trim() === ''}
-          className={`${styles.button} ${
-            strategy instanceof MockWalkingStrategy ? styles.selected : ''
-          }`.trim()}
-          onClick={handleWalkingSearch}
-        >
-          À pied
-        </button>
-        <button
-          disabled={destinationInput.trim() === ''}
-          className={`${styles.button} ${
-            strategy instanceof MockBikingStrategy ? styles.selected : ''
-          }`.trim()}
-          onClick={handleBikingSearch}
-        >
-          À vélo
-        </button>
-        <button
-          disabled={destinationInput.trim() === ''}
-          className={`${styles.button} ${
-            strategy instanceof MockBusStrategy ? styles.selected : ''
-          }`.trim()}
-          onClick={handleBusSearch}
-        >
-          En bus
-        </button>
+        {Object.keys(transportationStrategies).map((strategyKey) => {
+          const { label, strategy } = transportationStrategies[strategyKey];
+
+          return (
+            <StrategyButton
+              key={strategyKey}
+              strategyKey={strategyKey}
+              handleStrategySearch={handleStrategyButtonClick}
+              isSelected={selectedStrategy === strategy}
+              isDisabled={isDestinationInputEmpty}
+              isSearchModified={isSearchModified}
+            >
+              {label}
+            </StrategyButton>
+          );
+        })}
       </div>
       <div className={styles.search}>
         <input
@@ -142,17 +105,24 @@ export const Transportation = ({ roomAddress }: TransportationProps) => {
           onChange={handleInputChange}
           onKeyDown={handleInputKeyDown}
           className={styles.input}
-          placeholder="Rechercher une adresse"
+          placeholder="1 Place de la République 75003 Paris"
           aria-label="Rechercher une adresse à proximité"
         />
-        <p className={styles.result}>
-          {durationResult ? (
-            durationResult
-          ) : (
-            <span className={styles.placeholder}>Temps de trajet</span>
-          )}
-        </p>
+        <button
+          disabled={isDestinationInputEmpty || !isSearchModified}
+          className={styles.submit}
+          onClick={handleSearchButtonClick}
+        >
+          Rechercher
+        </button>
       </div>
+      <p className={`${styles.result}  ${isError ? styles.error : ''}`.trim()}>
+        {searchResult ? (
+          searchResult
+        ) : (
+          <span className={styles.placeholder}>Mode et temps de trajet</span>
+        )}
+      </p>
     </section>
   );
 };
