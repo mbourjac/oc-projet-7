@@ -4,6 +4,38 @@ export interface GeocodingService {
   getAddressDetails(address: string): Promise<ILocation>;
 }
 
+export class MockGeocodingService implements GeocodingService {
+  private constructor(
+    private geocodingData: {
+      addressIdentifier: string;
+      addressObject: ILocation;
+    }[]
+  ) {}
+
+  static init(): MockGeocodingService {
+    return new MockGeocodingService([]);
+  }
+
+  withData(
+    geocodingData: { addressIdentifier: string; addressObject: ILocation }[]
+  ): MockGeocodingService {
+    this.geocodingData = geocodingData;
+    return this;
+  }
+
+  async getAddressDetails(address: string): Promise<ILocation> {
+    const matchingAddress = this.geocodingData.find(
+      ({ addressIdentifier }) => addressIdentifier === address
+    );
+
+    if (!matchingAddress) {
+      throw new Error(`Address not found: ${address}`);
+    }
+
+    return matchingAddress.addressObject;
+  }
+}
+
 export class DataGouvGeocodingService implements GeocodingService {
   private readonly apiUrl = new URL('https://api-adresse.data.gouv.fr/search/');
 
