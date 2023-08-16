@@ -67,7 +67,6 @@
     map.get($button-padding, 'horizontal');
   color: $primary-color;
   background-color: transparent;
-
   transition: all 0.3s ease-in;
   overflow: hidden;
   cursor: pointer;
@@ -151,14 +150,16 @@
   padding: $input-vertical-padding 12px;
   font-family: $body-font;
   font-weight: 500;
+  transition: border 0.2s ease-in;
 
   &:focus-visible {
-    border: 1px solid transparent;
-    outline: 1px solid color.scale($primary-color, $lightness: 10%);
+    border: 1px solid color.scale($primary-color, $lightness: 10%);
+    outline: none;
   }
 
   &::placeholder {
     color: $placeholder-color;
+    opacity: 1;
   }
 }
 
