@@ -1,6 +1,12 @@
 import { Address } from './transportation.address';
+import { Duration } from './transportation.duration';
+import { TransportationMode } from './transportation.mode';
 import { TransportationStrategy } from './transportation.strategy';
-import { ICoordinates, IDuration } from './transportation.types';
+import type {
+  TransportationModes,
+  ITransportation,
+} from './transportation.types';
+import { IDuration, ISearchResult } from './transportation.types';
 
 export class TransportationSearch {
   constructor(private strategy?: TransportationStrategy) {}
@@ -9,140 +15,55 @@ export class TransportationSearch {
     this.strategy = strategy;
   }
 
-  public async displayDuration(origin: Address, destination: Address) {
-    const { hours } = await this.findDurationInHours(origin, destination);
-    const convertedDuration = this.convertToHoursAndMinutes(hours);
-
-    return this.formatDurationToString(convertedDuration);
-  }
-
-  public async displayFastestDuration(
-    origin: Address,
-    destination: Address,
-    strategies: Record<string, TransportationStrategy>
-  ) {
-    const { hours, mode } = await this.findFastestDuration(
-      origin,
-      destination,
-      strategies
-    );
-    const convertedDuration = this.convertToHoursAndMinutes(hours);
-    const formattedStringDuration =
-      this.formatDurationToString(convertedDuration);
-
-    return `${mode} : ${formattedStringDuration}`;
-  }
-
-  private async findDurationInHours(
+  public async displaySearchResult(
     origin: Address,
     destination: Address
-  ): Promise<IDuration> {
+  ): Promise<ISearchResult> {
     if (!this.strategy) {
       throw new Error('Please provide a transportation strategy.');
     }
 
-    const originLocation = await origin.details;
-    const destinationLocation = await destination.details;
-    const distanceInKm = this.calculateDistanceInKm(
-      originLocation.coordinates,
-      destinationLocation.coordinates
-    );
-    const duration = await this.strategy.findDuration({
-      origin: originLocation,
-      destination: destinationLocation,
-      distanceInKm,
-    });
-
-    return duration;
-  }
-
-  private async findFastestDuration(
-    origin: Address,
-    destination: Address,
-    strategies: Record<string, TransportationStrategy>
-  ): Promise<IDuration> {
-    let fastestDuration = Infinity;
-    let fastestMode: string = '';
-
-    for (const strategyKey in strategies) {
-      const strategy = strategies[strategyKey];
-
-      this.setStrategy(strategy);
-
-      const { hours: durationInHours, mode } = await this.findDurationInHours(
+    try {
+      const transportation = await this.strategy.findTransportation(
         origin,
         destination
       );
+      const { mode, seconds } = this.findFastestDuration(transportation);
+      const duration = new Duration(seconds);
+      const transportationMode = new TransportationMode(mode);
 
-      if (durationInHours < fastestDuration) {
-        fastestDuration = durationInHours;
+      return {
+        success: true,
+        result: `${transportationMode.getFormattedMode()} : ${duration.getFormattedDuration()}`,
+      };
+    } catch (error) {
+      console.error(error);
+
+      return {
+        success: false,
+        result: 'Une erreur est survenue.',
+      };
+    }
+  }
+
+  private findFastestDuration(transportation: ITransportation): IDuration {
+    let fastestDuration = Infinity;
+    let fastestMode: TransportationModes | null = null;
+    let mode: keyof typeof transportation;
+
+    for (mode in transportation) {
+      const duration = transportation[mode];
+
+      if (duration !== undefined && duration < fastestDuration) {
+        fastestDuration = duration;
         fastestMode = mode;
       }
     }
 
-    return { hours: fastestDuration, mode: fastestMode };
-  }
-
-  private calculateDistanceInKm = (
-    coordinates1: ICoordinates,
-    coordinates2: ICoordinates
-  ): number => {
-    const degreesToRadians = (degrees: number): number => {
-      return degrees * (Math.PI / 180);
-    };
-
-    const { latitude: lat1, longitude: lon1 } = coordinates1;
-    const { latitude: lat2, longitude: lon2 } = coordinates2;
-
-    const earthRadiusInKm = 6371;
-    const dLat = degreesToRadians(lat2 - lat1);
-    const dLon = degreesToRadians(lon2 - lon1);
-
-    const a =
-      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos(degreesToRadians(lat1)) *
-        Math.cos(degreesToRadians(lat2)) *
-        Math.sin(dLon / 2) *
-        Math.sin(dLon / 2);
-
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    const distanceInKm = earthRadiusInKm * c;
-
-    return distanceInKm;
-  };
-
-  private convertToHoursAndMinutes(durationInHours: number): {
-    hours: number;
-    minutes: number;
-  } {
-    if (durationInHours < 1) {
-      const minutes = Math.round(durationInHours * 60);
-
-      return { hours: 0, minutes: minutes || 1 };
+    if (fastestMode === null) {
+      throw new Error('No valid transportation mode found.');
     }
 
-    const hours = Math.floor(durationInHours);
-    const minutes = Math.round((durationInHours - hours) * 60);
-
-    return { hours, minutes };
-  }
-
-  private formatDurationToString(duration: {
-    hours: number;
-    minutes: number;
-  }): string {
-    const { hours, minutes } = duration;
-    const formattedHours = `${hours} heure${hours === 1 ? '' : 's'}`;
-    const formattedMinutes = `${minutes} minute${minutes === 1 ? '' : 's'}`;
-
-    if (hours === 0) {
-      return formattedMinutes;
-    }
-
-    if (minutes === 0) {
-      return formattedHours;
-    }
-
-    return `${formattedHours} et ${formattedMinutes}`;
+    return { mode: fastestMode, seconds: fastestDuration };
   }
 }
