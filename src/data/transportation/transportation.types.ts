@@ -2,6 +2,10 @@ import { Address } from './transportation.address';
 
 export type TransportationModes = 'walking' | 'bike' | 'bus';
 
+export type ITransportation = {
+  [mode in TransportationModes]?: number;
+};
+
 export interface ICoordinates {
   latitude: number;
   longitude: number;
