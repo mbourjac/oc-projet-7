@@ -1,3 +1,5 @@
+import { Address } from './transportation.address';
+
 export interface ICoordinates {
   latitude: number;
   longitude: number;
@@ -13,10 +15,9 @@ export interface ILocation {
   coordinates: ICoordinates;
 }
 
-export interface ITrip {
-  origin: ILocation;
-  destination: ILocation;
-  distanceInKm: number;
+export interface IJourney {
+  origin: Address;
+  destination: Address;
 }
 
 export interface IDuration {
