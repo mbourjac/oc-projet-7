@@ -9,6 +9,29 @@ export interface TransportationStrategy {
   ): Promise<ITransportation>;
 }
 
+export class MockTransportationStrategy implements TransportationStrategy {
+  private constructor(private result: ITransportation | null) {}
+
+  static init(): MockTransportationStrategy {
+    return new MockTransportationStrategy(null);
+  }
+
+  public withResult(result: ITransportation): MockTransportationStrategy {
+    this.result = result;
+    return this;
+  }
+
+  public async findTransportation(origin: Address, destination: Address) {
+    if (!this.result) {
+      throw new Error(
+        `No result found for transportation from '${origin.address}' to '${destination.address}'`
+      );
+    }
+
+    return this.result;
+  }
+}
+
 export class DefaultTransportationStrategy implements TransportationStrategy {
   async findTransportation(origin: Address, destination: Address) {
     const journey = new Journey({ origin, destination });
