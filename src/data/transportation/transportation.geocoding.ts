@@ -38,9 +38,9 @@ export class DataGouvGeocodingService implements GeocodingService {
       };
     } catch (error) {
       if (error instanceof Error) {
-        throw new Error(`Error while fetching coordinates: ${error.message}`);
+        throw error;
       } else {
-        console.error('Unknown error occurred:', error);
+        console.error('An unknown error occurred:', error);
         throw new Error(
           'An unknown error occurred while fetching coordinates.'
         );
