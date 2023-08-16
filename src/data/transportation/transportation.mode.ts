@@ -1,4 +1,4 @@
-import { TransportationModes } from './transportation.types';
+import type { TransportationModes } from './transportation.types';
 
 export class TransportationMode {
   constructor(readonly mode: TransportationModes) {}
