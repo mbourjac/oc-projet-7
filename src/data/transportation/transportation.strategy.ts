@@ -1,39 +1,55 @@
-import { IDuration, ITrip } from './transportation.types';
+import { Address } from './transportation.address';
+import { Journey } from './transportation.journey';
+import type { ITransportation } from './transportation.types';
 
 export interface TransportationStrategy {
-  findDuration(trip: ITrip): Promise<IDuration>;
+  findTransportation(
+    origin: Address,
+    destination: Address
+  ): Promise<ITransportation>;
 }
 
-export class MockWalkingStrategy implements TransportationStrategy {
-  async findDuration({ distanceInKm }: ITrip): Promise<IDuration> {
+export class DefaultTransportationStrategy implements TransportationStrategy {
+  async findTransportation(origin: Address, destination: Address) {
+    const journey = new Journey({ origin, destination });
+    const distanceInKm = await journey.getDistanceInKm();
+
+    return {
+      walking: this.walkingDurationInSeconds(distanceInKm),
+      bike: this.bikeDurationInSeconds(distanceInKm),
+      bus: this.busDurationInSeconds(distanceInKm),
+    };
+  }
+
+  private walkingDurationInSeconds(distanceInKm: number): number {
     const averageSpeedInKmH = 5;
     const trafficFactor = 1.1;
-    const hours = (distanceInKm / averageSpeedInKmH) * trafficFactor;
+    const durationInHours = (distanceInKm / averageSpeedInKmH) * trafficFactor;
 
-    return { hours, mode: 'À pied' };
+    return this.toSeconds(durationInHours);
   }
-}
 
-export class MockBikingStrategy implements TransportationStrategy {
-  async findDuration({ distanceInKm }: ITrip): Promise<IDuration> {
+  private bikeDurationInSeconds(distanceInKm: number): number {
     const averageSpeedInKmH = 15;
     const trafficFactor = 1.2;
-    const parkingDuration = (Math.floor(Math.random() * 5) + 1) / 60;
-    const hours =
+    const parkingDuration = 3 / 60;
+    const durationInHours =
       (distanceInKm / averageSpeedInKmH) * trafficFactor + parkingDuration;
 
-    return { hours, mode: 'À vélo' };
+    return this.toSeconds(durationInHours);
   }
-}
 
-export class MockBusStrategy implements TransportationStrategy {
-  async findDuration({ distanceInKm }: ITrip): Promise<IDuration> {
+  private busDurationInSeconds(distanceInKm: number): number {
     const averageSpeedInKmH = 10;
     const trafficFactor = 1.3;
-    const waitingDuration = (Math.floor(Math.random() * 10) + 1) / 60;
-    const hours =
+    const waitingDuration = 7 / 60;
+    const durationInHours =
       (distanceInKm / averageSpeedInKmH) * trafficFactor + waitingDuration;
 
-    return { hours, mode: 'En bus' };
+    return this.toSeconds(durationInHours);
+  }
+
+  private toSeconds(hours: number): number {
+    return Math.floor(hours * 3600);
   }
 }
