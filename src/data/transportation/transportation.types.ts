@@ -30,3 +30,8 @@ export interface IDuration {
   mode: TransportationModes;
   seconds: number;
 }
+
+export interface ISearchResult {
+  success: boolean;
+  result: string;
+}
