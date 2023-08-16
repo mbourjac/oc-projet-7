@@ -1,5 +1,7 @@
 import { Address } from './transportation.address';
 
+export type TransportationModes = 'walking' | 'bike' | 'bus';
+
 export interface ICoordinates {
   latitude: number;
   longitude: number;
@@ -21,6 +23,6 @@ export interface IJourney {
 }
 
 export interface IDuration {
-  hours: number;
-  mode: string;
+  mode: TransportationModes;
+  seconds: number;
 }
