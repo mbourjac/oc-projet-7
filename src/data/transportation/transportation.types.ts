@@ -30,3 +30,8 @@ export interface ISearchResult {
   success: boolean;
   result: string;
 }
+
+export interface INavitiaJourneyData {
+  duration: number;
+  sections: any[];
+}

@@ -1,6 +1,7 @@
 import { Address } from './transportation.address';
 import { Journey } from './transportation.journey';
 import type {
+  INavitiaJourneyData,
   ITransportation,
   TransportationModes,
 } from './transportation.types';
@@ -77,5 +78,87 @@ export class DefaultTransportationStrategy implements TransportationStrategy {
 
   private toSeconds(hours: number): number {
     return Math.floor(hours * 3600);
+  }
+}
+
+export class NavitiaTransportationStrategy implements TransportationStrategy {
+  async findTransportation(
+    origin: Address,
+    destination: Address
+  ): Promise<ITransportation> {
+    const rawData = await this.fetchData(origin, destination);
+    const { walkingDuration, publicTransportDuration } =
+      this.processData(rawData);
+    const transportation = new Map<TransportationModes, number>();
+
+    if (walkingDuration !== undefined) {
+      transportation.set('walking', walkingDuration);
+    }
+
+    if (publicTransportDuration !== undefined) {
+      transportation.set('publicTransport', publicTransportDuration);
+    }
+
+    return transportation;
+  }
+
+  async fetchData(
+    origin: Address,
+    destination: Address
+  ): Promise<INavitiaJourneyData[]> {
+    try {
+      const originCoordinates = await origin.coordinates;
+      const destinationCoordinates = await destination.coordinates;
+      const nowDate = new Date();
+      const departureTime = nowDate.toISOString();
+      const url = `http://localhost:5000/navitia?originLongitude=${originCoordinates.longitude}&originLatitude=${originCoordinates.latitude}&destinationLongitude=${destinationCoordinates.longitude}&destinationLatitude=${destinationCoordinates.latitude}&departureTime=${departureTime}`;
+
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error(
+          `Error while fetching transportation. Status: ${response.status} - ${response.statusText}`
+        );
+      }
+
+      const data: INavitiaJourneyData[] = await response.json();
+
+      return data;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw error;
+      } else {
+        console.error('An unknown error occurred:', error);
+        throw new Error(
+          'An unknown error occurred while fetching transporation.'
+        );
+      }
+    }
+  }
+
+  processData(rawData: INavitiaJourneyData[]): {
+    walkingDuration?: number;
+    publicTransportDuration?: number;
+  } {
+    const journeys = rawData.map(({ duration, sections }) => ({
+      duration,
+      sections,
+    }));
+    const walkingJourney = journeys.find(
+      ({ sections }) => sections.length === 1
+    );
+    const publicTransportJourneys = journeys.filter(
+      ({ sections }) => sections.length > 1
+    );
+    const fastestPublicTransportJourney = publicTransportJourneys.length
+      ? publicTransportJourneys.reduce((a, b) =>
+          a.duration < b.duration ? a : b
+        )
+      : undefined;
+
+    return {
+      walkingDuration: walkingJourney?.duration,
+      publicTransportDuration: fastestPublicTransportJourney?.duration,
+    };
   }
 }
