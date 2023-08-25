@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
-import styles from './Card.module.scss';
+import styles from './RoomCard.module.scss';
 
-type CardProps = {
+type RoomCardProps = {
   id: string;
   cover: string;
   title: string;
 };
 
-export const Card = ({ id, cover, title }: CardProps) => {
+export const RoomCard = ({ id, cover, title }: RoomCardProps) => {
   return (
     <Link to={`/rooms/${id}`}>
       <article className={styles.card}>

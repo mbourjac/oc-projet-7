@@ -1,5 +1,5 @@
 import { Banner } from '../../components/Banner/Banner';
-import { Card } from '../../components/Card/Card';
+import { RoomCard } from '../../components/RoomCard/RoomCard';
 import styles from './Home.module.scss';
 import rooms from '../../data/rooms.json';
 import bannerImageS from '@images/home-banner-s.jpg';
@@ -23,7 +23,7 @@ export const Home = () => {
       </Banner>
       <section className={styles.rooms}>
         {rooms.map(({ id, cover, title }) => (
-          <Card key={id} id={id} cover={cover} title={title} />
+          <RoomCard key={id} id={id} cover={cover} title={title} />
         ))}
       </section>
     </>
