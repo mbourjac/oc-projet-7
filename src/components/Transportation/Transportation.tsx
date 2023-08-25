@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { TransportationForm } from './TransportationForm';
+import { TransportationMap } from './TransportationMap';
 import {
   IAddress,
   ISearchResult,
@@ -30,6 +31,8 @@ const dataGouvGeocodingService = new DataGouvGeocodingService();
 
 export const Transportation = ({ roomAddress }: TransportationProps) => {
   const [searchResult, setSearchResult] = useState<ISearchResult | null>(null);
+  const [destination, setDestination] = useState<Address | null>(null);
+
   const origin = new Address(roomAddress, dataGouvGeocodingService);
 
   const handleTransportationSearch = (destinationAddress: IAddress) => {
@@ -47,6 +50,7 @@ export const Transportation = ({ roomAddress }: TransportationProps) => {
     );
 
     setSearchResult(searchResult);
+    setDestination(destination);
   };
 
   return (
@@ -57,6 +61,7 @@ export const Transportation = ({ roomAddress }: TransportationProps) => {
         handleTransportationSearch={handleTransportationSearch}
       />
       <TransportationResult searchResult={searchResult} />
+      <TransportationMap origin={origin} destination={destination} />
     </section>
   );
 };
