@@ -1,0 +1,62 @@
+@use '@styles/utils' as *;
+
+.info {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    'title host'
+    'location rating'
+    'tags rating';
+  align-items: center;
+  column-gap: 10px;
+  margin: 24px 0;
+  color: $primary-color;
+
+  @include laptop {
+    grid-template-areas:
+      'title title'
+      'location location'
+      'tags tags'
+      'rating host';
+  }
+}
+
+.title {
+  grid-area: title;
+  margin-bottom: 10px;
+  font-size: to-rem(36px);
+
+  @include laptop {
+    font-size: to-rem(24px);
+  }
+
+  @include mobile {
+    font-size: to-rem(18px);
+  }
+}
+
+.location {
+  grid-area: location;
+  margin-bottom: 20px;
+  font-size: to-rem(18px);
+
+  @include laptop {
+    margin-bottom: 10px;
+  }
+
+  @include mobile {
+    font-size: to-rem(14px);
+  }
+}
+
+.host {
+  grid-area: host;
+}
+
+.tags {
+  grid-area: tags;
+}
+
+.rating {
+  grid-area: rating;
+}

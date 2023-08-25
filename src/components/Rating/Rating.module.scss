@@ -1,0 +1,17 @@
+@use '@styles/utils' as *;
+
+.rating {
+  align-self: end;
+  display: flex;
+  gap: 15px;
+  padding-bottom: 13px;
+
+  @include laptop {
+    align-self: center;
+    padding-bottom: 0;
+  }
+
+  @include tablet {
+    gap: 5px;
+  }
+}
