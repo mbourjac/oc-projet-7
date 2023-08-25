@@ -6,7 +6,7 @@ export class Address {
 
   constructor(
     readonly address: IAddress,
-    private readonly geocodingService: GeocodingService
+    private readonly geocodingService?: GeocodingService
   ) {}
 
   get fullAddress() {
@@ -24,6 +24,10 @@ export class Address {
   }
 
   private async fetchCoordinates() {
+    if (!this.geocodingService) {
+      throw new Error('Please provide a geocoding service');
+    }
+
     const coordinates = await this.geocodingService.getAddressCoordinates(
       this.fullAddress
     );
