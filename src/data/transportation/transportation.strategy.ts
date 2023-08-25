@@ -24,7 +24,7 @@ export class MockTransportationStrategy implements TransportationStrategy {
   public async findTransportation(origin: Address, destination: Address) {
     if (!this.result) {
       throw new Error(
-        `No result found for transportation from '${origin.address}' to '${destination.address}'`
+        `No result found for transportation from '${origin.fullAddress}' to '${destination.fullAddress}'`
       );
     }
 
