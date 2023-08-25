@@ -1,6 +1,7 @@
+@use 'sass:map';
 @use '@styles/utils' as *;
 
-$border-radius: 10px;
+$border-radius: map.get($border-radiuses, 'medium');
 
 .card {
   position: relative;
