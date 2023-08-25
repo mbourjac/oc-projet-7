@@ -33,9 +33,9 @@ export const Room = () => {
         <div className={styles.rating}>
           {Array.from({ length: 5 }, (_, index) =>
             index < +room.rating ? (
-              <RatingStar key={nanoid()} isChecked={true} />
+              <RatingStar key={nanoid()} isOn={true} />
             ) : (
-              <RatingStar key={nanoid()} isChecked={false} />
+              <RatingStar key={nanoid()} isOn={false} />
             )
           )}
         </div>
