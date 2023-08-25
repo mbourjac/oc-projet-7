@@ -1,14 +1,14 @@
-import { ILocation } from './transportation.types';
+import { ICoordinates } from './transportation.types';
 
 export interface GeocodingService {
-  getAddressDetails(address: string): Promise<ILocation>;
+  getAddressCoordinates(address: string): Promise<ICoordinates>;
 }
 
 export class MockGeocodingService implements GeocodingService {
   private constructor(
     private geocodingData: {
       addressIdentifier: string;
-      addressObject: ILocation;
+      addressCoordinates: ICoordinates;
     }[]
   ) {}
 
@@ -17,13 +17,16 @@ export class MockGeocodingService implements GeocodingService {
   }
 
   withData(
-    geocodingData: { addressIdentifier: string; addressObject: ILocation }[]
+    geocodingData: {
+      addressIdentifier: string;
+      addressCoordinates: ICoordinates;
+    }[]
   ): MockGeocodingService {
     this.geocodingData = geocodingData;
     return this;
   }
 
-  async getAddressDetails(address: string): Promise<ILocation> {
+  async getAddressCoordinates(address: string): Promise<ICoordinates> {
     const matchingAddress = this.geocodingData.find(
       ({ addressIdentifier }) => addressIdentifier === address
     );
@@ -32,14 +35,14 @@ export class MockGeocodingService implements GeocodingService {
       throw new Error(`Address not found: ${address}`);
     }
 
-    return matchingAddress.addressObject;
+    return matchingAddress.addressCoordinates;
   }
 }
 
 export class DataGouvGeocodingService implements GeocodingService {
   private readonly apiUrl = new URL('https://api-adresse.data.gouv.fr/search/');
 
-  async getAddressDetails(address: string): Promise<ILocation> {
+  async getAddressCoordinates(address: string): Promise<ICoordinates> {
     this.apiUrl.searchParams.append('q', address);
 
     try {
@@ -54,19 +57,10 @@ export class DataGouvGeocodingService implements GeocodingService {
       const data = await response.json();
       const [addressObject] = data.features;
       const [longitude, latitude] = addressObject.geometry.coordinates;
-      const { housenumber, street, postcode, city } = addressObject.properties;
 
       return {
-        address: {
-          number: housenumber,
-          street,
-          postcode,
-          city,
-        },
-        coordinates: {
-          longitude,
-          latitude,
-        },
+        longitude,
+        latitude,
       };
     } catch (error) {
       if (error instanceof Error) {
