@@ -25,7 +25,7 @@ export class Duration {
       return { hours: 0, minutes: 1 };
     }
 
-    const totalMinutes = Math.round(this.seconds / 60);
+    const totalMinutes = Math.ceil(this.seconds / 60);
     const hours = Math.floor(totalMinutes / 60);
     const minutes = totalMinutes % 60;
 
