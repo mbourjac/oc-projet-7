@@ -1,0 +1,53 @@
+@use 'sass:map';
+@use 'sass:color';
+@use '@styles/utils' as *;
+@use '@styles/components/button';
+@use '@styles/components/input';
+
+.result {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.label {
+  @include button-font-sizes;
+  width: fit-content;
+  border: 1px solid color.scale($secondary-color, $lightness: -20%);
+  border-radius: button.$border-radius;
+  padding: map.get(button.$padding, 'vertical')
+    map.get(button.$padding, 'horizontal');
+  color: color.scale($secondary-color, $lightness: -20%);
+  text-align: center;
+  transition: all 0.3s ease-in;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.item {
+  border: 1px solid $primary-color;
+  border-radius: button.$border-radius;
+  padding: map.get(button.$padding, 'vertical')
+    map.get(button.$padding, 'horizontal');
+}
+
+.success {
+  border: 1px solid $primary-color;
+  color: #fff;
+  background-color: $primary-color;
+}
+
+.error {
+  width: 30%;
+  border: 1px solid color.scale($primary-color, $lightness: 50%);
+  padding: map.get(button.$padding, 'vertical')
+    map.get(button.$padding, 'horizontal');
+  border-radius: button.$border-radius;
+  color: $primary-color;
+  background-color: color.scale($primary-color, $lightness: 80%);
+  text-align: center;
+}
