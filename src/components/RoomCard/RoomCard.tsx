@@ -9,7 +9,7 @@ type RoomCardProps = {
 
 export const RoomCard = ({ id, cover, title }: RoomCardProps) => {
   return (
-    <Link to={`/rooms/${id}`}>
+    <Link to={`rooms/${id}`}>
       <article className={styles.card}>
         <img src={cover} alt="" className={styles.cover} />
         <h2 className={styles.title}>{title}</h2>
