@@ -2,20 +2,18 @@ import { Address } from './transportation.address';
 
 export type TransportationModes = 'walking' | 'bike' | 'publicTransport';
 
-export type ITransportation = {
-  [mode in TransportationModes]?: number;
-};
-
-export interface ICoordinates {
-  latitude: number;
-  longitude: number;
-}
+export type ITransportation = Map<TransportationModes, number>;
 
 export interface IAddress {
   number?: string;
   street: string;
   city: string;
   postcode?: string;
+}
+
+export interface ICoordinates {
+  latitude: number;
+  longitude: number;
 }
 
 export interface IJourney {

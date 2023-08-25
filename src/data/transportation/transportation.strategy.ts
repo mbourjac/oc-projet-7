@@ -1,6 +1,9 @@
 import { Address } from './transportation.address';
 import { Journey } from './transportation.journey';
-import type { ITransportation } from './transportation.types';
+import type {
+  ITransportation,
+  TransportationModes,
+} from './transportation.types';
 
 export interface TransportationStrategy {
   findTransportation(
@@ -37,11 +40,11 @@ export class DefaultTransportationStrategy implements TransportationStrategy {
     const journey = new Journey({ origin, destination });
     const distanceInKm = await journey.getDistanceInKm();
 
-    return {
-      walking: this.walkingDurationInSeconds(distanceInKm),
-      bike: this.bikeDurationInSeconds(distanceInKm),
-      publicTransport: this.busDurationInSeconds(distanceInKm),
-    };
+    return new Map<TransportationModes, number>([
+      ['walking', this.walkingDurationInSeconds(distanceInKm)],
+      ['bike', this.bikeDurationInSeconds(distanceInKm)],
+      ['publicTransport', this.busDurationInSeconds(distanceInKm)],
+    ]);
   }
 
   private walkingDurationInSeconds(distanceInKm: number): number {
