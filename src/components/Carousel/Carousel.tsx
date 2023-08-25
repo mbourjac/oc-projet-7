@@ -11,6 +11,7 @@ type CarouselProps = {
 export const Carousel = ({ pictures }: CarouselProps) => {
   const [index, setIndex] = useState(0);
   const picturesCount = pictures.length;
+  const shouldShowNavigation = picturesCount > 1;
 
   const handleShowPrevious = () => {
     setIndex((prevIndex) => (prevIndex - 1 + picturesCount) % picturesCount);
@@ -23,7 +24,7 @@ export const Carousel = ({ pictures }: CarouselProps) => {
   return (
     <div className={styles.carousel}>
       <img src={pictures[index]} alt="" className={styles.image} />
-      {picturesCount > 1 && (
+      {shouldShowNavigation && (
         <div className={styles.nav}>
           <CarouselButton
             src={prevButton}
