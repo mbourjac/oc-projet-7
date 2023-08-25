@@ -28,12 +28,12 @@ export const Carousel = ({ pictures }: CarouselProps) => {
           <CarouselButton
             src={prevButton}
             alt="Image précédente"
-            onClick={handlePrev}
+            handleNavigation={handlePrev}
           />
           <CarouselButton
             src={nextButton}
             alt="Image suivante"
-            onClick={handleNext}
+            handleNavigation={handleNext}
           />
         </div>
       )}
