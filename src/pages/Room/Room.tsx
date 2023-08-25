@@ -6,7 +6,6 @@ import { Tag } from '../../components/Tag/Tag';
 import { RatingStar } from '../../components/RatingStar/RatingStar';
 import { Collapsible } from '../../components/Collapsible/Collapsible';
 import styles from './Room.module.scss';
-import collapsibleStyles from '../../components/Collapsible/Collapsible.module.scss';
 import rooms from '../../data/rooms/rooms.json';
 
 export const Room = () => {
@@ -46,16 +45,8 @@ export const Room = () => {
         <img src={room.host.picture} alt="" className={styles.picture} />
       </section>
       <section className={styles.collapsibles}>
-        <Collapsible
-          title="Description"
-          content={room.description}
-          collapsibleClasses={collapsibleStyles.small}
-        />
-        <Collapsible
-          title="Équipements"
-          content={room.equipments}
-          collapsibleClasses={collapsibleStyles.small}
-        />
+        <Collapsible title="Description" content={room.description} />
+        <Collapsible title="Équipements" content={room.equipments} />
       </section>
     </>
   );
