@@ -1,6 +1,6 @@
 import { Address } from './transportation.address';
 
-export type TransportationModes = 'walking' | 'bike' | 'bus';
+export type TransportationModes = 'walking' | 'bike' | 'publicTransport';
 
 export type ITransportation = {
   [mode in TransportationModes]?: number;

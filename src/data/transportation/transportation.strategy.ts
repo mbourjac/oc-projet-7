@@ -40,7 +40,7 @@ export class DefaultTransportationStrategy implements TransportationStrategy {
     return {
       walking: this.walkingDurationInSeconds(distanceInKm),
       bike: this.bikeDurationInSeconds(distanceInKm),
-      bus: this.busDurationInSeconds(distanceInKm),
+      publicTransport: this.busDurationInSeconds(distanceInKm),
     };
   }
 
