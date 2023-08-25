@@ -12,7 +12,7 @@
     font-size: to-rem(34px);
   }
 
-  @include mobile {
+  @include tablet {
     font-size: to-rem(24px);
   }
 }
