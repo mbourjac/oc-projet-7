@@ -2,6 +2,7 @@
 @use '@styles/utils' as *;
 
 $desktop-border-radius: map.get($border-radiuses, 'large');
+$tablet-border-radius: map.get($border-radiuses, 'medium');
 
 .banner {
   @include flex-center;
@@ -13,6 +14,10 @@ $desktop-border-radius: map.get($border-radiuses, 'large');
     border-radius: $desktop-border-radius;
     background-color: #000;
     opacity: 0.3;
+
+    @include tablet {
+      border-radius: $tablet-border-radius;
+    }
   }
 
   @include tablet {
@@ -25,4 +30,9 @@ $desktop-border-radius: map.get($border-radiuses, 'large');
   @include cover-image;
   height: to-rem(225px);
   border-radius: $desktop-border-radius;
+
+  @include tablet {
+    height: to-rem(110px);
+    border-radius: $tablet-border-radius;
+  }
 }
