@@ -1,0 +1,4 @@
+@use 'sass:map';
+@use '@styles/components/button';
+
+$vertical-padding: map.get(button.$padding, 'vertical');

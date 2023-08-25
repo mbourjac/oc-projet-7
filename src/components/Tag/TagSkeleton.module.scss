@@ -1,15 +1,16 @@
 @use 'sass:map';
 @use '@styles/utils' as *;
+@use '@styles/components/button';
 
 .tag {
   @include skeleton-animation;
   width: 120px;
-  height: $main-line-height * map.get($button-font-sizes, 'desktop') + 2 *
-    map.get($button-padding, 'vertical');
-  border-radius: $button-border-radius;
+  height: $main-line-height * map.get(button.$font-sizes, 'desktop') + 2 *
+    map.get(button.$padding, 'vertical');
+  border-radius: button.$border-radius;
 
   @include tablet {
-    height: $main-line-height * map.get($button-font-sizes, 'tablet') + 2 *
-      map.get($button-padding, 'vertical');
+    height: $main-line-height * map.get(button.$font-sizes, 'tablet') + 2 *
+      map.get(button.$padding, 'vertical');
   }
 }

@@ -1,11 +1,12 @@
 @use 'sass:map';
 @use '@styles/utils' as *;
-@use '@styles/utils' as *;
+@use '@styles/components/button';
+@use '@styles/components/input';
 
 .input {
   @include skeleton-animation;
   flex-grow: 1;
-  height: map.get($button-font-sizes, 'desktop') * $main-line-height +
-    $input-vertical-padding * 2;
-  border-radius: $button-border-radius;
+  height: map.get(button.$font-sizes, 'desktop') * $main-line-height +
+    input.$vertical-padding * 2;
+  border-radius: button.$border-radius;
 }

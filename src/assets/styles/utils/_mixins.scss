@@ -2,6 +2,8 @@
 @use 'sass:color';
 @use './variables' as *;
 @use './functions' as *;
+@use '@styles/components/button';
+@use '@styles/components/input';
 
 @mixin mobile {
   @media screen and (max-width: map.get($breakpoints, 'mobile')) {
@@ -40,31 +42,30 @@
   margin: 0 auto;
 }
 
+@mixin button-font-sizes {
+  font-size: map.get(button.$font-sizes, 'desktop');
+
+  @include tablet {
+    font-size: map.get(button.$font-sizes, 'tablet');
+  }
+
+  @include mobile {
+    font-size: map.get(button.$font-sizes, 'mobile');
+  }
+}
+
 @mixin button-base($border-radius: 0) {
   border: none;
   border-radius: $border-radius;
   cursor: pointer;
 }
 
-@mixin button-font-sizes {
-  font-size: map.get($button-font-sizes, 'desktop');
-
-  @include tablet {
-    font-size: map.get($button-font-sizes, 'tablet');
-  }
-
-  @include mobile {
-    font-size: map.get($button-font-sizes, 'mobile');
-  }
-}
-
 @mixin button {
-  @include button-base;
   @include button-font-sizes;
   border: 1px solid color.scale($primary-color, $lightness: 5%);
-  border-radius: $button-border-radius;
-  padding: map.get($button-padding, 'vertical')
-    map.get($button-padding, 'horizontal');
+  border-radius: button.$border-radius;
+  padding: map.get(button.$padding, 'vertical')
+    map.get(button.$padding, 'horizontal');
   color: $primary-color;
   background-color: transparent;
   transition: all 0.3s ease-in;
@@ -84,6 +85,31 @@
     color: color.scale($secondary-color, $lightness: -20%);
     cursor: default;
   }
+}
+
+@mixin input {
+  @include button-font-sizes;
+  border-radius: button.$border-radius;
+  border: 1px solid color.scale($secondary-color, $lightness: -20%);
+  padding: input.$vertical-padding 12px;
+  font-family: $body-font;
+  font-weight: 500;
+  transition: border 0.2s ease-in;
+
+  &:focus-visible {
+    border: 1px solid color.scale($primary-color, $lightness: 10%);
+    outline: none;
+  }
+
+  &::placeholder {
+    color: $placeholder-color;
+    opacity: 1;
+  }
+}
+
+@mixin control-group {
+  display: flex;
+  gap: button.$spacing;
 }
 
 @mixin overlay {
@@ -141,29 +167,4 @@
   width: $diameter;
   height: $diameter;
   border-radius: 50%;
-}
-
-@mixin input {
-  @include button-font-sizes;
-  border-radius: $button-border-radius;
-  border: 1px solid color.scale($secondary-color, $lightness: -20%);
-  padding: $input-vertical-padding 12px;
-  font-family: $body-font;
-  font-weight: 500;
-  transition: border 0.2s ease-in;
-
-  &:focus-visible {
-    border: 1px solid color.scale($primary-color, $lightness: 10%);
-    outline: none;
-  }
-
-  &::placeholder {
-    color: $placeholder-color;
-    opacity: 1;
-  }
-}
-
-@mixin control-group {
-  display: flex;
-  gap: $button-spacing;
 }

@@ -1,0 +1,13 @@
+@use '@styles/utils/functions' as *;
+
+$border-radius: 10px;
+$padding: (
+  'vertical': to-rem(6px),
+  'horizontal': 28px,
+);
+$font-sizes: (
+  'desktop': to-rem(16px),
+  'tablet': to-rem(14px),
+  'mobile': to-rem(12px),
+);
+$spacing: 12px;
