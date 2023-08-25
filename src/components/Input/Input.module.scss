@@ -1,0 +1,41 @@
+@use 'sass:color';
+@use '@styles/utils' as *;
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+
+  @include mobile {
+    gap: 6px;
+  }
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+
+  @include mobile {
+    flex-direction: column;
+    gap: 2px;
+  }
+}
+
+.label {
+  color: $primary-color;
+}
+
+.input {
+  @include input;
+}
+
+.message {
+  color: $primary-color;
+  font-size: 14px;
+}
+
+.error {
+  border: 1px solid color.scale($primary-color, $lightness: 50%);
+  background-color: color.scale($primary-color, $lightness: 80%);
+}
