@@ -3,67 +3,73 @@ import { Duration } from './transportation.duration';
 import { TransportationMode } from './transportation.mode';
 import { TransportationStrategy } from './transportation.strategy';
 import type {
-  TransportationModes,
   ITransportation,
+  TransportationModes,
 } from './transportation.types';
-import { IDuration, ISearchResult } from './transportation.types';
+import type { ISearchResult } from './transportation.types';
 
 export class TransportationSearch {
-  constructor(private strategy?: TransportationStrategy) {}
+  constructor(private strategies?: TransportationStrategy[]) {}
 
-  public setStrategy(strategy: TransportationStrategy) {
-    this.strategy = strategy;
+  public setStrategies(strategies: TransportationStrategy[]) {
+    this.strategies = strategies;
   }
 
   public async displaySearchResult(
     origin: Address,
     destination: Address
   ): Promise<ISearchResult> {
-    if (!this.strategy) {
-      throw new Error('Please provide a transportation strategy.');
+    if (!this.strategies) {
+      throw new Error('Please provide transportation strategies.');
     }
 
     try {
-      const transportation = await this.strategy.findTransportation(
-        origin,
-        destination
+      const transportationResults = await Promise.all(
+        this.strategies.map((strategy) =>
+          strategy.findTransportation(origin, destination)
+        )
       );
-      const { mode, seconds } = this.findFastestDuration(transportation);
-      const duration = new Duration(seconds);
-      const transportationMode = new TransportationMode(mode);
+
+      const transportation = this.findUniqueFastestModes(transportationResults);
+      const sortedTransportation: [TransportationModes, number][] = [
+        ...transportation.entries(),
+      ].sort((a, b) => a[1] - b[1]);
+
+      const result = sortedTransportation.map(([mode, duration]) => {
+        const transportationMode = new TransportationMode(mode);
+        const transportationDuration = new Duration(duration);
+
+        return `${transportationMode.getFormattedMode()} : ${transportationDuration.getFormattedDuration()}`;
+      });
 
       return {
-        success: true,
-        result: `${transportationMode.getFormattedMode()} : ${duration.getFormattedDuration()}`,
+        status: 'success',
+        data: result,
       };
     } catch (error) {
       console.error(error);
 
       return {
-        success: false,
-        result: 'Une erreur est survenue.',
+        status: 'error',
+        message: 'Une erreur est survenue',
       };
     }
   }
 
-  private findFastestDuration(transportation: ITransportation): IDuration {
-    let fastestDuration = Infinity;
-    let fastestMode: TransportationModes | null = null;
-    let mode: keyof typeof transportation;
+  private findUniqueFastestModes(
+    transportationResults: ITransportation[]
+  ): ITransportation {
+    const uniqueFastestModes: ITransportation = new Map();
 
-    for (mode in transportation) {
-      const duration = transportation[mode];
-
-      if (duration !== undefined && duration < fastestDuration) {
-        fastestDuration = duration;
-        fastestMode = mode;
+    for (const transportationResult of transportationResults) {
+      for (const [mode, time] of transportationResult) {
+        const currentFastestTime = uniqueFastestModes.get(mode);
+        if (currentFastestTime === undefined || time < currentFastestTime) {
+          uniqueFastestModes.set(mode, time);
+        }
       }
     }
 
-    if (fastestMode === null) {
-      throw new Error('No valid transportation mode found.');
-    }
-
-    return { mode: fastestMode, seconds: fastestDuration };
+    return uniqueFastestModes;
   }
 }

@@ -1,6 +1,9 @@
 import { Address } from './transportation.address';
+import { TransportationStrategy } from './transportation.strategy';
 
 export type TransportationModes = 'walking' | 'bike' | 'publicTransport';
+
+export type TransportationStrategies = Record<string, TransportationStrategy>;
 
 export type ITransportation = Map<TransportationModes, number>;
 
@@ -26,10 +29,9 @@ export interface IDuration {
   seconds: number;
 }
 
-export interface ISearchResult {
-  success: boolean;
-  result: string;
-}
+export type ISearchResult =
+  | { status: 'success'; data: string[] }
+  | { status: 'error'; message: string };
 
 export interface INavitiaJourneyData {
   duration: number;
