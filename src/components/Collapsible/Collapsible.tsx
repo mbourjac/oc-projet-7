@@ -1,7 +1,7 @@
-import { useState, useRef, useEffect } from 'react';
-import { nanoid } from 'nanoid';
+import { useState } from 'react';
+import { CollapsibleButton } from './CollapsibleButton/CollapsibleButton';
+import { CollapsiblePanel } from './CollapsiblePanel/CollapsiblePanel';
 import styles from './Collapsible.module.scss';
-import dropdownIcon from '@images/dropdown.svg';
 
 type CollapsibleProps = {
   title: string;
@@ -15,55 +15,19 @@ export const Collapsible = ({
   collapsibleClasses,
 }: CollapsibleProps) => {
   const [isCollapsed, setIsCollapsed] = useState<boolean>(true);
-  const [maxHeight, setMaxHeight] = useState<number>(0);
-  const panelRef = useRef<HTMLDivElement>(null);
 
   const handleCollapse = () => {
     setIsCollapsed((prevIsCollapsed) => !prevIsCollapsed);
   };
 
-  useEffect(() => {
-    const updateMaxHeight = () => {
-      if (!panelRef.current) {
-        throw Error('contentRef is not assigned');
-      }
-
-      setMaxHeight(isCollapsed ? 0 : panelRef.current.scrollHeight);
-    };
-
-    updateMaxHeight();
-    window.addEventListener('resize', updateMaxHeight);
-
-    return () => {
-      window.removeEventListener('resize', updateMaxHeight);
-    };
-  }, [isCollapsed]);
-
   return (
     <article className={`${styles.collapsible} ${collapsibleClasses ?? ''}`}>
-      <button className={styles.button} onClick={handleCollapse}>
-        {title}
-        <img
-          src={dropdownIcon}
-          alt=""
-          className={`${styles.icon} ${isCollapsed ? '' : styles.rotate}`}
-        />
-      </button>
-      <div
-        className={styles.panel}
-        style={{ maxHeight: `${maxHeight}px` }}
-        ref={panelRef}
-      >
-        {typeof content === 'string' ? (
-          <p className={styles.content}>{content}</p>
-        ) : (
-          <ul className={styles.content}>
-            {content.map((item) => (
-              <li key={nanoid()}>{item}</li>
-            ))}
-          </ul>
-        )}
-      </div>
+      <CollapsibleButton
+        title={title}
+        isCollapsed={isCollapsed}
+        handleCollapse={handleCollapse}
+      />
+      <CollapsiblePanel content={content} isCollapsed={isCollapsed} />
     </article>
   );
 };

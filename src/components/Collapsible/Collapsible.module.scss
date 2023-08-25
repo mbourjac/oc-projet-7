@@ -1,7 +1,5 @@
 @use '@styles/utils' as *;
 
-$border-radius: 5px;
-
 .collapsible {
   width: 100%;
   font-size: to-rem(18px);
@@ -9,58 +7,4 @@ $border-radius: 5px;
 
 .large {
   font-size: to-rem(24px);
-}
-
-.button {
-  @include flex-spaced;
-  @include button($border-radius);
-  padding: 9px 18px;
-  color: #fff;
-  background-color: $primary-color;
-  font-size: inherit;
-
-  @include tablet {
-    font-size: to-rem(13px);
-  }
-}
-
-.icon {
-  transition: transform 0.2s ease-out;
-
-  @include tablet {
-    transform: scale(0.6);
-  }
-}
-
-.rotate {
-  transform: rotate(180deg);
-
-  @include tablet {
-    transform: rotate(180deg) scale(0.6);
-  }
-}
-
-.panel {
-  max-height: 0;
-  font-weight: 400;
-  overflow: hidden;
-  transition: max-height 0.2s ease-out;
-  position: relative;
-  top: $border-radius * -2;
-  z-index: -1;
-
-  @include tablet {
-    font-size: to-rem(12px);
-  }
-}
-
-.content {
-  border-radius: $border-radius;
-  padding: ($border-radius * 2 + 30) 18px 18px;
-  color: $primary-color;
-  background-color: $secondary-color;
-
-  @include tablet {
-    padding: ($border-radius * 2 + 18) 12px 12px;
-  }
 }

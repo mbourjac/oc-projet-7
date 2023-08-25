@@ -1,0 +1,31 @@
+@use 'sass:map';
+@use '@styles/utils' as *;
+
+.button {
+  @include flex-spaced;
+  @include button(map.get($border-radiuses, 'small'));
+  padding: 9px 18px;
+  color: #fff;
+  background-color: $primary-color;
+  font-size: inherit;
+
+  @include tablet {
+    font-size: to-rem(13px);
+  }
+}
+
+.icon {
+  transition: transform 0.2s ease-out;
+
+  @include tablet {
+    transform: scale(0.6);
+  }
+}
+
+.rotate {
+  transform: rotate(180deg);
+
+  @include tablet {
+    transform: rotate(180deg) scale(0.6);
+  }
+}
