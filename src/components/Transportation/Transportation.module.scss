@@ -1,11 +1,9 @@
-@use 'sass:map';
-@use 'sass:color';
 @use '@styles/utils' as *;
 
 .transportation {
   display: flex;
   flex-direction: column;
-  gap: $button-spacing;
+  gap: 24px;
   margin-top: 40px;
 
   > :last-child {
@@ -16,37 +14,4 @@
 .heading {
   color: $primary-color;
   font-weight: 500;
-}
-
-.strategies {
-  @include control-group;
-  flex-wrap: wrap;
-}
-
-.search {
-  @include control-group;
-  flex-wrap: wrap;
-}
-
-.input {
-  @include input;
-  flex: 1;
-}
-
-.submit {
-  @include button;
-}
-
-.result {
-  @include input;
-  width: 30%;
-}
-
-.placeholder {
-  color: $placeholder-color;
-}
-
-.error {
-  border: 1px solid $primary-color;
-  color: $primary-color;
 }
