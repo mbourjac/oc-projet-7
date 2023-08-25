@@ -11,14 +11,11 @@ export interface ICoordinates {
   longitude: number;
 }
 
-export interface ILocation {
-  address: {
-    number: number;
-    street: string;
-    postcode: number;
-    city: string;
-  };
-  coordinates: ICoordinates;
+export interface IAddress {
+  number?: string;
+  street: string;
+  city: string;
+  postcode?: string;
 }
 
 export interface IJourney {
