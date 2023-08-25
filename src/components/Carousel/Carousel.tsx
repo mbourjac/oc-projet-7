@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { CarouselButton } from '../CarouselButton/CarouselButton';
+import { CarouselButton } from './CarouselButton/CarouselButton';
 import styles from './Carousel.module.scss';
 import nextButton from '@images/next-button.svg';
 import prevButton from '@images/prev-button.svg';
