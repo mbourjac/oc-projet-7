@@ -18,7 +18,7 @@ export const About = () => {
   return (
     <>
       <Banner image={bannerImage} />
-      <section className={styles.services}>
+      <section className={styles.values}>
         {values.map(({ title, content }) => (
           <Collapsible
             key={nanoid()}
