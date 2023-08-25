@@ -25,18 +25,24 @@ export const Carousel = ({ pictures }: CarouselProps) => {
     <div className={styles.carousel}>
       <img src={pictures[index]} alt="" className={styles.image} />
       {shouldShowNavigation && (
-        <div className={styles.nav}>
-          <CarouselButton
-            src={prevButton}
-            alt="Afficher l'image précédente"
-            handleNavigation={handleShowPrevious}
-          />
-          <CarouselButton
-            src={nextButton}
-            alt="Afficher l'image suivante"
-            handleNavigation={handleShowNext}
-          />
-        </div>
+        <>
+          <div className={styles.nav}>
+            <CarouselButton
+              src={prevButton}
+              alt="Afficher l'image précédente"
+              handleNavigation={handleShowPrevious}
+            />
+            <CarouselButton
+              src={nextButton}
+              alt="Afficher l'image suivante"
+              handleNavigation={handleShowNext}
+            />
+          </div>
+          <p className={styles.pagination}>
+            <span className={styles.index}>{index + 1}</span>/
+            <span>{picturesCount}</span>
+          </p>
+        </>
       )}
     </div>
   );

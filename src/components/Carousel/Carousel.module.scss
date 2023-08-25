@@ -17,3 +17,20 @@
   @include flex-spaced;
   position: absolute;
 }
+
+.pagination {
+  position: absolute;
+  bottom: 24px;
+  display: grid;
+  grid-template-columns: 15px auto 15px;
+  color: #fff;
+  font-size: to-rem(18px);
+
+  @include laptop {
+    display: none;
+  }
+}
+
+.index {
+  justify-self: end;
+}
