@@ -5,6 +5,7 @@ import { RoomInfo } from '../../components/RoomInfo/RoomInfo';
 import { Collapsible } from '../../components/Collapsible/Collapsible';
 import styles from './Room.module.scss';
 import rooms from '../../data/rooms/rooms.json';
+import { useDocumentTitle } from '../../hooks/use-document.title';
 
 export const Room = () => {
   const { id } = useParams();
@@ -14,7 +15,9 @@ export const Room = () => {
     return <NotFound />;
   }
 
-  const { pictures, description, equipments } = room;
+  const { title, pictures, description, equipments } = room;
+
+  useDocumentTitle(title);
 
   return (
     <>

@@ -1,7 +1,10 @@
+import { useDocumentTitle } from '../../hooks/use-document.title';
 import { Link } from 'react-router-dom';
 import styles from './NotFound.module.scss';
 
 export const NotFound = () => {
+  useDocumentTitle('Page non trouvée');
+
   return (
     <div className={styles.container}>
       <h1 className={styles.status}>404</h1>

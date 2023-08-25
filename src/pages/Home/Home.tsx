@@ -1,3 +1,4 @@
+import { useDocumentTitle } from '../../hooks/use-document.title';
 import { Banner } from '../../components/Banner/Banner';
 import { RoomCard } from '../../components/RoomCard/RoomCard';
 import styles from './Home.module.scss';
@@ -7,6 +8,7 @@ import bannerImageM from '@images/home-banner-m.jpg';
 import bannerImageL from '@images/home-banner-l.jpg';
 
 export const Home = () => {
+  useDocumentTitle('Kasa');
   const bannerImage = {
     small: bannerImageS,
     medium: bannerImageM,
