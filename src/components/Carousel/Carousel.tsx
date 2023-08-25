@@ -12,12 +12,12 @@ export const Carousel = ({ pictures }: CarouselProps) => {
   const [index, setIndex] = useState(0);
   const picturesCount = pictures.length;
 
-  const handleNext = () => {
-    setIndex((prevIndex) => (prevIndex + 1) % picturesCount);
+  const handleShowPrevious = () => {
+    setIndex((prevIndex) => (prevIndex - 1 + picturesCount) % picturesCount);
   };
 
-  const handlePrev = () => {
-    setIndex((prevIndex) => (prevIndex - 1 + picturesCount) % picturesCount);
+  const handleShowNext = () => {
+    setIndex((prevIndex) => (prevIndex + 1) % picturesCount);
   };
 
   return (
@@ -28,12 +28,12 @@ export const Carousel = ({ pictures }: CarouselProps) => {
           <CarouselButton
             src={prevButton}
             alt="Image précédente"
-            handleNavigation={handlePrev}
+            handleNavigation={handleShowPrevious}
           />
           <CarouselButton
             src={nextButton}
             alt="Image suivante"
-            handleNavigation={handleNext}
+            handleNavigation={handleShowNext}
           />
         </div>
       )}
