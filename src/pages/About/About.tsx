@@ -1,4 +1,3 @@
-import { nanoid } from 'nanoid';
 import { Banner } from '../../components/Banner/Banner';
 import { Collapsible } from '../../components/Collapsible/Collapsible';
 import styles from './About.module.scss';
@@ -21,7 +20,7 @@ export const About = () => {
       <section className={styles.values}>
         {values.map(({ title, content }) => (
           <Collapsible
-            key={nanoid()}
+            key={title}
             title={title}
             content={content}
             collapsibleClasses={collapsibleStyles.large}
