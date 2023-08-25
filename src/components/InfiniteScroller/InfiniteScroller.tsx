@@ -21,7 +21,7 @@ export const InfiniteScroller = ({
     }
 
     const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
+      if (entry?.isIntersecting) {
         observer.unobserve(entry.target);
         loadNext(currentPage + 1);
       }

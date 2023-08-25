@@ -64,7 +64,10 @@ export const Rooms = () => {
     while (randomTags.size < count - selectedTags.length) {
       const randomIndex = Math.floor(Math.random() * filteredTags.length);
       const randomTag = filteredTags[randomIndex];
-      randomTags.add(randomTag);
+
+      if (randomTag !== undefined) {
+        randomTags.add(randomTag);
+      }
     }
 
     return Array.from(randomTags).map((tag) => ({

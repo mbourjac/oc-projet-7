@@ -132,21 +132,21 @@ export class JsonRoomsRepository extends AbstractRoomsRepository {
     }
 
     for (let j = 1; j <= targetLength; j++) {
-      distanceMatrix[0][j] = j;
+      distanceMatrix[0]![j] = j;
     }
 
     for (let i = 1; i <= sourceLength; i++) {
       for (let j = 1; j <= targetLength; j++) {
         const cost = source[i - 1] !== target[j - 1] ? 1 : 0;
-        distanceMatrix[i][j] = Math.min(
-          distanceMatrix[i - 1][j] + 1,
-          distanceMatrix[i][j - 1] + 1,
-          distanceMatrix[i - 1][j - 1] + cost
+        distanceMatrix[i]![j] = Math.min(
+          distanceMatrix[i - 1]![j]! + 1,
+          distanceMatrix[i]![j - 1]! + 1,
+          distanceMatrix[i - 1]![j - 1]! + cost
         );
       }
     }
 
-    return distanceMatrix[sourceLength][targetLength];
+    return distanceMatrix[sourceLength]![targetLength]!;
   }
 
   private withDelay(delay?: number): Promise<void> {
