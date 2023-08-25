@@ -1,10 +1,10 @@
-import styles from './Star.module.scss';
+import styles from './RatingStar.module.scss';
 
-type StarProps = {
+type RatingStarProps = {
   isChecked: boolean;
 };
 
-export const Star = ({ isChecked }: StarProps) => {
+export const RatingStar = ({ isChecked }: RatingStarProps) => {
   return (
     <svg
       width="25"

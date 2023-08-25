@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid';
 import { NotFound } from '../NotFound/NotFound';
 import { Carousel } from '../../components/Carousel/Carousel';
 import { Tag } from '../../components/Tag/Tag';
-import { Star } from '../../components/Star/Star';
+import { RatingStar } from '../../components/RatingStar/RatingStar';
 import { Collapsible } from '../../components/Collapsible/Collapsible';
 import styles from './Room.module.scss';
 import collapsibleStyles from '../../components/Collapsible/Collapsible.module.scss';
@@ -33,9 +33,9 @@ export const Room = () => {
         <div className={styles.rating}>
           {Array.from({ length: 5 }, (_, index) =>
             index < +room.rating ? (
-              <Star key={nanoid()} isChecked={true} />
+              <RatingStar key={nanoid()} isChecked={true} />
             ) : (
-              <Star key={nanoid()} isChecked={false} />
+              <RatingStar key={nanoid()} isChecked={false} />
             )
           )}
         </div>
