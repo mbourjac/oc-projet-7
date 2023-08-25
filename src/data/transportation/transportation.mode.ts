@@ -9,8 +9,8 @@ export class TransportationMode {
         return 'À pied';
       case 'bike':
         return 'À vélo';
-      case 'bus':
-        return 'En bus';
+      case 'publicTransport':
+        return 'En transport';
       default:
         return 'Unknown transportation mode';
     }
