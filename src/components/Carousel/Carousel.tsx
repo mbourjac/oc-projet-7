@@ -28,12 +28,12 @@ export const Carousel = ({ pictures }: CarouselProps) => {
         <div className={styles.nav}>
           <CarouselButton
             src={prevButton}
-            alt="Image précédente"
+            alt="Afficher l'image précédente"
             handleNavigation={handleShowPrevious}
           />
           <CarouselButton
             src={nextButton}
-            alt="Image suivante"
+            alt="Afficher l'image suivante"
             handleNavigation={handleShowNext}
           />
         </div>
