@@ -8,7 +8,12 @@ $secondary-color: #f6f6f6;
 $main-max-width: to-rem(1400px);
 $main-desktop-padding: 100px;
 $main-mobile-padding: 20px;
-$main-border-radius: 25px;
+
+$border-radiuses: (
+  'large': 25px,
+  'medium': 10px,
+  'small': 5px,
+);
 
 $breakpoints: (
   'mobile': to-rem(475px),

@@ -1,3 +1,4 @@
+@use 'sass:map';
 @use '@styles/utils' as *;
 
 .carousel {
@@ -9,7 +10,7 @@
   @include cover-image;
   min-height: 225px;
   aspect-ratio: 1240 / 415;
-  border-radius: $main-border-radius;
+  border-radius: map.get($border-radiuses, 'large');
 }
 
 .nav {
