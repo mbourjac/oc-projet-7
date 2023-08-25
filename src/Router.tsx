@@ -4,7 +4,7 @@ import {
   createRoutesFromElements,
   Route,
 } from 'react-router-dom';
-import { AppLayout } from './components/AppLayout/AppLayout';
+import { AppLayout } from './layouts/AppLayout/AppLayout';
 import { Home } from './pages/Home/Home';
 import { About } from './pages/About/About';
 import { NotFound } from './pages/NotFound/NotFound';
