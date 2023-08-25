@@ -1,3 +1,5 @@
+import { IAddress } from '../transportation/transportation.types';
+
 export interface IRoom {
   id: string;
   title: string;
@@ -10,16 +12,9 @@ export interface IRoom {
   };
   rating: string;
   location: string;
-  address: IRoomAddress;
+  address: Required<IAddress>;
   equipments: string[];
   tags: string[];
-}
-
-export interface IRoomAddress {
-  number: string;
-  street: string;
-  city: string;
-  postcode: string;
 }
 
 export interface IGetRooms {
