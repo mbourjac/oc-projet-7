@@ -2,7 +2,7 @@ import { nanoid } from 'nanoid';
 import { Banner } from '../../components/Banner/Banner';
 import { Collapsible } from '../../components/Collapsible/Collapsible';
 import styles from './About.module.scss';
-import services from '../../data/services.json';
+import values from '../../data/values.json';
 import bannerImageS from '@images/about-banner-s.jpg';
 import bannerImageM from '@images/about-banner-m.jpg';
 import bannerImageL from '@images/about-banner-l.jpg';
@@ -18,7 +18,7 @@ export const About = () => {
     <>
       <Banner image={bannerImage} />
       <section className={styles.services}>
-        {services.map(({ title, content }) => (
+        {values.map(({ title, content }) => (
           <Collapsible key={nanoid()} title={title} content={content} />
         ))}
       </section>
