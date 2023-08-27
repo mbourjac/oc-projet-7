@@ -1,5 +1,5 @@
 import { RoomHost } from '../RoomHost/RoomHost';
-import { RoomTags } from './RoomTags';
+import { RoomTags } from '../RoomTags/RoomTags';
 import { Rating } from '../Rating/Rating';
 import { IRoom } from '../../data/rooms/rooms.types';
 import styles from './RoomInfo.module.scss';
