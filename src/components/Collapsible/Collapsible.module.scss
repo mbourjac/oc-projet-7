@@ -4,63 +4,9 @@
 
 .collapsible {
   width: 100%;
+  font-size: map.get(collapsible.$font-sizes, 'small');
+}
+
+.large {
   font-size: map.get(collapsible.$font-sizes, 'base', 'desktop');
-
-  &.small {
-    font-size: map.get(collapsible.$font-sizes, 'small');
-  }
-}
-
-.button {
-  @include flex-spaced;
-  @include button-base(collapsible.$border-radius);
-  padding: collapsible.$vertical-padding 18px;
-  color: #fff;
-  background-color: $primary-color;
-  font-size: inherit;
-
-  @include tablet {
-    font-size: map.get(collapsible.$font-sizes, 'base', 'tablet');
-  }
-}
-
-.icon {
-  transition: transform 0.2s ease-out;
-
-  @include tablet {
-    transform: scale(0.6);
-  }
-}
-
-.rotate {
-  transform: rotate(180deg);
-
-  @include tablet {
-    transform: rotate(180deg) scale(0.6);
-  }
-}
-
-.panel {
-  max-height: 0;
-  font-weight: 400;
-  overflow: hidden;
-  transition: max-height 0.2s ease-out;
-  position: relative;
-  top: collapsible.$border-radius * -2;
-  z-index: -1;
-
-  @include tablet {
-    font-size: to-rem(12px);
-  }
-}
-
-.content {
-  border-radius: collapsible.$border-radius;
-  padding: (collapsible.$border-radius * 2 + 30) 18px 18px;
-  color: $primary-color;
-  background-color: $secondary-color;
-
-  @include tablet {
-    padding: (collapsible.$border-radius * 2 + 18) 12px 12px;
-  }
 }

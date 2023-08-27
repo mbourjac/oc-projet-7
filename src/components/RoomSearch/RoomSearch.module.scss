@@ -1,22 +1,3 @@
-@use 'sass:map';
-@use 'sass:color';
-@use '@styles/utils' as *;
-
 .search {
-  @include control-group;
-  flex-wrap: wrap;
-  margin-bottom: 24px;
-}
-
-.input {
-  @include input;
-  flex-grow: 1;
-}
-
-.controls {
-  @include control-group;
-}
-
-.button {
-  @include button;
+  margin-bottom: 40px;
 }

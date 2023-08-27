@@ -1,4 +1,7 @@
+@use 'sass:map';
 @use 'sass:math';
+@use '@styles/utils' as *;
 
-$min-height: 225px;
+$min-height: 255px;
 $ratio: math.div(1240, 415);
+$border-radius: map.get($border-radiuses, 'large');

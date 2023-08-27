@@ -9,8 +9,13 @@ $placeholder-color: #b3b3b3;
 $main-max-width: to-rem(1400px);
 $main-desktop-padding: 100px;
 $main-mobile-padding: 20px;
-$main-border-radius: 25px;
 $main-line-height: 1.2;
+
+$border-radiuses: (
+  'large': 25px,
+  'medium': 10px,
+  'small': 5px,
+);
 
 $skeleton-animation: (
   'colors': (

@@ -1,10 +1,11 @@
+@use 'sass:map';
 @use '@styles/utils' as *;
 
 .rooms {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(to-rem(260px), 1fr));
   gap: 60px;
-  border-radius: $main-border-radius;
+  border-radius: map.get($border-radiuses, 'large');
   padding: 56px 50px;
   background-color: $secondary-color;
 

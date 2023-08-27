@@ -1,16 +1,13 @@
 import { useEffect, useState, SetStateAction, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { RoomSearch } from '../../components/RoomSearch/RoomSearch';
-import { RoomSearchSkeleton } from '../../components/RoomSearch/RoomSearchSkeleton';
-import { TagFilters } from '../../components/TagFilters/TagFilters';
-import { TagFiltersSkeleton } from '../../components/TagFilters/TagFiltersSkeleton';
 import { CardContainer } from '../../components/CardContainer/CardContainer';
 import { CardList } from '../../components/CardList/CardList';
 import { CardListSkeleton } from '../../components/CardList/CardListSkeleton';
 import { InfiniteScroller } from '../../components/InfiniteScroller/InfiniteScroller';
 import { JsonRoomsRepository } from '../../data/rooms/rooms.repositories';
 import { IRoom } from '../../data/rooms/rooms.types';
-import { ITag } from '../../components/Tag/tag.types';
+import { ITag } from '../../components/TagFilters/TagFilters.types';
 import styles from './Rooms.module.scss';
 import infiniteScrollerStyles from '../../components/InfiniteScroller/InfiniteScroller.module.scss';
 import roomsJson from '../../data/rooms/rooms.json';
@@ -32,7 +29,7 @@ export const Rooms = () => {
   const getCurrentPage = (rooms: IRoom[]) =>
     Math.ceil(rooms.length / roomsLimit);
   const getSelectedTags = () =>
-    tagButtons.filter(({ selected }) => selected).map(({ tag }) => tag);
+    tagButtons.filter(({ isSelected }) => isSelected).map(({ tag }) => tag);
 
   const loadNextRooms = useCallback(async () => {
     if (!rooms) return;
@@ -72,7 +69,7 @@ export const Rooms = () => {
 
     return Array.from(randomTags).map((tag) => ({
       tag,
-      selected: false,
+      isSelected: false,
     }));
   };
 
@@ -109,7 +106,7 @@ export const Rooms = () => {
 
     setTagButtons(
       tagParam
-        ? [{ tag: tagParam, selected: true }, ...randomTags]
+        ? [{ tag: tagParam, isSelected: true }, ...randomTags]
         : [...randomTags]
     );
   }, [allUniqueTags, tagParam]);
@@ -126,7 +123,7 @@ export const Rooms = () => {
 
     setTagButtons((prevTagButtons) => {
       return [
-        ...prevTagButtons.filter(({ selected }) => selected),
+        ...prevTagButtons.filter(({ isSelected }) => isSelected),
         ...randomTags,
       ];
     });
@@ -141,27 +138,17 @@ export const Rooms = () => {
 
   const isLoadingInitialRooms = rooms === null;
   const hasRooms = rooms?.length ?? 0 > 0;
-  const isLoadingTagButtons = tagButtons.length === 0;
   const isLastPage = (rooms: IRoom[]) =>
     getCurrentPage(rooms) === lastPage || lastPage === 0;
 
   return (
     <>
-      {isLoadingTagButtons ? (
-        <>
-          <RoomSearchSkeleton />
-          <TagFiltersSkeleton />
-        </>
-      ) : (
-        <>
-          <RoomSearch handleRoomSearch={handleRoomSearch} />
-          <TagFilters
-            tags={tagButtons}
-            handleTagsUpdate={handleTagsUpdate}
-            handleTagsShuffle={handleTagsShuffle}
-          />
-        </>
-      )}
+      <RoomSearch
+        tagButtons={tagButtons}
+        handleRoomSearch={handleRoomSearch}
+        handleTagsUpdate={handleTagsUpdate}
+        handleTagsShuffle={handleTagsShuffle}
+      />
       <CardContainer>
         {isLoadingInitialRooms ? (
           <CardListSkeleton length={roomsLimit} />

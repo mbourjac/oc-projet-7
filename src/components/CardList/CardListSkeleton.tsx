@@ -1,4 +1,3 @@
-import { nanoid } from 'nanoid';
 import { CardSkeleton } from '../Card/CardSkeleton';
 
 type CardListSkeletonProps = {
@@ -8,8 +7,8 @@ type CardListSkeletonProps = {
 export const CardListSkeleton = ({ length }: CardListSkeletonProps) => {
   return (
     <>
-      {Array.from({ length }, (_) => (
-        <CardSkeleton key={nanoid()} />
+      {Array.from({ length }, (_, index) => (
+        <CardSkeleton key={index} />
       ))}
     </>
   );

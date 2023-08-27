@@ -2,6 +2,12 @@
 @use '@styles/utils' as *;
 @use '@styles/components/button';
 
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
 .tag {
   @include skeleton-animation;
   width: 120px;

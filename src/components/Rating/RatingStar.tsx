@@ -1,10 +1,10 @@
-import styles from './Star.module.scss';
+import styles from './RatingStar.module.scss';
 
-type StarProps = {
+type RatingStarProps = {
   pathClasses?: string;
 };
 
-export const Star = ({ pathClasses }: StarProps) => {
+export const RatingStar = ({ pathClasses }: RatingStarProps) => {
   return (
     <svg
       width="25"

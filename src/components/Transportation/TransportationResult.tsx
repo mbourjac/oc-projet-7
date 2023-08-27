@@ -1,4 +1,3 @@
-import { nanoid } from 'nanoid';
 import { ISearchResult } from '../../data/transportation/transportation.types';
 import styles from './TransportationResult.module.scss';
 
@@ -24,7 +23,7 @@ export const TransportationResult = ({
       {isSearchSuccess ? (
         <ul className={styles.list}>
           {searchResult.data.map((result) => (
-            <li key={nanoid()} className={styles.item}>
+            <li key={result} className={styles.item}>
               {result}
             </li>
           ))}

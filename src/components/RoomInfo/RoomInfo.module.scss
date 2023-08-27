@@ -1,0 +1,65 @@
+@use 'sass:map';
+@use '@styles/utils' as *;
+@use '@styles/pages/room';
+
+.info {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    'title host'
+    'location rating'
+    'tags rating';
+  align-items: center;
+  column-gap: 10px;
+  margin: 24px 0;
+  color: $primary-color;
+
+  @include laptop {
+    grid-template-areas:
+      'title title'
+      'location location'
+      'tags tags'
+      'rating host';
+  }
+}
+
+.title {
+  grid-area: title;
+  margin-bottom: 10px;
+  font-size: map.get(room.$title, 'font-sizes', 'desktop');
+
+  @include laptop {
+    font-size: map.get(room.$title, 'font-sizes', 'laptop');
+  }
+
+  @include mobile {
+    font-size: map.get(room.$title, 'font-sizes', 'mobile');
+  }
+}
+
+.location {
+  grid-area: location;
+  margin-bottom: map.get(room.$location, 'margins', 'bottom', 'desktop');
+  font-size: map.get(room.$location, 'font-sizes', 'desktop');
+
+  @include laptop {
+    margin-top: map.get(room.$location, 'margins', 'top', 'laptop');
+    margin-bottom: map.get(room.$location, 'margins', 'bottom', 'laptop');
+  }
+
+  @include mobile {
+    font-size: map.get(room.$location, 'font-sizes', 'mobile');
+  }
+}
+
+.host {
+  grid-area: host;
+}
+
+.tags {
+  grid-area: tags;
+}
+
+.rating {
+  grid-area: rating;
+}

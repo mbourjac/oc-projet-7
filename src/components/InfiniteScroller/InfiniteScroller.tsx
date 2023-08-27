@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react';
-import { nanoid } from 'nanoid';
 import styles from './InfiniteScroller.module.scss';
 
 type InfiniteScrollerProps = {
@@ -38,8 +37,8 @@ export const InfiniteScroller = ({
     <div ref={intersectionRef} className={styles.trigger}>
       {isLoading && (
         <div className={styles.loader}>
-          {Array.from({ length: 3 }, (_) => (
-            <span className={styles.dot} key={nanoid()}></span>
+          {Array.from({ length: 3 }, (_, index) => (
+            <span key={index} className={styles.dot}></span>
           ))}
         </div>
       )}

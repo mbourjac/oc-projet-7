@@ -1,13 +1,16 @@
 @use 'sass:map';
-@use 'sass:color';
 @use '@styles/utils' as *;
 
 .tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 10px;
+
+  @include laptop {
+    margin-bottom: 16px;
+  }
 }
 
-.control {
+.tag {
   @include button;
 }

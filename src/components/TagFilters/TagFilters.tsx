@@ -1,19 +1,20 @@
 import { SetStateAction, Dispatch } from 'react';
-import { nanoid } from 'nanoid';
-import { TagButton } from '../Tag/TagButton';
-import { ITag } from '../Tag/tag.types';
+import { TagButton } from './TagButton';
+import { ITag } from './TagFilters.types';
 import styles from './TagFilters.module.scss';
 
 interface TagFiltersProps {
   tags: ITag[];
   handleTagsUpdate: Dispatch<SetStateAction<ITag[]>>;
   handleTagsShuffle: () => void;
+  tagsClasses?: string;
 }
 
 export const TagFilters = ({
   tags,
   handleTagsUpdate,
   handleTagsShuffle,
+  tagsClasses,
 }: TagFiltersProps) => {
   const handleResetAll = () => {
     const resetAllTagButtons = (tagButtons: ITag[]) =>
@@ -30,18 +31,18 @@ export const TagFilters = ({
       tagButtons.map((tagButton) =>
         tagButton.tag !== tag
           ? tagButton
-          : { tag, selected: !tagButton.selected }
+          : { tag, isSelected: !tagButton.isSelected }
       );
 
     handleTagsUpdate(updateSelectedTagButtons);
   };
 
-  const selectedTags = tags.filter(({ selected }) => selected);
+  const selectedTags = tags.filter(({ isSelected }) => isSelected);
   const allTagsSelected = selectedTags.length === tags.length;
   const noTagSelected = selectedTags.length === 0;
 
   return (
-    <section className={styles.tags}>
+    <div className={`${styles.tags} ${tagsClasses ?? ''}`.trim()}>
       <button
         onClick={handleTagsShuffle}
         disabled={allTagsSelected}
@@ -58,14 +59,14 @@ export const TagFilters = ({
       >
         Réinitialiser
       </button>
-      {tags.map(({ tag, selected }) => (
+      {tags.map(({ tag, isSelected }) => (
         <TagButton
-          key={nanoid()}
+          key={tag}
           tagLabel={tag}
-          selected={selected}
+          isSelected={isSelected}
           handleTagSelection={() => handleTagSelection(tag)}
         />
       ))}
-    </section>
+    </div>
   );
 };

@@ -1,56 +1,43 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
+import { SearchForm } from '../SearchForm/SearchForm';
+import { TagFilters } from '../TagFilters/TagFilters';
+import { SearchFormSkeleton } from '../SearchForm/SearchFormSkeleton';
+import { TagListSkeleton } from '../TagListSkeleton/TagListSkeleton';
+import { ITag } from '../TagFilters/TagFilters.types';
 import styles from './RoomSearch.module.scss';
 
 type RoomSearchProps = {
+  tagButtons: ITag[];
   handleRoomSearch: (searchQuery: string) => void;
+  handleTagsUpdate: Dispatch<SetStateAction<ITag[]>>;
+  handleTagsShuffle: () => void;
 };
 
-export const RoomSearch = ({ handleRoomSearch }: RoomSearchProps) => {
-  const [searchInput, setSearchInput] = useState('');
-  const [isInputModified, setIsInputModified] = useState(false);
-
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearchInput(event.target.value);
-    setIsInputModified(true);
-  };
-
-  const handleSearchErase = () => {
-    setSearchInput('');
-    handleRoomSearch('');
-  };
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    handleRoomSearch(searchInput);
-    setIsInputModified(false);
-  };
+export const RoomSearch = ({
+  tagButtons,
+  handleRoomSearch,
+  handleTagsUpdate,
+  handleTagsShuffle,
+}: RoomSearchProps) => {
+  const isLoadingTagButtons = tagButtons.length === 0;
 
   return (
-    <form className={styles.search} onSubmit={handleSubmit}>
-      <input
-        type="search"
-        value={searchInput}
-        onChange={handleInputChange}
-        className={styles.input}
-        aria-label="Rechercher"
-      />
-      <div className={styles.controls}>
-        <button
-          type="submit"
-          disabled={!isInputModified || searchInput.trim() === ''}
-          className={styles.button}
-        >
-          Rechercher
-        </button>
-        <button
-          type="button"
-          disabled={searchInput.trim() === ''}
-          className={styles.button}
-          onClick={handleSearchErase}
-        >
-          Effacer
-        </button>
-      </div>
-    </form>
+    <section className={styles.search}>
+      {isLoadingTagButtons ? (
+        <>
+          <SearchFormSkeleton />
+          <TagListSkeleton length={12} />
+        </>
+      ) : (
+        <>
+          <SearchForm handleRoomSearch={handleRoomSearch} />
+          <TagFilters
+            tags={tagButtons}
+            handleTagsUpdate={handleTagsUpdate}
+            handleTagsShuffle={handleTagsShuffle}
+          />
+        </>
+      )}
+    </section>
   );
 };

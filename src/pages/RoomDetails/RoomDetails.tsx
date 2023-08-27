@@ -5,10 +5,8 @@ import {
   defer,
   Await,
 } from 'react-router-dom';
-import { nanoid } from 'nanoid';
 import { Carousel } from '../../components/Carousel/Carousel';
-import { TagLink } from '../../components/Tag/TagLink';
-import { Star } from '../../components/Star/Star';
+import { RoomInfo } from '../../components/RoomInfo/RoomInfo';
 import { Collapsible } from '../../components/Collapsible/Collapsible';
 import { Transportation } from '../../components/Transportation/Transportation';
 import { RoomDetailsSkeleton } from './RoomDetailsSkeleton';
@@ -16,8 +14,6 @@ import { JsonRoomsRepository } from '../../data/rooms/rooms.repositories';
 import { IRoom } from '../../data/rooms/rooms.types';
 import { NotFound } from '../../errors/errors.not-found';
 import styles from './RoomDetails.module.scss';
-import starStyles from '../../components/Star/Star.module.scss';
-import collapsibleStyles from '../../components/Collapsible/Collapsible.module.scss';
 import roomsJson from '../../data/rooms/rooms.json';
 
 type LoaderData = {
@@ -41,51 +37,17 @@ export const RoomDetails = () => {
             throw new NotFound();
           }
 
-          const [hostFirstName, hostLastName] = room.host.name.split(' ');
+          const { pictures, description, equipments, address } = room;
 
           return (
             <>
-              <Carousel pictures={room.pictures} />
-              <section className={styles.information}>
-                <h1 className={styles.title}>{room.title}</h1>
-                <p className={styles.location}>{room.location}</p>
-                <div className={styles.tags}>
-                  {room.tags.map((tag) => (
-                    <TagLink key={nanoid()} tag={tag} />
-                  ))}
-                </div>
-                <div className={styles.rating}>
-                  {Array.from({ length: 5 }, (_, index) =>
-                    index < +room.rating ? (
-                      <Star key={nanoid()} pathClasses={starStyles.checked} />
-                    ) : (
-                      <Star key={nanoid()} />
-                    )
-                  )}
-                </div>
-                <p className={styles.name}>
-                  <span>{hostFirstName}</span>
-                  <span>{hostLastName}</span>
-                </p>
-                <img
-                  src={room.host.picture}
-                  alt=""
-                  className={styles.picture}
-                />
-              </section>
+              <Carousel pictures={pictures} />
+              <RoomInfo room={room} />
               <section className={styles.collapsibles}>
-                <Collapsible
-                  title="Description"
-                  content={room.description}
-                  collapsibleClasses={collapsibleStyles.small}
-                />
-                <Collapsible
-                  title="Équipements"
-                  content={room.equipments}
-                  collapsibleClasses={collapsibleStyles.small}
-                />
+                <Collapsible title="Description" content={description} />
+                <Collapsible title="Équipements" content={equipments} />
               </section>
-              <Transportation roomAddress={room.address} />
+              <Transportation roomAddress={address} />
             </>
           );
         }}

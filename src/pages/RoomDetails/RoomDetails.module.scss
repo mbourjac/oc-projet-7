@@ -3,31 +3,6 @@
 @use '@styles/utils' as *;
 @use '@styles/pages/room';
 
-.information {
-  display: grid;
-  grid-template-columns: 1fr auto room.$host-picture-size;
-  grid-template-areas:
-    'title name picture'
-    'location rating rating'
-    'tags rating rating';
-  align-items: center;
-  column-gap: 10px;
-  margin: 24px 0;
-  color: $primary-color;
-
-  @include laptop {
-    grid-template-areas:
-      'title title title'
-      'location location location'
-      'tags tags tags'
-      'rating name picture';
-  }
-
-  @include mobile {
-    grid-template-columns: 1fr auto math.div(room.$host-picture-size, 2);
-  }
-}
-
 .collapsibles {
   display: flex;
   gap: 76px;
@@ -35,34 +10,6 @@
   @include laptop {
     flex-direction: column;
     gap: 20px;
-  }
-}
-
-.title {
-  grid-area: title;
-  font-size: map.get(room.$title, 'font-sizes', 'desktop');
-
-  @include laptop {
-    font-size: map.get(room.$title, 'font-sizes', 'laptop');
-  }
-
-  @include mobile {
-    font-size: map.get(room.$title, 'font-sizes', 'mobile');
-  }
-}
-
-.location {
-  grid-area: location;
-  margin-bottom: map.get(room.$location, 'margins', 'bottom', 'desktop');
-  font-size: map.get(room.$location, 'font-sizes', 'desktop');
-
-  @include laptop {
-    margin-top: map.get(room.$location, 'margins', 'top', 'laptop');
-    margin-bottom: map.get(room.$location, 'margins', 'bottom', 'laptop');
-  }
-
-  @include mobile {
-    font-size: map.get(room.$location, 'font-sizes', 'mobile');
   }
 }
 
@@ -74,46 +21,5 @@
 
   @include laptop {
     margin-bottom: 16px;
-  }
-}
-
-.name {
-  grid-area: name;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  font-size: map.get(room.$name, 'font-sizes', 'desktop');
-
-  @include mobile {
-    font-size: map.get(room.$name, 'font-sizes', 'mobile');
-  }
-}
-
-.picture {
-  @include circle(room.$host-picture-size);
-  grid-area: picture;
-  justify-self: end;
-
-  @include mobile {
-    @include circle(math.div(room.$host-picture-size, 2));
-  }
-}
-
-.rating {
-  grid-area: rating;
-  justify-self: end;
-  align-self: end;
-  display: flex;
-  gap: 15px;
-  padding-bottom: 13px;
-
-  @include laptop {
-    justify-self: start;
-    align-self: center;
-    padding-bottom: 0;
-  }
-
-  @include tablet {
-    gap: 5px;
   }
 }

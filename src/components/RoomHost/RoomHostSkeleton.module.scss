@@ -1,0 +1,33 @@
+@use 'sass:map';
+@use 'sass:math';
+@use '@styles/utils' as *;
+@use '@styles/pages/room';
+
+$name-gap: to-rem(12px);
+
+%animation {
+  @include skeleton-animation;
+}
+
+.name {
+  grid-area: name;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: $name-gap;
+}
+
+.name-line {
+  @extend %animation;
+  width: 80px;
+  height: map.get(room.$name, 'font-sizes', 'desktop') - math.div($name-gap, 2);
+
+  @include mobile {
+    height: map.get(room.$name, 'font-sizes', 'mobile');
+  }
+}
+
+.picture {
+  @extend %animation;
+}

@@ -10,10 +10,27 @@
   @include cover-image;
   min-height: carousel.$min-height;
   aspect-ratio: carousel.$ratio;
-  border-radius: $main-border-radius;
+  border-radius: carousel.$border-radius;
 }
 
 .nav {
   @include flex-spaced;
   position: absolute;
+}
+
+.pagination {
+  position: absolute;
+  bottom: 24px;
+  display: grid;
+  grid-template-columns: 15px auto 15px;
+  color: #fff;
+  font-size: to-rem(18px);
+
+  @include laptop {
+    display: none;
+  }
+}
+
+.index {
+  justify-self: end;
 }

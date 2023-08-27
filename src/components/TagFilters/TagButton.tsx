@@ -1,14 +1,14 @@
-import styles from './Tag.module.scss';
+import styles from './TagButton.module.scss';
 
 type TagButtonProps = {
   tagLabel: string;
-  selected: boolean;
+  isSelected: boolean;
   handleTagSelection: () => void;
 };
 
 export const TagButton = ({
   tagLabel,
-  selected,
+  isSelected,
   handleTagSelection,
 }: TagButtonProps) => {
   const capitalizedTagLabel = `${tagLabel
@@ -18,9 +18,9 @@ export const TagButton = ({
   return (
     <button
       onClick={handleTagSelection}
-      className={`${styles.tag} ${selected ? styles.selected : ''}`.trim()}
+      className={`${styles.tag} ${isSelected ? styles.selected : ''}`.trim()}
       aria-label={`${
-        selected ? 'Désélectionner' : 'Sélectionner'
+        isSelected ? 'Désélectionner' : 'Sélectionner'
       } le filtre ${tagLabel}`}
     >
       {capitalizedTagLabel}
