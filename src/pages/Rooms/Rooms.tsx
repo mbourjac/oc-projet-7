@@ -1,6 +1,6 @@
 import { useEffect, useState, SetStateAction, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { RoomSearch } from '../../components/RoomSearch/RoomSearch';
+import { RoomsSearch } from '../../components/RoomsSearch/RoomsSearch';
 import { CardContainer } from '../../components/CardContainer/CardContainer';
 import { CardList } from '../../components/CardList/CardList';
 import { CardListSkeleton } from '../../components/CardList/CardListSkeleton';
@@ -143,7 +143,7 @@ export const Rooms = () => {
 
   return (
     <>
-      <RoomSearch
+      <RoomsSearch
         tagButtons={tagButtons}
         handleRoomSearch={handleRoomSearch}
         handleTagsUpdate={handleTagsUpdate}

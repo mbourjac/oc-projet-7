@@ -4,21 +4,21 @@ import { TagFilters } from '../TagFilters/TagFilters';
 import { SearchFormSkeleton } from '../SearchForm/SearchFormSkeleton';
 import { TagListSkeleton } from '../TagListSkeleton/TagListSkeleton';
 import { ITag } from '../TagFilters/TagFilters.types';
-import styles from './RoomSearch.module.scss';
+import styles from './RoomsSearch.module.scss';
 
-type RoomSearchProps = {
+type RoomsSearchProps = {
   tagButtons: ITag[];
   handleRoomSearch: (searchQuery: string) => void;
   handleTagsUpdate: Dispatch<SetStateAction<ITag[]>>;
   handleTagsShuffle: () => void;
 };
 
-export const RoomSearch = ({
+export const RoomsSearch = ({
   tagButtons,
   handleRoomSearch,
   handleTagsUpdate,
   handleTagsShuffle,
-}: RoomSearchProps) => {
+}: RoomsSearchProps) => {
   const isLoadingTagButtons = tagButtons.length === 0;
 
   return (
