@@ -1,27 +1,40 @@
 import { ChangeEvent } from 'react';
 import styles from './Input.module.scss';
 
+type TextInputProps = {
+  type: 'text';
+};
+
+type NumberInputProps = {
+  type: 'number';
+  min?: number;
+  max?: number;
+};
+
 type InputProps = {
-  type: string;
   id: string;
   value: string;
   label: string;
+  required?: boolean;
   hasError: boolean;
   errorMessage: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   onBlur: () => void;
-};
+} & (TextInputProps | NumberInputProps);
 
 export const Input = ({
-  type,
   id,
-  value,
   label,
   hasError,
   errorMessage,
-  onChange,
-  onBlur,
+  ...attributes
 }: InputProps) => {
+  const inputAttributes = {
+    id,
+    className: `${styles.input} ${hasError ? styles.error : ''}`.trim(),
+    ...attributes,
+  };
+
   return (
     <div className={`${styles.field}`}>
       <div className={styles.info}>
@@ -30,14 +43,7 @@ export const Input = ({
         </label>
         {hasError && <p className={styles.message}>{errorMessage}</p>}
       </div>
-      <input
-        type={type}
-        id={id}
-        value={value}
-        onChange={onChange}
-        onBlur={onBlur}
-        className={`${styles.input} ${hasError ? styles.error : ''}`.trim()}
-      />
+      <input {...inputAttributes} />
     </div>
   );
 };
