@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { TransportationForm } from './TransportationForm';
-import { TransportationMap } from './TransportationMap';
+import { TransportationMap } from '../TransportationMap/TransportationMap';
 import {
   IAddress,
   ISearchResult,
