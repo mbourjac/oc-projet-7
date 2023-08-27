@@ -29,6 +29,7 @@
 }
 
 .item {
+  @include button-font-sizes;
   border: 1px solid $primary-color;
   border-radius: button.$border-radius;
   padding: map.get(button.$padding, 'vertical')
