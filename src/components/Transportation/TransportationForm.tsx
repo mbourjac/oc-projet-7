@@ -6,18 +6,16 @@ import {
   isValidPostcode,
 } from '../../data/transportation/transportation.validation';
 import { Input } from '../Input/Input';
-import {
-  IAddress,
-  TransportationStrategies,
-} from '../../data/transportation/transportation.types';
+import { IAddress } from '../../data/transportation/transportation.types';
 import styles from './TransportationForm.module.scss';
 
 type TransportationFormProps = {
-  transportationStrategies: TransportationStrategies;
+  isLoading: boolean;
   handleTransportationSearch: (destination: IAddress) => void;
 };
 
 export const TransportationForm = ({
+  isLoading,
   handleTransportationSearch,
 }: TransportationFormProps) => {
   const {
@@ -62,7 +60,7 @@ export const TransportationForm = ({
   const handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (!isFormValid) {
+    if (!isFormValid || isLoading) {
       return;
     }
 
@@ -122,7 +120,7 @@ export const TransportationForm = ({
       </div>
       <div className={styles.search}>
         <button disabled={!isFormValid} className={styles.submit}>
-          Rechercher
+          {isLoading ? 'Recherche en cours...' : 'Rechercher'}
         </button>
         <p className={styles.required}>*Champs requis</p>
       </div>

@@ -31,6 +31,7 @@ const dataGouvGeocodingService = new DataGouvGeocodingService();
 
 export const Transportation = ({ roomAddress }: TransportationProps) => {
   const [searchResult, setSearchResult] = useState<ISearchResult | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [destination, setDestination] = useState<Address | null>(null);
 
   const origin = new Address(roomAddress, dataGouvGeocodingService);
@@ -40,6 +41,7 @@ export const Transportation = ({ roomAddress }: TransportationProps) => {
   };
 
   const getStrategyResult = async (destinationAddress: IAddress) => {
+    setIsLoading(true);
     const destination = new Address(
       destinationAddress,
       dataGouvGeocodingService
@@ -51,13 +53,14 @@ export const Transportation = ({ roomAddress }: TransportationProps) => {
 
     setSearchResult(searchResult);
     setDestination(destination);
+    setIsLoading(false);
   };
 
   return (
     <section className={styles.transportation}>
       <h2 className={styles.heading}>À proximité</h2>
       <TransportationForm
-        transportationStrategies={transportationStrategies}
+        isLoading={isLoading}
         handleTransportationSearch={handleTransportationSearch}
       />
       <TransportationResult searchResult={searchResult} />
