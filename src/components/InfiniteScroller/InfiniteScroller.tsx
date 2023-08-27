@@ -12,7 +12,7 @@ export const InfiniteScroller = ({
   currentPage,
   isLoading,
 }: InfiniteScrollerProps) => {
-  const intersectionRef = useRef(null);
+  const intersectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!intersectionRef.current) {
